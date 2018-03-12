@@ -1,0 +1,51 @@
+- hosts: localhost
+  vars:
+    ansible_python_interpreter: /usr/bin/python
+  user: vagrant
+  become: yes
+  handlers:
+    - name: nginx restart
+      action: service name=nginx state=restarted
+    - name: php-fpm restart
+      action: service name=php-fpm state=restarted
+  tasks:
+    - name: nginx install
+      yum: name=nginx
+    - name: remi rpm install
+      yum: name=http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+    - name: php install
+      yum: name={{item}} enablerepo=remi,remi-php71,epel
+      with_items:
+        - php
+        - php-fpm
+    - name: change php-fpm config
+      copy: src=www.conf dest=/etc/php-fpm.d/www.conf backup=yes
+      notify: 
+        - php-fpm restart
+    - name: change nginx config
+      copy: src=nginx.conf dest=/etc/nginx/nginx.conf
+      notify:
+        - nginx restart
+    - name: php-fpm service enable
+      service: name=php-fpm enabled=yes
+    - name: php-fpm service start
+      service: name=php-fpm state=started
+    - name: nginx service enable
+      service: name=nginx enabled=yes
+    - name: nginx service start
+      service: name=nginx state=started
+    - name: PostgreSQL repo install
+      yum: name=https://s3-ap-northeast-1.amazonaws.com/sen-infra/rpms/centos/7/x86_64/pgdg-centos96-9.6-1.noarch.rpm
+    - name: postgres install
+      yum: name={{ item }} state=latest
+      with_items:
+        - postgresql96-server
+        - postgresql96
+    - name: init db
+      shell: /usr/pgsql-9.6/bin/postgresql96-setup initdb
+      ignore_errors: True
+    - name: put pg_hba.conf
+      copy: src=pg_hba.conf dest=/var/lib/pgsql/9.6/data/pg_hba.conf
+    - name: start postgresql
+      service: name=postgresql-9.6 state=started enabled=yes
+
