@@ -1,6 +1,15 @@
 # セットアップ手順
 
 ## vagrant, virtualboxをインストール
+
+https://www.virtualbox.org/wiki/Downloads
+https://www.vagrantup.com/downloads.html
+
+## vagrant-vbguestをインストール
+
+```
+vagrant plugin install vagrant-vbguest
+```
 　
 ## git clone
 
