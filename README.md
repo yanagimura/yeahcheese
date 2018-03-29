@@ -3,6 +3,7 @@
 ## vagrant, virtualboxをインストール
 
 https://www.virtualbox.org/wiki/Downloads
+
 https://www.vagrantup.com/downloads.html
 
 ## vagrant-vbguestをインストール
