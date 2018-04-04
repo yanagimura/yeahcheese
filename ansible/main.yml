@@ -34,6 +34,8 @@
       service: name=nginx enabled=yes
     - name: nginx service start
       service: name=nginx state=started
+    - name: change session dir permission
+      file: dest=/var/lib/php/session mode=a+rwx
     - name: PostgreSQL repo install
       yum: name=https://s3-ap-northeast-1.amazonaws.com/sen-infra/rpms/centos/7/x86_64/pgdg-centos96-9.6-1.noarch.rpm
     - name: postgres install
