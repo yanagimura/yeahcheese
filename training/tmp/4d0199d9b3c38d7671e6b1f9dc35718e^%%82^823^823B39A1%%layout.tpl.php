@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.31, created on 2018-04-09 18:21:53
+<?php /* Smarty version 2.6.31, created on 2018-04-10 17:37:09
          compiled from layout.tpl */ ?>
 <!DOCTYPE html>
 <html>
@@ -9,16 +9,16 @@
 </head>
 <body>
 <div id="header">
-    <h1>Sharepictures</h1>
+<h1>Sharepictures</h1>
 </div>
 
 <div id="main">
 <?php echo $this->_tpl_vars['content']; ?>
 
+</form>
 </div>
-
 <div id="footer">
-    Powered By Ethnam - <?php echo @ETHNA_VERSION; ?>
+Powered By Ethnam - <?php echo @ETHNA_VERSION; ?>
 .
 </div>
 </body>

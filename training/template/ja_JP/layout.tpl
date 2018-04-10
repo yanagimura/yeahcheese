@@ -7,15 +7,14 @@
 </head>
 <body>
 <div id="header">
-    <h1>Sharepictures</h1>
+<h1>Sharepictures</h1>
 </div>
-
 <div id="main">
 {$content}
+</form>
 </div>
-
 <div id="footer">
-    Powered By Ethnam - {$smarty.const.ETHNA_VERSION}.
+Powered By Ethnam - {$smarty.const.ETHNA_VERSION}.
 </div>
 </body>
 </html>

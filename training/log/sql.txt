@@ -1,0 +1,158 @@
+# データベース"sharephoto"生成時のログファイルです。
+# sharephotoに含まれるデータテーブル名は"users","events","pictures"です。
+# 最初ログを取ることを忘れていたため、データベース生成時と"users"生成時のログは含まれていません…。
+
+postgres=# \c sharephoto
+データベース "sharephoto" にユーザ"postgres"として接続しました。
+sharephoto=# create table events(
+sharephoto(# ^C
+sharephoto=# \d users
+     テーブル "public.users"
+     列      |   型    |  修飾語
+-------------+---------+----------
+ id          | integer | not null
+ mailaddress | text    | not null
+ password    | text    | not null
+
+sharephoto=# \q
+[vagrant@localhost ~]$ exit
+exit
+スクリプトを終了しました、ファイルは log.text です
+[vagrant@localhost ~]$ ls log.text
+log.text
+[vagrant@localhost ~]$ cat log.text
+スクリプトは 2018年04月10日 02時23分08秒
+ に開始しました[vagrant@localhost ~]$ psql -U postgres
+psql (9.6.8)
+"help" でヘルプを表示します.
+
+postgres=# \c sharephoto
+データベース "sharephoto" にユーザ"postgres"として接続しました。
+sharephoto=# create table events(
+sharephoto(# ^C
+sharephoto=# \d users
+     テーブル "public.users"
+     列      |   型    |  修飾語
+-------------+---------+----------
+ id          | integer | not null
+ mailaddress | text    | not null
+ password    | text    | not null
+
+sharephoto=# \q
+[vagrant@localhost ~]$ exit
+exit
+
+スクリプトは 2018年04月10日 02時24分59秒
+ に終了しました[vagrant@localhost ~]$ ls
+NewGrad  log.text
+[vagrant@localhost ~]$ rm log.text
+[vagrant@localhost ~]$ cd NewGrad
+[vagrant@localhost NewGrad]$ ls
+NewGradProfile  README.md  Vagrantfile  ansible  test4  training  www
+[vagrant@localhost NewGrad]$ exit
+ログアウト
+Connection to 127.0.0.1 closed.
+yanagimura@MAC18L10G0265-2:~/sen/NewGrad (add_yanagimura_backup *)$ vagrant ssh
+Last login: Tue Apr 10 02:22:40 2018 from 10.0.2.2
+[vagrant@localhost ~]$ cd NewGrad
+[vagrant@localhost NewGrad]$ mkdir log
+[vagrant@localhost NewGrad]$ cd log
+[vagrant@localhost log]$ script createtable.txt
+スクリプトを開始しました、ファイルは createtable.txt です
+[vagrant@localhost log]$ psql -U postgres
+psql (9.6.8)
+"help" でヘルプを表示します.
+
+postgres=# \c sharephoto
+データベース "sharephoto" にユーザ"postgres"として接続しました。
+sharephoto=# create table events(
+sharephoto(# id integer not null,
+sharephoto(# title text not null,
+sharephoto(# user_id integer not null,
+sharephoto(# release_date date not null,
+sharephoto(# end_date date not null,
+sharephoto(# authentication_key text not null);
+CREATE TABLE
+sharephoto=# \d events;
+        テーブル "public.events"
+         列         |   型    |  修飾語
+--------------------+---------+----------
+ id                 | integer | not null
+ title              | text    | not null
+ user_id            | integer | not null
+ release_date       | date    | not null
+ end_date           | date    | not null
+ authentication_key | text    | not null
+
+sharephoto=# create table pictures(
+sharephoto(# id integer not null,filename
+sharephoto(# ^C
+sharephoto=# create table pictures(
+sharephoto(# id integer not null,
+sharephoto(# filename text not null,
+sharephoto(# event_id integer not null);
+CREATE TABLE
+sharephoto=# \d pictures
+  テーブル "public.pictures"
+    列    |   型    |  修飾語
+----------+---------+----------
+ id       | integer | not null
+ filename | text    | not null
+ event_id | integer | not null
+
+sharephoto=# \d users
+     テーブル "public.users"
+     列      |   型    |  修飾語
+-------------+---------+----------
+ id          | integer | not null
+ mailaddress | text    | not null
+ password    | text    | not null
+
+sharephoto=# \q
+[vagrant@localhost log]$ exit
+exit
+スクリプトを終了しました、ファイルは createtable.txt です
+[vagrant@localhost log]$ ls createtable.txt
+createtable.txt
+[vagrant@localhost log]$ cat createtable.txt
+スクリプトは 2018年04月10日 02時28分20秒
+ に開始しました[vagrant@localhost log]$ psql -U postgres
+psql (9.6.8)
+"help" でヘルプを表示します.
+
+postgres=# \c sharephoto
+データベース "sharephoto" にユーザ"postgres"として接続しました。
+sharephoto=# create table events(
+sharephoto(# id integer not null,
+sharephoto(# title text not null,
+sharephoto(# user_id integer not null,
+sharephoto(# release_date date not null,
+sharephoto(# end_date date not null,
+sharephoto(# authentication_key text not null);
+CREATE TABLE
+sharephoto=# \d events;
+        テーブル "public.events"
+         列         |   型    |  修飾語
+--------------------+---------+----------
+ id                 | integer | not null
+ title              | text    | not null
+ user_id            | integer | not null
+ release_date       | date    | not null
+ end_date           | date    | not null
+ authentication_key | text    | not null
+
+sharephoto=# create table pictures(
+sharephoto(# id integer not null,filename
+sharephoto(# ^C
+sharephoto=# create table pictures(
+sharephoto(# id integer not null,
+sharephoto(# filename text not null,
+sharephoto(# event_id integer not null);
+CREATE TABLE
+sharephoto=# \d pictures
+  テーブル "public.pictures"
+    列    |   型    |  修飾語
+----------+---------+----------
+ id       | integer | not null
+ filename | text    | not null
+ event_id | integer | not null

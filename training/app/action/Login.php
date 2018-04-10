@@ -1,27 +1,26 @@
 <?php
 /**
- *  Index.php
+ *  Login.php
  *
- *  @author    {$author}
- *  @package   Sharepictures
+ *  @author     {$author}
+ *  @package    Sharepictures
  */
 
 /**
- *  Index form implementation
+ *  login Form implementation.
  *
- *  @author    {$author}
- *  @access    public
- *  @package   Sharepictures
+ *  @author     {$author}
+ *  @access     public
+ *  @package    Sharepictures
  */
-
-class Sharepictures_Form_Index extends Sharepictures_ActionForm
+class Sharepictures_Form_Login extends Sharepictures_ActionForm
 {
     /**
-     *  @access   protected
-     *
-     *  @var      array   form definition.
+     *  @access protected
+     *  @var    array   form definition.
      */
     public $form = array(
+      
     );
 
     /**
@@ -41,19 +40,20 @@ class Sharepictures_Form_Index extends Sharepictures_ActionForm
 }
 
 /**
- *  Index action implementation.
+ *  login action implementation.
  *
  *  @author     {$author}
  *  @access     public
  *  @package    Sharepictures
  */
-class Sharepictures_Action_Index extends Sharepictures_ActionClass
+class Sharepictures_Action_Login extends Sharepictures_ActionClass
 {
     /**
-     *  preprocess Index action.
+     *  preprocess of login Action.
      *
-     *  @access    public
-     *  @return    string  Forward name (null if no errors.)
+     *  @access public
+     *  @return string    forward name(null: success.
+     *                                false: in case you want to exit.)
      */
     public function prepare()
     {
@@ -68,13 +68,13 @@ class Sharepictures_Action_Index extends Sharepictures_ActionClass
     }
 
     /**
-     *  Index action implementation.
+     *  login action implementation.
      *
-     *  @access    public
-     *  @return    string  Forward Name.
+     *  @access public
+     *  @return string  forward name.
      */
     public function perform()
     {
-        return 'index';
+        return 'login';
     }
 }
