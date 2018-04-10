@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ruleset name="Owl_PSR2">
+    <description>Owl standard Based on PSR2</description>
+
+    <rule ref="PSR2">
+        <exclude name="PSR1.Files.SideEffects.FoundWithSymbols"/>
+        <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
+        <exclude name="PSR1.Classes.ClassDeclaration.MultipleClasses"/>
+        <exclude name="PSR2.Classes.PropertyDeclaration.Underscore"/>
+        <exclude name="Squiz.Classes.ValidClassName.NotCamelCaps"/>
+    </rule>
+
+    <rule ref="Generic.Files.LineLength">
+      <properties>
+        <property name="lineLimit" value="160"/>
+        <property name="absoluteLineLimit" value="240"/>
+      </properties>
+    </rule>
+
+    <!-- function comment -->
+    <rule ref="Squiz.Commenting.FunctionComment.Missing"/>
+
+    <!-- 変数のキャメルケースチェック -->
+    <rule ref="Zend.NamingConventions.ValidVariableName.NotCamelCaps"/>
+    <rule ref="Zend.NamingConventions.ValidVariableName.StringVarNotCamelCaps"/>
+    <!-- //の前の空白チェック -->
+    <rule ref="Squiz.Commenting.InlineComment.NoSpaceBefore"/>
+    <!-- ;の前の空白チェック -->
+    <rule ref="Squiz.WhiteSpace.SemicolonSpacing.Incorrect"/>
+    <!-- ,の後ろの空白チェック -->
+    <rule ref="Generic.Functions.FunctionCallArgumentSpacing.NoSpaceAfterComma"/>
+    <!-- arrays -> [] -->
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax.Found"/>
+</ruleset>
