@@ -36,12 +36,16 @@ $q = $_REQUEST["q"];
 
 $hint = "";
 
-// lookup all hints from array if $q is different from "" 
+$resultarr = [];
+
+// lookup all hints from array if $q is different from ""
 if ($q !== "") {
     $q = strtolower($q);
     $len=strlen($q);
+    $int = 0;
     foreach($a as $name) {
         if (stristr($q, substr($name, 0, $len))) {
+          $resultarr[] = $name;
             if ($hint === "") {
                 $hint = $name;
             } else {
@@ -51,6 +55,7 @@ if ($q !== "") {
     }
 }
 
-// Output "no suggestion" if no hint was found or output correct values 
-echo $hint === "" ? "no suggestion" : $hint;
+// Output "no suggestion" if no hint was found or output correct values
+//echo $hint === "" ? "no suggestion" : $hint;
+echo json_encode($resultarr);
 ?>
