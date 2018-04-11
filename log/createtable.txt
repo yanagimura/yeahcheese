@@ -1,68 +1,0 @@
-スクリプトは 2018年04月10日 02時28分20秒
- に開始しました]0;vagrant@localhost:~/NewGrad/log[?1034h[vagrant@localhost log]$ exit[2Plscd NewGradrm log.textls[Kcat log.text[1Pls[C[C[C[C[C[C[C[C[C[4@script[C[C[C[C[C[C[C[C[Cpsql -U postgres
-psql (9.6.8)
-"help" でヘルプを表示します.
-
-[?1034hpostgres=# \c sharephoto
-データベース "sharephoto" にユーザ"postgres"として接続しました。
-sharephoto=# create table events(
-sharephoto(# id integer not null,
-sharephoto(# title text not nukk[K[Kll,
-sharephoto(# user_id integer not null,
-sharephoto(# rela[Kease_date date o[Knot null,
-sharephoto(# ende[K_date date o[Knot null,
-sharephoto(# authentication_key text o[Knot null);
-CREATE TABLE
-sharephoto=# \d u[Kevents;
-        テーブル "public.events"
-         列         |   型    |  修飾語  
---------------------+---------+----------
- id                 | integer | not null
- title              | text    | not null
- user_id            | integer | not null
- release_date       | date    | not null
- end_date           | date    | not null
- authentication_key | text    | not null
-
-sharephoto=# create table pictures(
-sharephoto(# namek[K,[K[K[K[K[Ktitle[K[K[K[K[Kfilename tex[K[K[K[Kifilenamedfilename filenametfilenameefilename[1Pfilename[1Pfilenameifilenamenfilenametfilenameefilenamegfilenameefilenamerfilename filenamenfilenameofilenametfilename filenamenfilenameufilenamelfilenamelfilename,filename
-sharephoto(# \d events;[K[K[K[K[K[K[K[K[K[K^C
-sharephoto=# \d events;create table events(
-id integer not null,
-title text not null,
-user_id integer not null,
-release_date date not null,
-end_date date not null,
-authentication_key text not null);[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[10P\d events;
-[K
-[K
-[K
-[K
-[K
-[K[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Kcreate table pictures)[K(
-sharephoto(# id integer not nuklk[K[K[Kll,
-sharephoto(# filename text not nukk[K[Kll,
-sharephoto(# event_id integer not null);
-CREATE TABLE
-sharephoto=# \d pictures
-  テーブル "public.pictures"
-    列    |   型    |  修飾語  
-----------+---------+----------
- id       | integer | not null
- filename | text    | not null
- event_id | integer | not null
-
-sharephoto=# \d users
-     テーブル "public.users"
-     列      |   型    |  修飾語  
--------------+---------+----------
- id          | integer | not null
- mailaddress | text    | not null
- password    | text    | not null
-
-sharephoto=# \q
-]0;vagrant@localhost:~/NewGrad/log[vagrant@localhost log]$ exit
-exit
-
-スクリプトは 2018年04月10日 02時37分13秒
- に終了しました

@@ -1,6 +1,7 @@
-# データベース"sharephoto"生成時のログファイルです。
-# sharephotoに含まれるデータテーブル名は"users","events","pictures"です。
-# 最初ログを取ることを忘れていたため、データベース生成時と"users"生成時のログは含まれていません…。
+# 4/10 データベース"sharephoto"生成時のログファイルです。
+# 4/10 sharephotoに含まれるデータテーブル名は"users","events","pictures"です。
+# 4/10 最初ログを取ることを忘れていたため、データベース生成時と"users"生成時のログは含まれていません…。
+# 4/11 テーブル"pictures"にカラム"data"を追加しました。追加過程のログはgit resetをしてしまったため、残っていません…。
 
 postgres=# \c sharephoto
 データベース "sharephoto" にユーザ"postgres"として接続しました。
@@ -156,3 +157,27 @@ sharephoto=# \d pictures
  id       | integer | not null
  filename | text    | not null
  event_id | integer | not null
+
+ yanagimura@MAC18L10G0265-2:~/sen/NewGrad/training/log (add_yanagimura_backup *)$ varangrant ssh
+ Last login: Wed Apr 11 01:06:04 2018 from 10.0.2.2
+ [vagrant@localhost ~]$ pswql -U postgres
+ psql (9.6.8)
+ "help" でヘルプを表示します.
+
+ postgres=# \c sharephoto
+ データベース "sharephoto" にユーザ"postgres"として接続しました。
+ sharephoto=# \d sha\pictures
+   テーブル "public.pictures"
+     列    |   型    |  修飾語
+ ----------+---------+----------
+  id       | integer | not null
+  filename | text    | not null
+  event_id | integer | not null
+  data     | text    | not null
+
+ sharephoto=# \q
+ [vagrant@localhost ~]$ exit
+ ログアウト
+ Connection to 127.0.0.1 closed.
+ yanagimura@MAC18L10G0265-2:~/sen/NewGrad/training/log (add_yanagimura_backup *)$ exit
+ exit
