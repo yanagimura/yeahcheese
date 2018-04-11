@@ -157,12 +157,12 @@ class Sharepictures_Action_RegisterDo extends Sharepictures_ActionClass
       $db = $this->backend->getDB();
       $rs = $db->query('SELECT * FROM users');
 
-      $id=$rs->RowCount();
       $mail = $this->af->get('mailaddress');
       $pass = $this->af->get('password');
-      $hashpass = password_hash($pass, CRYPT_SHA256);
+      $cipherpass = hash('sha256', $pass);
 
-      $rs = $db->query("INSERT INTO users(id,mailaddress,password) VALUES($id,'$mail','$hashpass')");
+      $rs = $db->query("INSERT INTO users(mailaddress,password) VALUES($1, $2)",
+      array($mail,$cipherpass));
 
         return 'login';
     }

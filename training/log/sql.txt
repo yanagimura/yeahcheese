@@ -181,3 +181,78 @@ sharephoto=# \d pictures
  Connection to 127.0.0.1 closed.
  yanagimura@MAC18L10G0265-2:~/sen/NewGrad/training/log (add_yanagimura_backup *)$ exit
  exit
+
+ Script started on Wed Apr 11 12:40:12 2018
+yanagimura@MAC18L10G0265-2:~/sen/NewGrad/training/log (add_yanagimura_backup *)$ psqlvagrant ssh
+Last login: Wed Apr 11 01:54:55 2018 from 10.0.2.2
+[vagrant@localhost ~]$ psql -U postgres
+psql (9.6.8)
+"help" でヘルプを表示します.
+
+postgres=# \c tsharephoto
+データベース "sharephoto" にユーザ"postgres"として接続しました。
+sharephoto=# \dm qlter table pictures add            lter                  i       type        serial
+ERROR:  type "serial" does not exist
+sharephoto=# alter table pictureusers
+ERROR:  type "serial" does not exist
+sharephoto=# CREATE Screate scsequence ta users_id_seq;
+CREATE SEQUENCE
+sharephoto=# \calter tabluserres alter column id typesersei defaul  nex val() al;
+ALTER TABLE
+sharephoto=# alter sequence users_id_seq owned by users.id;
+ALTER SEQUENCE
+sharephoto=# \d
+                          テーブル "public.users"
+     列      |   型    |                       修飾語
+-------------+---------+----------------------------------------------------
+ id          | integer | not null default nextval('users_id_seq'::regclass)
+ mailaddress | text    | not null
+ password    | text    | not null
+
+sharephoto=# select setval('setnamusers'id'seq , 18 ;
+ setval
+--------
+     18
+(1 行)
+
+sharephoto=# create sequence userevents);
+CREATE SEQUENCE
+sharephoto=# alter table usereventsers_id_seq owned by users.id;      events
+ALTER TABLE
+sharephoto=# alter sequence users_id_seq owned by events
+ALTER SEQUENCE
+sharephoto=# create sequence eventpictures
+CREATE SEQUENCE
+sharephoto=# alter table events alter id set defpicturesy events.id;
+ALTER TABLE
+sharephoto=# alter sequence events_id_seq owned by evpictures
+ALTER SEQUENCE
+sharephoto=# \d events
+                              テーブル "public.events"
+         列         |   型    |                       修飾語
+--------------------+---------+-----------------------------------------------------
+ id                 | integer | not null default nextval('events_id_seq'::regclass)
+ title              | text    | not null
+ user_id            | integer | not null
+ release_date       | date    | not null
+ end_date           | date    | not null
+ authentication_key | text    | not null
+
+sharephoto=# \d eventpictures
+                         テーブル "public.pictures"
+    列    |   型    |                        修飾語
+----------+---------+-------------------------------------------------------
+ id       | integer | not null default nextval('pictures_id_seq'::regclass)
+ filename | text    | not null
+ event_id | integer | not null
+ data     | text    | not null
+
+sharephoto=# \q
+[vagrant@localhost ~]$ exit
+ログアウト
+Connection to 127.0.0.1 closed.
+yanagimura@MAC18L10G0265-2:~/sen/NewGrad/training/log (add_yanagimura_backup *)$ exit
+exit
+
+Script done on Wed Apr 11 12:56:59 2018
+(END)
