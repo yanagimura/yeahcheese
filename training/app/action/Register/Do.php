@@ -1,4 +1,7 @@
 <?php
+
+require_once('adodb5/adodb.inc.php');
+
 /**
  *  Register/Do.php
  *
@@ -44,7 +47,60 @@ class Sharepictures_Form_RegisterDo extends Sharepictures_ActionForm
         *                                        // is defined in this(parent) class.
         *  ),
         */
+         'mailaddress' => [
+               // メールアドレスフォームの定義
+               'name'        => 'メールアドレス',      // Display name
+               'type'        => VAR_TYPE_STRING,     // Input type
+               'required'    => true,                // Required Option
+               'custom'      => 'checkMailaddress',  // Optional method name
+               'custom'      => 'checkDBAddress',    // Optional method name
+          ],
+        'password'    => [
+               // パスワードフォームの定義
+               'name'        => 'パスワード',          // Display name
+               'type'        => VAR_TYPE_STRING,     // Input type
+               'required'    => true,                // Required Option
+          ],
+        'password_confirm'    => [
+               // 確認用パスワードフォームの定義
+               'name'        => '確認用パスワード',
+               'type'        => VAR_TYPE_STRING,
+               'required'    => true,
+               'custom'      => 'checkPassword',
+          ],
     );
+
+
+    /**
+     * チェックメソッド: パスワード一致確認
+     *
+     * @access public
+     * @param string $password 確認用パスワード
+     */
+     function checkPassword($password)
+     {
+       if($this->form_vars[$password] != $this->form_vars['password']){
+         $this->ae->add($password, "パスワードが一致していません", E_ERROR_INVALIDVALUE);
+       }
+     }
+
+     /**
+      * チェックメソッド: メールアドレスの重複確認
+      *
+      * @access public
+      * @param string $mailaddress メールアドレス
+      */
+      function checkDBAddress($mailaddress)
+      {
+        $db = $this->backend->getDB();
+        $rs = $db->query('SELECT mailaddress FROM users');
+
+        foreach($rs->fetchRow() as $mailaddress){
+          if($this->form_vars[$mailaddress] === $mailaddress){
+            $this->ae->add($nmailaddress, "このメールアドレスは登録済みです", E_ERROR_INVALIDVALUE);
+          }
+        }
+      }
 
     /**
      *  Form input value convert filter : sample
@@ -80,24 +136,34 @@ class Sharepictures_Action_RegisterDo extends Sharepictures_ActionClass
      */
     public function prepare()
     {
-        /**
+
         if ($this->af->validate() > 0) {
             // forward to error view (this is sample)
-            return 'error';
+            return 'register';
         }
-        $sample = $this->af->get('sample');
-        */
+        // $sample = $this->af->get('sample');
+
         return null;
     }
 
     /**
      *  register_do action implementation.
-     *
+     *　データテーブル"users"に行の追加を行う
      *  @access public
-     *  @return string  forward name.
+     *  @return string  ログイン画面のテンプレート
      */
     public function perform()
     {
-        return 'register_do';
+      $db = $this->backend->getDB();
+      $rs = $db->query('SELECT * FROM users');
+
+      $mail = $this->af->get('mailaddress');
+      $pass = $this->af->get('password');
+      $cipherpass = hash('sha256', $pass);
+
+      $rs = $db->query("INSERT INTO users(mailaddress,password) VALUES($1, $2)",
+      array($mail,$cipherpass));
+
+        return 'login';
     }
 }
