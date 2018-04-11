@@ -59,6 +59,8 @@ class Sharepictures_Form_RegisterDo extends Sharepictures_ActionForm
                // パスワードフォームの定義
                'name'        => 'パスワード',          // Display name
                'type'        => VAR_TYPE_STRING,     // Input type
+               'min'         => 6,
+               'regexp'      => '/^[a-z0-9]+$/',
                'required'    => true,                // Required Option
           ],
         'password_confirm'    => [
