@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.31, created on 2018-04-10 17:40:53
+<?php /* Smarty version 2.6.31, created on 2018-04-11 10:29:12
          compiled from register.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'message', 'register.tpl', 4, false),)), $this); ?>
@@ -19,7 +19,5 @@ smarty_core_load_plugins(array('plugins' => array(array('function', 'message', '
 "><?php echo smarty_function_message(array('name' => 'password_confirm'), $this);?>
 </input>
    </p>
-   <p>
-     <input type="submit" name="action_register_do" value="登録"/>
-   </p>
+   <input type="submit" name="action_register_do" value="登録"/>
 </form>

@@ -75,12 +75,12 @@ class Sharepictures_Form_RegisterDo extends Sharepictures_ActionForm
      * チェックメソッド: パスワード一致確認
      *
      * @access public
-     * @param string $name 確認用パスワード
+     * @param string $password 確認用パスワード
      */
-     function checkPassword($name)
+     function checkPassword($password)
      {
-       if($this->form_vars[$name] != $this->form_vars['password']){
-         $this->ae->add($name,"パスワードが一致していません", E_ERROR_INVALIDVALUE);
+       if($this->form_vars[$password] != $this->form_vars['password']){
+         $this->ae->add($password, "パスワードが一致していません", E_ERROR_INVALIDVALUE);
        }
      }
 
@@ -88,16 +88,16 @@ class Sharepictures_Form_RegisterDo extends Sharepictures_ActionForm
       * チェックメソッド: メールアドレスの重複確認
       *
       * @access public
-      * @param string $name メールアドレス
+      * @param string $mailaddress メールアドレス
       */
-      function checkDBAddress($name)
+      function checkDBAddress($mailaddress)
       {
         $db = $this->backend->getDB();
-        $rs = $db->query('SELECT * FROM users');
-        $i = 0;
-        while($row[$i] = $rs->fetchRow()){
-          if($this->form_vars[$name] === $row[$i]['mailaddress']){
-            $this->ae->add($name,"このメールアドレスは登録済みです", E_ERROR_INVALIDVALUE);
+        $rs = $db->query('SELECT mailaddress FROM users');
+
+        foreach($rs->fetchRow() as $mailaddress){
+          if($this->form_vars[$mailaddress] === $mailaddress){
+            $this->ae->add($nmailaddress, "このメールアドレスは登録済みです", E_ERROR_INVALIDVALUE);
           }
         }
       }
