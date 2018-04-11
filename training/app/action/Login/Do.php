@@ -108,6 +108,7 @@ class Sharepictures_Action_LoginDo extends Sharepictures_ActionClass
      */
     public function perform()
     {
+      $this->session->start();
         return 'home';
     }
 }
