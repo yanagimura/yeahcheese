@@ -79,7 +79,7 @@ class Sharepictures_Form_RegisterDo extends Sharepictures_ActionForm
      */
      function checkPassword($password)
      {
-       if($this->form_vars[$password] != $this->form_vars['password']){
+       if($this->form_vars[$password] !== $this->form_vars['password']){
          $this->ae->add($password, "パスワードが一致していません", E_ERROR_INVALIDVALUE);
        }
      }
@@ -93,12 +93,9 @@ class Sharepictures_Form_RegisterDo extends Sharepictures_ActionForm
       function checkDBAddress($mailaddress)
       {
         $db = $this->backend->getDB();
-        $rs = $db->query('SELECT mailaddress FROM users');
-
-        foreach($rs->fetchRow() as $mailaddress){
-          if($this->form_vars[$mailaddress] === $mailaddress){
-            $this->ae->add($nmailaddress, "このメールアドレスは登録済みです", E_ERROR_INVALIDVALUE);
-          }
+        $rs = $db->query("SELECT * FROM users WHERE mailaddress = $1", $this->form_vars[$mailaddress]);
+        if($rs->fetchRow()){
+          $this->ae->add($mailaddress, "このメールアドレスは登録済みです", E_ERROR_INVALIDVALUE);
         }
       }
 
@@ -164,6 +161,7 @@ class Sharepictures_Action_RegisterDo extends Sharepictures_ActionClass
       $rs = $db->query("INSERT INTO users(mailaddress,password) VALUES($1, $2)",
       array($mail,$cipherpass));
 
-        return 'login';
+        //return 'login';
+        return 'register';
     }
 }
