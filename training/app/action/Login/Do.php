@@ -42,7 +42,7 @@ class Sharepictures_Form_LoginDo extends Sharepictures_ActionForm
       * @access public
       * @param string $mailaddress メールアドレス
       */
-      function checkDB($mailaddress)
+      public function checkDB($mailaddress)
       {
         $db = $this->backend->getDB();
         $rs = $db->query("SELECT * FROM users WHERE mailaddress = $1", $this->form_vars[$mailaddress]);
@@ -101,14 +101,26 @@ class Sharepictures_Action_LoginDo extends Sharepictures_ActionClass
     }
 
     /**
-     *  login_do action implementation.
+     *  login_do action implementation.　セッションを開始後、ホーム画面を表示する
      *
      *  @access public
-     *  @return string  forward name.
+     *  @return string  ホーム画面のテンプレート
      */
     public function perform()
     {
+      $mailaddress = $this->af->get('mailaddress');
+      $db = $this->backend->getDB();
+      $rs = $db->query("SELECT * FROM users WHERE mailaddress = $1", $mailaddress);
+      $id = $rs->fetchRow()['id'];
+
+      $sessionarray = array(
+        'id'   =>   $id,
+        'mailaddress'   =>   $mailaddress,
+      );
+
+      $this->session->set('login', $sessionarray);
       $this->session->start();
+
         return 'home';
     }
 }
