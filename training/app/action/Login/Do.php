@@ -28,7 +28,7 @@ class Sharepictures_Form_LoginDo extends Sharepictures_ActionForm
             'custom'      => 'checkMailaddress',  // Optional method name
             'custom'      => 'checkDB',    　　　　// Optional method name
        ],
-     'password'    => [
+      'password'    => [
             // パスワードフォームの定義
             'name'        => 'パスワード',          // Display name
             'type'        => VAR_TYPE_STRING,     // Input type
