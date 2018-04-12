@@ -1,19 +1,19 @@
 <?php
 /**
- *  Home.php
+ *  Create.php
  *
  *  @author     {$author}
  *  @package    Sharepictures
  */
 
 /**
- *  home Form implementation.
+ *  create Form implementation. イベント作成処理画面への遷移処理
  *
  *  @author     {$author}
  *  @access     public
  *  @package    Sharepictures
  */
-class Sharepictures_Form_Home extends Sharepictures_ActionForm
+class Sharepictures_Form_Create extends Sharepictures_ActionForm
 {
     /**
      *  @access protected
@@ -63,16 +63,16 @@ class Sharepictures_Form_Home extends Sharepictures_ActionForm
 }
 
 /**
- *  home action implementation.
+ *  create action implementation.
  *
  *  @author     {$author}
  *  @access     public
  *  @package    Sharepictures
  */
-class Sharepictures_Action_Home extends Sharepictures_ActionClass
+class Sharepictures_Action_Create extends Sharepictures_ActionClass
 {
     /**
-     *  preprocess of home Action.
+     *  preprocess of create Action.
      *
      *  @access public
      *  @return string    forward name(null: success.
@@ -91,20 +91,13 @@ class Sharepictures_Action_Home extends Sharepictures_ActionClass
     }
 
     /**
-     *  home action implementation.
+     *  create action implementation.
      *
      *  @access public
      *  @return string  forward name.
      */
     public function perform()
     {
-        return 'home';
-    }
-
-    function authenticate()
-    {
-      if(!$this->session->isStart()){
-        return 'login';
-      }
+        return 'create';
     }
 }
