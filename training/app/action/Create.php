@@ -19,9 +19,7 @@ class Sharepictures_Form_Create extends Sharepictures_ActionForm
      *  @access protected
      *  @var    array   form definition.
      */
-    public $form = array(
-    );
-
+    public $form = [];
 }
 
 /**
@@ -49,17 +47,23 @@ class Sharepictures_Action_Create extends Sharepictures_ActionClass
      *  create action implementation.
      *
      *  @access public
-     *  @return string  forward name.
+     *  @return string  イベント作成画面のテンプレート
      */
     public function perform()
     {
         return 'create';
     }
 
+    /**
+     *  セッション切れの確認
+     *
+     *  @access public
+     *  @return string  ログイン画面のテンプレート
+     */
     public function authenticate()
     {
-      if(!$this->session->isStart()){
-        return 'login';
-      }
+        if (!$this->session->isStart()) {
+            return 'login';
+        }
     }
 }

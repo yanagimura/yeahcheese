@@ -19,8 +19,7 @@ class Sharepictures_Form_Logout extends Sharepictures_ActionForm
      *  @access protected
      *  @var    array   form definition.
      */
-    public $form = array(
-    );
+    public $form = [];
 }
 
 /**
@@ -52,7 +51,7 @@ class Sharepictures_Action_Logout extends Sharepictures_ActionClass
      */
     public function perform()
     {
-      $this->session->destroy();
-        return 'login';
+        $this->session->destroy();
+          return 'login';
     }
 }

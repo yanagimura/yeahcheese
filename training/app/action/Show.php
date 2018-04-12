@@ -19,8 +19,7 @@ class Sharepictures_Form_Show extends Sharepictures_ActionForm
      *  @access protected
      *  @var    array   form definition.
      */
-    public $form = array(
-    );
+    public $form = [];
 }
 
 /**
@@ -55,10 +54,16 @@ class Sharepictures_Action_Show extends Sharepictures_ActionClass
         return 'show';
     }
 
+    /**
+     *  セッション切れの確認
+     *
+     *  @access public
+     *  @return string  ログイン画面のテンプレート
+     */
     public function authenticate()
     {
-      if(!$this->session->isStart()){
-        return 'login';
-      }
+        if (!$this->session->isStart()) {
+            return 'login';
+        }
     }
 }

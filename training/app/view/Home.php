@@ -22,7 +22,7 @@ class Sharepictures_View_Home extends Sharepictures_ViewClass
      */
     public function preforward()
     {
-      $mailaddress = $this->session->get('login')['mailaddress'];
-      $this->af->setApp('username', $mailaddress);
+        $mailaddress = $this->session->get('login')['mailaddress'];
+        $this->af->setApp('username', $mailaddress);
     }
 }
