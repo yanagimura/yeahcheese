@@ -1,3 +1,4 @@
+<form action="." method="post">
 <div align="right" name='username'>{$app.username}さん　ようこそ</div>
   <h2>メニュー</h2>
   <p>
@@ -9,3 +10,4 @@
   <p>
     <input type="submit" name="action_logout" value="ログアウト"></input>
   </p>
+</form>
