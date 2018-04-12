@@ -1,0 +1,24 @@
+sharephoto=# alter table users add constraint users_id_key unique(id);
+ALTER TABLE
+sharephoto=# \d users
+                          テーブル "public.users"
+     列      |   型    |                       修飾語
+-------------+---------+----------------------------------------------------
+ id          | integer | not null default nextval('users_id_seq'::regclass)
+ mailaddress | text    | not null
+ password    | text    | not null
+インデックス:
+    "users_id_key" UNIQUE CONSTRAINT, btree (id)
+
+sharephoto=# alter table events alter column authentication_key type char(6);
+ALTER TABLE
+sharephoto=# \d events
+                                テーブル "public.events"
+         列         |      型      |                       修飾語
+--------------------+--------------+-----------------------------------------------------
+ id                 | integer      | not null default nextval('events_id_seq'::regclass)
+ title              | text         | not null
+ user_id            | integer      | not null
+ release_date       | date         | not null
+ end_date           | date         | not null
+ authentication_key | character(6) | not null

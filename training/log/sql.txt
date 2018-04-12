@@ -1,0 +1,258 @@
+# 4/10 データベース"sharephoto"生成時のログファイルです。
+# 4/10 sharephotoに含まれるデータテーブル名は"users","events","pictures"です。
+# 4/10 最初ログを取ることを忘れていたため、データベース生成時と"users"生成時のログは含まれていません…。
+# 4/11 テーブル"pictures"にカラム"data"を追加しました。追加過程のログはgit resetをしてしまったため、残っていません…。
+
+postgres=# \c sharephoto
+データベース "sharephoto" にユーザ"postgres"として接続しました。
+sharephoto=# create table events(
+sharephoto(# ^C
+sharephoto=# \d users
+     テーブル "public.users"
+     列      |   型    |  修飾語
+-------------+---------+----------
+ id          | integer | not null
+ mailaddress | text    | not null
+ password    | text    | not null
+
+sharephoto=# \q
+[vagrant@localhost ~]$ exit
+exit
+スクリプトを終了しました、ファイルは log.text です
+[vagrant@localhost ~]$ ls log.text
+log.text
+[vagrant@localhost ~]$ cat log.text
+スクリプトは 2018年04月10日 02時23分08秒
+ に開始しました[vagrant@localhost ~]$ psql -U postgres
+psql (9.6.8)
+"help" でヘルプを表示します.
+
+postgres=# \c sharephoto
+データベース "sharephoto" にユーザ"postgres"として接続しました。
+sharephoto=# create table events(
+sharephoto(# ^C
+sharephoto=# \d users
+     テーブル "public.users"
+     列      |   型    |  修飾語
+-------------+---------+----------
+ id          | integer | not null
+ mailaddress | text    | not null
+ password    | text    | not null
+
+sharephoto=# \q
+[vagrant@localhost ~]$ exit
+exit
+
+スクリプトは 2018年04月10日 02時24分59秒
+ に終了しました[vagrant@localhost ~]$ ls
+NewGrad  log.text
+[vagrant@localhost ~]$ rm log.text
+[vagrant@localhost ~]$ cd NewGrad
+[vagrant@localhost NewGrad]$ ls
+NewGradProfile  README.md  Vagrantfile  ansible  test4  training  www
+[vagrant@localhost NewGrad]$ exit
+ログアウト
+Connection to 127.0.0.1 closed.
+yanagimura@MAC18L10G0265-2:~/sen/NewGrad (add_yanagimura_backup *)$ vagrant ssh
+Last login: Tue Apr 10 02:22:40 2018 from 10.0.2.2
+[vagrant@localhost ~]$ cd NewGrad
+[vagrant@localhost NewGrad]$ mkdir log
+[vagrant@localhost NewGrad]$ cd log
+[vagrant@localhost log]$ script createtable.txt
+スクリプトを開始しました、ファイルは createtable.txt です
+[vagrant@localhost log]$ psql -U postgres
+psql (9.6.8)
+"help" でヘルプを表示します.
+
+postgres=# \c sharephoto
+データベース "sharephoto" にユーザ"postgres"として接続しました。
+sharephoto=# create table events(
+sharephoto(# id integer not null,
+sharephoto(# title text not null,
+sharephoto(# user_id integer not null,
+sharephoto(# release_date date not null,
+sharephoto(# end_date date not null,
+sharephoto(# authentication_key text not null);
+CREATE TABLE
+sharephoto=# \d events;
+        テーブル "public.events"
+         列         |   型    |  修飾語
+--------------------+---------+----------
+ id                 | integer | not null
+ title              | text    | not null
+ user_id            | integer | not null
+ release_date       | date    | not null
+ end_date           | date    | not null
+ authentication_key | text    | not null
+
+sharephoto=# create table pictures(
+sharephoto(# id integer not null,filename
+sharephoto(# ^C
+sharephoto=# create table pictures(
+sharephoto(# id integer not null,
+sharephoto(# filename text not null,
+sharephoto(# event_id integer not null);
+CREATE TABLE
+sharephoto=# \d pictures
+  テーブル "public.pictures"
+    列    |   型    |  修飾語
+----------+---------+----------
+ id       | integer | not null
+ filename | text    | not null
+ event_id | integer | not null
+
+sharephoto=# \d users
+     テーブル "public.users"
+     列      |   型    |  修飾語
+-------------+---------+----------
+ id          | integer | not null
+ mailaddress | text    | not null
+ password    | text    | not null
+
+sharephoto=# \q
+[vagrant@localhost log]$ exit
+exit
+スクリプトを終了しました、ファイルは createtable.txt です
+[vagrant@localhost log]$ ls createtable.txt
+createtable.txt
+[vagrant@localhost log]$ cat createtable.txt
+スクリプトは 2018年04月10日 02時28分20秒
+ に開始しました[vagrant@localhost log]$ psql -U postgres
+psql (9.6.8)
+"help" でヘルプを表示します.
+
+postgres=# \c sharephoto
+データベース "sharephoto" にユーザ"postgres"として接続しました。
+sharephoto=# create table events(
+sharephoto(# id integer not null,
+sharephoto(# title text not null,
+sharephoto(# user_id integer not null,
+sharephoto(# release_date date not null,
+sharephoto(# end_date date not null,
+sharephoto(# authentication_key text not null);
+CREATE TABLE
+sharephoto=# \d events;
+        テーブル "public.events"
+         列         |   型    |  修飾語
+--------------------+---------+----------
+ id                 | integer | not null
+ title              | text    | not null
+ user_id            | integer | not null
+ release_date       | date    | not null
+ end_date           | date    | not null
+ authentication_key | text    | not null
+
+sharephoto=# create table pictures(
+sharephoto(# id integer not null,filename
+sharephoto(# ^C
+sharephoto=# create table pictures(
+sharephoto(# id integer not null,
+sharephoto(# filename text not null,
+sharephoto(# event_id integer not null);
+CREATE TABLE
+sharephoto=# \d pictures
+  テーブル "public.pictures"
+    列    |   型    |  修飾語
+----------+---------+----------
+ id       | integer | not null
+ filename | text    | not null
+ event_id | integer | not null
+
+ yanagimura@MAC18L10G0265-2:~/sen/NewGrad/training/log (add_yanagimura_backup *)$ varangrant ssh
+ Last login: Wed Apr 11 01:06:04 2018 from 10.0.2.2
+ [vagrant@localhost ~]$ pswql -U postgres
+ psql (9.6.8)
+ "help" でヘルプを表示します.
+
+ postgres=# \c sharephoto
+ データベース "sharephoto" にユーザ"postgres"として接続しました。
+ sharephoto=# \d sha\pictures
+   テーブル "public.pictures"
+     列    |   型    |  修飾語
+ ----------+---------+----------
+  id       | integer | not null
+  filename | text    | not null
+  event_id | integer | not null
+  data     | text    | not null
+
+ sharephoto=# \q
+ [vagrant@localhost ~]$ exit
+ ログアウト
+ Connection to 127.0.0.1 closed.
+ yanagimura@MAC18L10G0265-2:~/sen/NewGrad/training/log (add_yanagimura_backup *)$ exit
+ exit
+
+ Script started on Wed Apr 11 12:40:12 2018
+yanagimura@MAC18L10G0265-2:~/sen/NewGrad/training/log (add_yanagimura_backup *)$ psqlvagrant ssh
+Last login: Wed Apr 11 01:54:55 2018 from 10.0.2.2
+[vagrant@localhost ~]$ psql -U postgres
+psql (9.6.8)
+"help" でヘルプを表示します.
+
+postgres=# \c tsharephoto
+データベース "sharephoto" にユーザ"postgres"として接続しました。
+sharephoto=# \dm qlter table pictures add            lter                  i       type        serial
+ERROR:  type "serial" does not exist
+sharephoto=# alter table pictureusers
+ERROR:  type "serial" does not exist
+sharephoto=# CREATE Screate scsequence ta users_id_seq;
+CREATE SEQUENCE
+sharephoto=# \calter tabluserres alter column id typesersei defaul  nex val() al;
+ALTER TABLE
+sharephoto=# alter sequence users_id_seq owned by users.id;
+ALTER SEQUENCE
+sharephoto=# \d
+                          テーブル "public.users"
+     列      |   型    |                       修飾語
+-------------+---------+----------------------------------------------------
+ id          | integer | not null default nextval('users_id_seq'::regclass)
+ mailaddress | text    | not null
+ password    | text    | not null
+
+sharephoto=# select setval('setnamusers'id'seq , 18 ;
+ setval
+--------
+     18
+(1 行)
+
+sharephoto=# create sequence userevents);
+CREATE SEQUENCE
+sharephoto=# alter table usereventsers_id_seq owned by users.id;      events
+ALTER TABLE
+sharephoto=# alter sequence users_id_seq owned by events
+ALTER SEQUENCE
+sharephoto=# create sequence eventpictures
+CREATE SEQUENCE
+sharephoto=# alter table events alter id set defpicturesy events.id;
+ALTER TABLE
+sharephoto=# alter sequence events_id_seq owned by evpictures
+ALTER SEQUENCE
+sharephoto=# \d events
+                              テーブル "public.events"
+         列         |   型    |                       修飾語
+--------------------+---------+-----------------------------------------------------
+ id                 | integer | not null default nextval('events_id_seq'::regclass)
+ title              | text    | not null
+ user_id            | integer | not null
+ release_date       | date    | not null
+ end_date           | date    | not null
+ authentication_key | text    | not null
+
+sharephoto=# \d eventpictures
+                         テーブル "public.pictures"
+    列    |   型    |                        修飾語
+----------+---------+-------------------------------------------------------
+ id       | integer | not null default nextval('pictures_id_seq'::regclass)
+ filename | text    | not null
+ event_id | integer | not null
+ data     | text    | not null
+
+sharephoto=# \q
+[vagrant@localhost ~]$ exit
+ログアウト
+Connection to 127.0.0.1 closed.
+yanagimura@MAC18L10G0265-2:~/sen/NewGrad/training/log (add_yanagimura_backup *)$ exit
+exit
+
+Script done on Wed Apr 11 12:56:59 2018
+(END)

@@ -1,0 +1,26 @@
+sharephoto=# \c d users
+                          テーブル "public.users"
+     列      |   型    |                       修飾語
+-------------+---------+----------------------------------------------------
+ id          | integer | not null default nextval('users_id_seq'::regclass)
+ mailaddress | text    | not null
+ password    | text    | not null
+
+sharephoto=# \d events
+                              テーブル "public.events"
+         列         |   型    |                       修飾語
+--------------------+---------+-----------------------------------------------------
+ id                 | integer | not null default nextval('events_id_seq'::regclass)
+ title              | text    | not null
+ user_id            | integer | not null
+ release_date       | date    | not null
+ end_date           | date    | not null
+ authentication_key | text    | not null
+
+sharephoto=# \d pictures
+                         テーブル "public.pictures"
+    列    |   型    |                        修飾語
+----------+---------+-------------------------------------------------------
+ id       | integer | not null default nextval('pictures_id_seq'::regclass)
+ filename | text    | not null
+ event_id | integer | not null
