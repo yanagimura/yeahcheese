@@ -54,4 +54,11 @@ class Sharepictures_Action_Show extends Sharepictures_ActionClass
     {
         return 'show';
     }
+
+    public function authenticate()
+    {
+      if(!$this->session->isStart()){
+        return 'login';
+      }
+    }
 }

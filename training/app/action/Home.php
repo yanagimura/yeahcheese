@@ -55,7 +55,7 @@ class Sharepictures_Action_Home extends Sharepictures_ActionClass
         return 'home';
     }
 
-    function authenticate()
+    public function authenticate()
     {
       if(!$this->session->isStart()){
         return 'login';
