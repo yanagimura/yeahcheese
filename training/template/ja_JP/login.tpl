@@ -7,4 +7,5 @@
      パスワード: <input type="text" name="password" value="{$form.password}">{message name="password"}</input>
    </p>
    <input type="submit" name="action_login_do" value="ログイン"/>
+   <input type="submit" name="action_register" value="会員登録"/>
 </form>
