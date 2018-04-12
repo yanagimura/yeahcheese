@@ -19,7 +19,7 @@ class Sharepictures_Form_LoginDo extends Sharepictures_ActionForm
      *  @access protected
      *  @var    array   form definition.
      */
-    public $form = array(
+    public $form = [
       'mailaddress' => [
             // メールアドレスフォームの定義
             'name'        => 'メールアドレス',      // Display name
@@ -33,7 +33,7 @@ class Sharepictures_Form_LoginDo extends Sharepictures_ActionForm
             'type'        => VAR_TYPE_STRING,     // Input type
             'required'    => true,                // Required Option
        ],
-     );
+     ];
 
     /**
      *  Form input value convert filter : sample
@@ -103,7 +103,6 @@ class Sharepictures_Action_LoginDo extends Sharepictures_ActionClass
 
             $this->session->set('login', $sessionarray);
             $this->session->start();
-
         }
         return 'home';
     }
