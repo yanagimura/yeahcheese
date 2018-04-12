@@ -28,7 +28,7 @@ class Sharepictures_Form_RegisterDo extends Sharepictures_ActionForm
                'name'        => 'メールアドレス',      // Display name
                'type'        => VAR_TYPE_STRING,     // Input type
                'required'    => true,                // Required Option
-               'custom'      => ['checkMailaddress', 'checkDBAddress'],   // Optional method name
+               'custom'      => 'checkMailaddress, checkDBAddress',   // Optional method name
           ],
          'password'    => [
                // パスワードフォームの定義
