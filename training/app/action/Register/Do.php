@@ -130,8 +130,7 @@ class Sharepictures_Action_RegisterDo extends Sharepictures_ActionClass
         $db = $this->backend->getDB();
 
         $mail = $this->af->get('mailaddress');
-        $pass = $this->af->get('password');
-        $cipherpass = hash('sha256', $pass);
+        $cipherpass = hash('sha256', $this->af->get('password'));
 
         $db->query("INSERT INTO users(mailaddress,password) VALUES($1, $2)", [$mail, $cipherpass]);
 
