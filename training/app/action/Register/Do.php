@@ -52,15 +52,14 @@ class Sharepictures_Form_RegisterDo extends Sharepictures_ActionForm
                'name'        => 'メールアドレス',      // Display name
                'type'        => VAR_TYPE_STRING,     // Input type
                'required'    => true,                // Required Option
-               'custom'      => 'checkMailaddress',  // Optional method name
-               'custom'      => 'checkDBAddress',    // Optional method name
+               'custom'      => ['checkMailaddress', 'checkDBAddress'],   // Optional method name
           ],
         'password'    => [
                // パスワードフォームの定義
                'name'        => 'パスワード',          // Display name
                'type'        => VAR_TYPE_STRING,     // Input type
                'min'         => 6,
-               'regexp'      => '/^[a-z0-9]+$/',
+               'regexp'      => '/^(?=.*?[a-z])(?=.*?[0-9])[a-z0-9]+$/',
                'required'    => true,                // Required Option
           ],
         'password_confirm'    => [
@@ -79,10 +78,10 @@ class Sharepictures_Form_RegisterDo extends Sharepictures_ActionForm
      * @access public
      * @param string $password 確認用パスワード
      */
-     function checkPassword($password)
+     function checkPassword($password_confirm)
      {
-       if($this->form_vars[$password] !== $this->form_vars['password']){
-         $this->ae->add($password, "パスワードが一致していません", E_ERROR_INVALIDVALUE);
+       if($this->form_vars[$password_confirm] !== $this->form_vars['password']){
+         $this->ae->add($password_confirm, "パスワードが一致していません", E_ERROR_INVALIDVALUE);
        }
      }
 
@@ -92,7 +91,7 @@ class Sharepictures_Form_RegisterDo extends Sharepictures_ActionForm
       * @access public
       * @param string $mailaddress メールアドレス
       */
-      function checkDBAddress($mailaddress)
+      public function checkDBAddress($mailaddress)
       {
         $db = $this->backend->getDB();
         $rs = $db->query("SELECT * FROM users WHERE mailaddress = $1", $this->form_vars[$mailaddress]);
