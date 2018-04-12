@@ -26,7 +26,6 @@ class Sharepictures_Form_LoginDo extends Sharepictures_ActionForm
             'type'        => VAR_TYPE_STRING,     // Input type
             'required'    => true,                // Required Option
             'custom'      => 'checkMailaddress',  // Optional method name
-            'custom'      => 'checkDB',    　　　　// Optional method name
        ],
       'password'    => [
             // パスワードフォームの定義
@@ -35,28 +34,6 @@ class Sharepictures_Form_LoginDo extends Sharepictures_ActionForm
             'required'    => true,                // Required Option
        ],
      );
-
-     /**
-      * チェックメソッド: メールアドレスとパスワードを確認
-      *
-      * @access public
-      * @param string $mailaddress メールアドレス
-      */
-      public function checkDB($mailaddress)
-      {
-        $db = $this->backend->getDB();
-        $rs = $db->query("SELECT * FROM users WHERE mailaddress = $1", $this->form_vars[$mailaddress]);
-        if(!$rs->fetchRow()){
-          $this->ae->add($mailaddress, "このメールアドレスは登録されていません", E_ERROR_INVALIDVALUE);
-        } else {
-          // メールアドレスが登録されていれば、パスワードを確認
-          $cipherpass = hash('sha256', $this->form_vars['password']);
-          $rs = $db->query("SELECT * FROM users WHERE password = $1", $cipherpass);
-          if(!$rs->fetchRow()){
-            $this->ae->add('password', "パスワードが一致しません", E_ERROR_INVALIDVALUE);
-          }
-        }
-      }
 
     /**
      *  Form input value convert filter : sample
@@ -101,26 +78,33 @@ class Sharepictures_Action_LoginDo extends Sharepictures_ActionClass
     }
 
     /**
-     *  login_do action implementation.　セッションを開始後、ホーム画面を表示する
+     *  login_do action implementation. DBと一致すれば、セッションを開始
      *
      *  @access public
      *  @return string  ホーム画面のテンプレート
      */
     public function perform()
     {
-      $mailaddress = $this->af->get('mailaddress');
-      $db = $this->backend->getDB();
-      $rs = $db->query("SELECT * FROM users WHERE mailaddress = $1", $mailaddress);
-      $id = $rs->fetchRow()['id'];
+        $sql = "SELECT * FROM users WHERE mailaddress = ? AND password = ?";
+        $rs = $this->backend->getDB()->getRow($sql, [
+            $this->af->get('mailaddress'),
+            hash('sha256', $this->af->get('password')),
+        ]);
 
-      $sessionarray = array(
-        'id'   =>   $id,
-        'mailaddress'   =>   $mailaddress,
-      );
+        if (!$rs) {
+            $this->ae->add($mailaddress, "メールアドレスまたはパスワードが間違っています", E_ERROR_INVALIDVALUE);
+        } else {
+            $id = $rs['id'];
 
-      $this->session->set('login', $sessionarray);
-      $this->session->start();
+            $sessionarray = [
+                'id'   =>   $id,
+                'mailaddress'   =>   $mailaddress,
+              ];
 
+            $this->session->set('login', $sessionarray);
+            $this->session->start();
+
+        }
         return 'home';
     }
 }
