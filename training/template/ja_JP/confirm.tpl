@@ -7,6 +7,11 @@
      </ul>
    </p>
    <p>
-     <input align="right" type="submit" name="action_upload_do" value="確認"/><br>
+     <img src="/images/スキャン.jpeg"/>
+   </p>
+   <p>
+    {foreach from=$app.urlArray item=url}
+        <img src={$url}/>test
+    {/foreach}
    </p>
 </form>

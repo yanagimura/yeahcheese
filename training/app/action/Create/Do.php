@@ -118,6 +118,14 @@ class Sharepictures_Action_CreateDo extends Sharepictures_ActionClass
      */
     public function perform()
     {
+        //  画像ファイルを一時的に保存
+        $uploaddir = '/images/tmp/';
+        foreach ($this->af->get('picture_array') as $picture) {
+            $uploadfile = $uploaddir . basename($picture['name']);
+            move_uploaded_file($picture['tmp_name'], $uploadfile);
+            $picture['tmp_name'] = $uploadfile;
+        }
+
         $sessionarray = [
             'title'   =>    $this->af->get('title'),
             'release_date'    =>    $this->af->get('release_date'),

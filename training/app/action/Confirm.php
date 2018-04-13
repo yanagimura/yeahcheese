@@ -22,46 +22,6 @@ class Sharepictures_Form_Confirm extends Sharepictures_ActionForm
     public $form = [
 
     ];
-       /*
-        *  TODO: Write form definition which this action uses.
-        *  @see http://ethna.jp/ethna-document-dev_guide-form.html
-        *
-        *  Example(You can omit all elements except for "type" one) :
-        *
-        *  'sample' => array(
-        *      // Form definition
-        *      'type'        => VAR_TYPE_INT,    // Input type
-        *      'form_type'   => FORM_TYPE_TEXT,  // Form type
-        *      'name'        => 'Sample',        // Display name
-        *
-        *      //  Validator (executes Validator by written order.)
-        *      'required'    => true,            // Required Option(true/false)
-        *      'min'         => null,            // Minimum value
-        *      'max'         => null,            // Maximum value
-        *      'regexp'      => null,            // String by Regexp
-        *
-        *      //  Filter
-        *      'filter'      => 'sample',        // Optional Input filter to convert input
-        *      'custom'      => null,            // Optional method name which
-        *                                        // is defined in this(parent) class.
-        *  ),
-        */
-
-
-    /**
-     *  Form input value convert filter : sample
-     *
-     *  @access protected
-     *  @param  mixed   $value  Form Input Value
-     *  @return mixed           Converted result.
-     */
-    /*
-    protected function _filter_sample($value)
-    {
-        //  convert to upper case.
-        return strtoupper($value);
-    }
-    */
 }
 
 /**
@@ -82,13 +42,6 @@ class Sharepictures_Action_Confirm extends Sharepictures_ActionClass
      */
     public function prepare()
     {
-        /**
-        if ($this->af->validate() > 0) {
-            // forward to error view (this is sample)
-            return 'error';
-        }
-        $sample = $this->af->get('sample');
-        */
         return null;
     }
 
@@ -105,7 +58,7 @@ class Sharepictures_Action_Confirm extends Sharepictures_ActionClass
 
     /**
      *  セッション切れの確認、
-     *  
+     *
      *  @access public
      *  @return string イベント作成画面のテンプレート
      */
