@@ -14,7 +14,7 @@ $config = array(
 
     // db
     // sample-1: single db
-    // 'dsn' => 'mysql://user:password@server/database',
+    'dsn' => 'pgsql://postgres:@10.81.22.67/sharephoto',
     //
     // sample-2: single db w/ multiple users
     // 'dsn'   => 'mysql://rw_user:password@server/database', // read-write
