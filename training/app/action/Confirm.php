@@ -19,7 +19,9 @@ class Sharepictures_Form_Confirm extends Sharepictures_ActionForm
      *  @access protected
      *  @var    array   form definition.
      */
-    public $form = array(
+    public $form = [
+
+    ];
        /*
         *  TODO: Write form definition which this action uses.
         *  @see http://ethna.jp/ethna-document-dev_guide-form.html
@@ -44,7 +46,7 @@ class Sharepictures_Form_Confirm extends Sharepictures_ActionForm
         *                                        // is defined in this(parent) class.
         *  ),
         */
-    );
+
 
     /**
      *  Form input value convert filter : sample
@@ -99,5 +101,18 @@ class Sharepictures_Action_Confirm extends Sharepictures_ActionClass
     public function perform()
     {
         return 'confirm';
+    }
+
+    /**
+     *  セッション切れの確認、
+     *  
+     *  @access public
+     *  @return string イベント作成画面のテンプレート
+     */
+    public function authenticate()
+    {
+        if (!$this->session->isStart('create')) {
+            return 'create';
+        }
     }
 }

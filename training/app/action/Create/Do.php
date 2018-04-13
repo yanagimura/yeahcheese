@@ -118,22 +118,17 @@ class Sharepictures_Action_CreateDo extends Sharepictures_ActionClass
      */
     public function perform()
     {
+        $sessionarray = [
+            'title'   =>    $this->af->get('title'),
+            'release_date'    =>    $this->af->get('release_date'),
+            'end_date'    =>    $this->af->get('end_date'),
+            'picture_array'   =>    $this->af->get('picture_array'),
+        ];
+
+        $this->session->set('create', $sessionarray);
+        $this->session->start();
 
         return 'confirm';
-    }
-
-    /**
-     *  セッションに保存するデータを設定後、セッション'Create'を開始する
-     *
-     *  @access private
-     *  @return string  forward name.
-     */
-    private function setSession()
-    {
-        echo('<pre>');
-        var_dump($this->af->get('picture_array'));
-        echo('</pre>');
-        return null;
     }
 
 
