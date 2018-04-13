@@ -92,7 +92,8 @@ class Sharepictures_Action_LoginDo extends Sharepictures_ActionClass
         ]);
 
         if (!$rs) {
-            $this->ae->add($mailaddress, "メールアドレスまたはパスワードが間違っています", E_ERROR_INVALIDVALUE);
+            $this->ae->add('mailaddress', "メールアドレスまたはパスワードが間違っています", E_FORM_INVALIDVALUE);
+            return 'login';
         } else {
             $id = $rs['id'];
 
