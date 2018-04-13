@@ -1,4 +1,4 @@
-<form action="." method="post">
+<form action="." method="post" enctype="multipart/form-data">
 <h2>イベント作成</h2>
    <p>
      イベント名：<input type="text" name="title" value="{$form.title}">{message name="title"}</input>
@@ -10,7 +10,7 @@
      公開終了日：<input type="date" name="end_date" "{$form.end_date}">{message name="end_date"}</input>
    </p>
    <p>
-     <input type="file" name="upload_file" id="selfile"><br>
+     <input type="file" name="picture_array[]" multiple "{$form.picture_array}">{message name="picture_array"}</input><br/>
      <ul>
        <li>
          jpegのみ
@@ -22,6 +22,6 @@
 
    </p>
    <p>
-     <input type="submit" name="action_confirm_do" value="次へ"/><br>
+     <input type="submit" name="action_create_do" value="次へ"/><br>
    </p>
 </form>

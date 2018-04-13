@@ -19,32 +19,33 @@ class Sharepictures_Form_CreateDo extends Sharepictures_ActionForm
      *  @access protected
      *  @var    array   form definition.
      */
-    public $form = array(
-       /*
-        *  TODO: Write form definition which this action uses.
-        *  @see http://ethna.jp/ethna-document-dev_guide-form.html
-        *
-        *  Example(You can omit all elements except for "type" one) :
-        *
-        *  'sample' => array(
-        *      // Form definition
-        *      'type'        => VAR_TYPE_INT,    // Input type
-        *      'form_type'   => FORM_TYPE_TEXT,  // Form type
-        *      'name'        => 'Sample',        // Display name
-        *
-        *      //  Validator (executes Validator by written order.)
-        *      'required'    => true,            // Required Option(true/false)
-        *      'min'         => null,            // Minimum value
-        *      'max'         => null,            // Maximum value
-        *      'regexp'      => null,            // String by Regexp
-        *
-        *      //  Filter
-        *      'filter'      => 'sample',        // Optional Input filter to convert input
-        *      'custom'      => null,            // Optional method name which
-        *                                        // is defined in this(parent) class.
-        *  ),
-        */
-    );
+    public $form = [
+          'title' => [
+            //  イベント名フォームの定義
+              'name' => 'タイトル',
+              'type' => VAR_TYPE_STRING,
+              'required' => true,
+              'min' => 3,
+          ],
+          'release_date' => [
+            //  公開開始日フォームの定義
+              'name' => '公開開始日',
+              'type' => VAR_TYPE_DATETIME,
+              'required' => true,
+          ],
+          'end_date' => [
+            //  公開終了日フォームの定義
+              'name' => '公開終了日',
+              'type' => VAR_TYPE_DATETIME,
+              'required' => true,
+          ],
+          'picture_array' => [
+            //  写真アップロードフォームの定義
+              'name' => '写真',
+              'type' => array(VAR_TYPE_FILE),
+              'required' => true,
+          ],
+    ];
 
     /**
      *  Form input value convert filter : sample
@@ -80,13 +81,11 @@ class Sharepictures_Action_CreateDo extends Sharepictures_ActionClass
      */
     public function prepare()
     {
-        /**
         if ($this->af->validate() > 0) {
-            // forward to error view (this is sample)
-            return 'error';
+
+            return 'create';
         }
-        $sample = $this->af->get('sample');
-        */
+
         return null;
     }
 
@@ -98,7 +97,12 @@ class Sharepictures_Action_CreateDo extends Sharepictures_ActionClass
      */
     public function perform()
     {
-
+        echo('<pre>');
+        var_dump($this->af->get('picture_array'));
+        echo('</pre>');
         return 'confirm';
     }
+
+
+
 }
