@@ -1,12 +1,9 @@
 <form action="." method="post">
-<h2>イベント作成</h2>
+<h2 name="title">{$app.title}</h2>
    <p>
      <ul>
        <li name="count">写真枚数：{$app.count}枚</li>
-       <li>公開期間：
-         <div name="release_date">{$app.release_date}〜</div>
-         <div name="end_date">{$app.end_date}</div>
-       </li>
+       <li name="release_date" name="end_date">公開期間：{$app.release_date}〜{$app.end_date}</li>
      </ul>
    </p>
    <p>
