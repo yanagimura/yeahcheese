@@ -45,12 +45,13 @@ class Sharepictures_Form_CreateDo extends Sharepictures_ActionForm
               'name' => '写真',
               'type' => array(VAR_TYPE_FILE),
               'required' => true,
+              'custom' => 'checkFile',
           ],
     ];
     /**
      *  公開日数のバリデーション
      *
-     *  @access private
+     *  @access public
      *  @param string $end_date
      */
     public function checkDateInterval($end_date)
@@ -63,23 +64,24 @@ class Sharepictures_Form_CreateDo extends Sharepictures_ActionForm
             $this->ae->add($end_date, '公開開始日より後の日付を選択してください', E_FORM_INVALIDVALUE);
         }
     }
-
-
-
     /**
-     *  Form input value convert filter : sample
+     *  ファイル拡張子のバリデーション
      *
-     *  @access protected
-     *  @param  mixed   $value  Form Input Value
-     *  @return mixed           Converted result.
+     *  @access public
+     *  @param array $picture_array
      */
-    /*
-    protected function _filter_sample($value)
+    public function checkFile($picture_array)
     {
-        //  convert to upper case.
-        return strtoupper($value);
+        foreach ($this->form_vars[$picture_array] as $picture) {
+            // .jpeg ,jpeg以外はエラー
+            if (!strpos($picture['type'],'jpeg') && !strpos($picture['type'],'jpg')) {
+                $this->ae->add($picture_array, 'ファイル形式に誤りがあります。', E_FORM_INVALIDVALUE);
+              }
+            if ($picture['size'] >= 5000000) {
+                $this->ae->add($picture_array, 'ファイルサイズが大き過ぎます。', E_FORM_INVALIDVALUE);
+            }
+        }
     }
-    */
 }
 
 /**
@@ -133,29 +135,6 @@ class Sharepictures_Action_CreateDo extends Sharepictures_ActionClass
         echo('</pre>');
         return null;
     }
-
-    /**
-     *  拡張子（.jpg .jpeg 形式）のバリデーション
-     *  画像ファイルのフォルダを移動
-     *  @access private
-     *  @return string  forward name.
-     */
-    private function checkPictureFile()
-    {
-      foreach ($this->af->get('picture_array') as $picture) {
-          if (strpost($picture["type"],'jpeg') || strpost($picture["type"],'jpg')){
-
-          } else {
-              $this->ae->add('picture_array', 'ファイル形式に誤りがあります。', E_FORM_INVALIDVALUE);
-              return 'create';
-          }
-      }
-        echo('<pre>');
-        var_dump($this->af->get('picture_array'));
-        echo('</pre>');
-        return null;
-    }
-
 
 
 }
