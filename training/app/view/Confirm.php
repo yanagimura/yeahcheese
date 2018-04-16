@@ -22,9 +22,9 @@ class Sharepictures_View_Confirm extends Sharepictures_ViewClass
      */
     public function preforward()
     {
-        $this->af->setApp('title',$this->session->get('create')['title']);
-        $this->af->setApp('release_date',$this->session->get('create')['release_date']);
-        $this->af->setApp('end_date',$this->session->get('create')['end_date']);
+        $this->af->setApp('title', $this->session->get('create')['title']);
+        $this->af->setApp('release_date', $this->session->get('create')['release_date']);
+        $this->af->setApp('end_date', $this->session->get('create')['end_date']);
         $this->af->setApp('picture_array', $this->session->get('create')['picture_array']);
         $this->af->setApp('count', count($this->session->get('create')['picture_array']));
     }

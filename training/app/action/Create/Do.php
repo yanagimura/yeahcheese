@@ -5,7 +5,7 @@
  *  @author     {$author}
  *  @package    Sharepictures
  */
-
+require_once('adodb5/adodb.inc.php');
 /**
  *  create_do Form implementation.
  *
@@ -43,25 +43,26 @@ class Sharepictures_Form_CreateDo extends Sharepictures_ActionForm
           'picture_array' => [
             //  写真アップロードフォームの定義
               'name' => '写真',
-              'type' => array(VAR_TYPE_FILE),
+              'type' => [VAR_TYPE_FILE],
               'required' => true,
               'custom' => 'checkFile',
           ],
     ];
+
     /**
      *  公開日数のバリデーション
      *
      *  @access public
      *  @param string $end_date
      */
-    public function checkDateInterval($end_date)
+    public function checkDateInterval($endDate)
     {
-        $ed = strtotime($this->form_vars[$end_date]);
+        $ed = strtotime($this->form_vars[$endDate]);
         $rd = strtotime($this->form_vars['release_date']);
         $interval = ($ed - $rd) / (60 * 60 * 24);
 
         if ($interval < 0) {
-            $this->ae->add($end_date, '公開開始日より後の日付を選択してください', E_FORM_INVALIDVALUE);
+            $this->ae->add($endDate, '公開開始日より後の日付を選択してください', E_FORM_INVALIDVALUE);
         }
     }
     /**
@@ -70,16 +71,16 @@ class Sharepictures_Form_CreateDo extends Sharepictures_ActionForm
      *  @access public
      *  @param array $picture_array
      */
-    public function checkFile($picture_array)
+    public function checkFile($pictureArray)
     {
-        foreach ($this->form_vars[$picture_array] as $picture) {
+        foreach ($this->form_vars[$pictureArray] as $picture) {
             // .jpeg ,jpeg以外はエラー
-            if (!strpos($picture['type'],'jpeg') && !strpos($picture['type'],'jpg')) {
-                $this->ae->add($picture_array, 'ファイル形式に誤りがあります。', E_FORM_INVALIDVALUE);
-              }
+            if (!strpos($picture['type'], 'jpeg') && !strpos($picture['type'], 'jpg')) {
+                $this->ae->add($pictureArray, 'ファイル形式に誤りがあります。', E_FORM_INVALIDVALUE);
+            }
             if ($picture['size'] >= 5000000) {
-                $this->ae->add($picture_array, 'ファイルサイズが大き過ぎます。', E_FORM_INVALIDVALUE);
-              }
+                $this->ae->add($pictureArray, 'ファイルサイズが大き過ぎます。', E_FORM_INVALIDVALUE);
+            }
         }
     }
 }
@@ -103,10 +104,8 @@ class Sharepictures_Action_CreateDo extends Sharepictures_ActionClass
     public function prepare()
     {
         if ($this->af->validate() > 0) {
-
             return 'create';
         }
-
         return null;
     }
 
@@ -136,7 +135,7 @@ class Sharepictures_Action_CreateDo extends Sharepictures_ActionClass
             $baseImage = imagecreatefromjpeg($uploadfile);
             imagecopyresampled($thumbnail, $baseImage, 0, 0, 0, 0, $thumbWidth, $thumbHeight, $width, $height);
             imagejpeg($thumbnail, $thumbnailFile);
-          }
+        }
 
           //  セッション開始
           $sessionarray = [
@@ -149,7 +148,7 @@ class Sharepictures_Action_CreateDo extends Sharepictures_ActionClass
           $this->session->set('create', $sessionarray);
           $this->session->start('create');
 
-        return 'confirm';
+          return 'confirm';
     }
 
     /**
@@ -164,5 +163,4 @@ class Sharepictures_Action_CreateDo extends Sharepictures_ActionClass
             return 'login';
         }
     }
-
 }

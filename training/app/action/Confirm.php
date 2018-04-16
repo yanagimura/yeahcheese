@@ -53,7 +53,7 @@ class Sharepictures_Action_Confirm extends Sharepictures_ActionClass
      */
     public function perform()
     {
-        $str = array_merge(range('a','z'), range('0', '9'), range('A', 'Z'));
+        $str = array_merge(range('a', 'z'), range('0', '9'), range('A', 'Z'));
         $authkey = null;
         for ($i = 0; $i < 6; $i++) {
             $authkey .= $str[rand(0, count($str) - 1)];
@@ -72,8 +72,8 @@ class Sharepictures_Action_Confirm extends Sharepictures_ActionClass
 
         //  picturesのレコードを追加する
         $sql = "INSERT INTO pictures(filename, event_id) VALUES($1, $2)";
-        foreach($this->session->get('create')['picture_array'] as $filename){
-          $db->query($sql, [$filename, $eventID]);
+        foreach ($this->session->get('create')['picture_array'] as $filename) {
+            $db->query($sql, [$filename, $eventID]);
         }
 
         //  認証キー用のセッションを開始
@@ -102,6 +102,5 @@ class Sharepictures_Action_Confirm extends Sharepictures_ActionClass
         if (!$this->session->isStart('login')) {
             return 'login';
         }
-
     }
 }
