@@ -7,8 +7,11 @@
      </ul>
    </p>
    <p>
-    {foreach from=$app.thumbnailArray item=thumbnail}
-        <img src={$thumbnail}/><br/>
+    {foreach from=$app.picture_array item=picture}
+        <img src="images/tmp/thumb/{$picture}"><br/>
     {/foreach}
+   </p>
+   <p>
+     <input type="submit" name="action_confirm" value="アップロード"/>
    </p>
 </form>

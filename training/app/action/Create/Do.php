@@ -120,10 +120,12 @@ class Sharepictures_Action_CreateDo extends Sharepictures_ActionClass
     {
         //  画像ファイルを一時フォルダに保存
         $uploaddir = 'images/tmp/';
-        $thumbnaildir = $uploaddir . 'thumb/';
+        $pictureArray = [];
         foreach ($this->af->get('picture_array') as $picture) {
+            $pictureArray[] = basename($picture['name']);
             $uploadfile = $uploaddir . basename($picture['name']);
-            $thumbnailFile = $thumbnaildir . basename($picture['name']);
+            $thumbnailFile = $uploaddir . 'thumb/' . basename($picture['name']);
+
             move_uploaded_file($picture['tmp_name'], $uploadfile);
 
             list($width, $height) = getimagesize($uploadfile, $picture);
@@ -134,20 +136,17 @@ class Sharepictures_Action_CreateDo extends Sharepictures_ActionClass
             $baseImage = imagecreatefromjpeg($uploadfile);
             imagecopyresampled($thumbnail, $baseImage, 0, 0, 0, 0, $thumbWidth, $thumbHeight, $width, $height);
             imagejpeg($thumbnail, $thumbnailFile);
-
-            $thumbnailArray[] = $thumbnailFile;
           }
-
           //  セッション開始
           $sessionarray = [
               'title'   =>    $this->af->get('title'),
               'release_date'    =>    $this->af->get('release_date'),
               'end_date'    =>    $this->af->get('end_date'),
-              'thumbnail_array'   =>    $thumbnailArray,
+              'picture_array'   =>    $pictureArray,
             ];
 
-        $this->session->set('create', $sessionarray);
-        $this->session->start('create');
+          $this->session->set('create', $sessionarray);
+          $this->session->start('create');
 
         return 'confirm';
     }

@@ -25,8 +25,7 @@ class Sharepictures_View_Confirm extends Sharepictures_ViewClass
         $this->af->setApp('title',$this->session->get('create')['title']);
         $this->af->setApp('release_date',$this->session->get('create')['release_date']);
         $this->af->setApp('end_date',$this->session->get('create')['end_date']);
-        $this->af->setApp('thumbnailArray', $this->session->get('create')['thumbnail_array']);
-        $this->af->setApp('count', count($this->session->get('create')['thumbnail_array']));
-
+        $this->af->setApp('picture_array', $this->session->get('create')['picture_array']);
+        $this->af->setApp('count', count($this->session->get('create')['picture_array']));
     }
 }
