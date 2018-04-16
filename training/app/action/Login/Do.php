@@ -96,12 +96,11 @@ class Sharepictures_Action_LoginDo extends Sharepictures_ActionClass
             return 'login';
         } else {
             $id = $rs['id'];
-
+            $mailaddress = $rs['mailaddress'];
             $sessionarray = [
                 'id'   =>   $id,
                 'mailaddress'   =>   $mailaddress,
               ];
-
             $this->session->set('login', $sessionarray);
             $this->session->start();
         }
