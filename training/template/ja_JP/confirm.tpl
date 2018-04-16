@@ -13,5 +13,6 @@
    </p>
    <p>
      <input type="submit" name="action_confirm" value="アップロード"/>
+     <input type="submit" name="action_create" value="戻る" />
    </p>
 </form>
