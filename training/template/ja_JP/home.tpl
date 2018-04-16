@@ -1,4 +1,3 @@
-<form action="." method="get">
 <div align="right" name='username'>{$app.username}さん ようこそ</div>
   <h2>メニュー</h2>
   <p>
@@ -10,4 +9,3 @@
   <p>
     <a href="http://localhost:8000/?action_logout=true">ログアウト</a>
   </p>
-</form>
