@@ -80,13 +80,6 @@ class Sharepictures_Action_Upload extends Sharepictures_ActionClass
      */
     public function prepare()
     {
-        /**
-        if ($this->af->validate() > 0) {
-            // forward to error view (this is sample)
-            return 'error';
-        }
-        $sample = $this->af->get('sample');
-        */
         return null;
     }
 
@@ -98,6 +91,8 @@ class Sharepictures_Action_Upload extends Sharepictures_ActionClass
      */
     public function perform()
     {
+        $this->session->destroy('create');
+        $this->session->destroy('authSession');
         return 'home';
     }
 }

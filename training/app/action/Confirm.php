@@ -76,6 +76,14 @@ class Sharepictures_Action_Confirm extends Sharepictures_ActionClass
           $db->query($sql, [$filename, $eventID]);
         }
 
+        //  認証キー用のセッションを開始
+        $authSession = [
+            'authentication_key'   =>   $authkey,
+          ];
+
+        $this->session->set('authSession', $authSession);
+        $this->session->start();
+
         return 'upload';
     }
 
