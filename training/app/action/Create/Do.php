@@ -137,6 +137,7 @@ class Sharepictures_Action_CreateDo extends Sharepictures_ActionClass
             imagecopyresampled($thumbnail, $baseImage, 0, 0, 0, 0, $thumbWidth, $thumbHeight, $width, $height);
             imagejpeg($thumbnail, $thumbnailFile);
           }
+
           //  セッション開始
           $sessionarray = [
               'title'   =>    $this->af->get('title'),
@@ -150,4 +151,18 @@ class Sharepictures_Action_CreateDo extends Sharepictures_ActionClass
 
         return 'confirm';
     }
+
+    /**
+     *  セッション切れの確認
+     *
+     *  @access public
+     *  @return string  ログイン画面のテンプレート
+     */
+    public function authenticate()
+    {
+        if (!$this->session->isStart('login')) {
+            return 'login';
+        }
+    }
+
 }

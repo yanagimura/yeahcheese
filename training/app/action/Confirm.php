@@ -91,12 +91,17 @@ class Sharepictures_Action_Confirm extends Sharepictures_ActionClass
      *  セッション切れの確認、
      *
      *  @access public
-     *  @return string イベント作成画面のテンプレート
+     *  @return string イベント作成画面のテンプレートまたはログイン画面のテンプレート
      */
     public function authenticate()
     {
         if (!$this->session->isStart('create')) {
             return 'create';
         }
+
+        if (!$this->session->isStart('login')) {
+            return 'login';
+        }
+
     }
 }
