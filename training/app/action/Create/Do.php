@@ -79,7 +79,7 @@ class Sharepictures_Form_CreateDo extends Sharepictures_ActionForm
               }
             if ($picture['size'] >= 5000000) {
                 $this->ae->add($picture_array, 'ファイルサイズが大き過ぎます。', E_FORM_INVALIDVALUE);
-            }
+              }
         }
     }
 }
@@ -111,33 +111,44 @@ class Sharepictures_Action_CreateDo extends Sharepictures_ActionClass
     }
 
     /**
-     *  データのバリデーションとSession開始後、
+     *  画像ファイルとそのサムネイルを一時フォルダに保存後、とSession開始後、
      *  Confirm.tplを表示
      *  @access public
      *  @return string  forward name.
      */
     public function perform()
     {
-        //  画像ファイルを一時的に保存
-        $uploaddir = '/images/tmp/';
+        //  画像ファイルを一時フォルダに保存
+        $uploaddir = 'images/tmp/';
+        $thumbnaildir = $uploaddir . 'thumb/';
         foreach ($this->af->get('picture_array') as $picture) {
             $uploadfile = $uploaddir . basename($picture['name']);
+            $thumbnailFile = $thumbnaildir . basename($picture['name']);
             move_uploaded_file($picture['tmp_name'], $uploadfile);
-            $picture['tmp_name'] = $uploadfile;
-        }
 
-        $sessionarray = [
-            'title'   =>    $this->af->get('title'),
-            'release_date'    =>    $this->af->get('release_date'),
-            'end_date'    =>    $this->af->get('end_date'),
-            'picture_array'   =>    $this->af->get('picture_array'),
-        ];
+            list($width, $height) = getimagesize($uploadfile, $picture);
+            $thumbWidth = 100;
+            $thumbHeight = 100;
+            $thumbnail = imagecreatetruecolor($thumbWidth, $thumbHeight);
+
+            $baseImage = imagecreatefromjpeg($uploadfile);
+            imagecopyresampled($thumbnail, $baseImage, 0, 0, 0, 0, $thumbWidth, $thumbHeight, $width, $height);
+            imagejpeg($thumbnail, $thumbnailFile);
+
+            $thumbnailArray[] = $thumbnailFile;
+          }
+
+          //  セッション開始
+          $sessionarray = [
+              'title'   =>    $this->af->get('title'),
+              'release_date'    =>    $this->af->get('release_date'),
+              'end_date'    =>    $this->af->get('end_date'),
+              'thumbnail_array'   =>    $thumbnailArray,
+            ];
 
         $this->session->set('create', $sessionarray);
-        $this->session->start();
+        $this->session->start('create');
 
         return 'confirm';
     }
-
-
 }

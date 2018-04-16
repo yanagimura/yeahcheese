@@ -7,11 +7,8 @@
      </ul>
    </p>
    <p>
-     <img src="/images/スキャン.jpeg"/>
-   </p>
-   <p>
-    {foreach from=$app.urlArray item=url}
-        <img src={$url}/>test
+    {foreach from=$app.thumbnailArray item=thumbnail}
+        <img src={$thumbnail}/><br/>
     {/foreach}
    </p>
 </form>
