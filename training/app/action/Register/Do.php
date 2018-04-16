@@ -54,7 +54,7 @@ class Sharepictures_Form_RegisterDo extends Sharepictures_ActionForm
      * @access public
      * @param string $password 確認用パスワード
      */
-    private function checkPassword($passwordConfirm)
+    public function checkPassword($passwordConfirm)
     {
         if ($this->form_vars[$passwordConfirm] !== $this->form_vars['password']) {
             $this->ae->add($passwordConfirm, "パスワードが一致していません", E_ERROR_INVALIDVALUE);
