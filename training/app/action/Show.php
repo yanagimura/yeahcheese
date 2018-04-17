@@ -68,6 +68,7 @@ class Sharepictures_Action_Show extends Sharepictures_ActionClass
             }
             if($pictureArray){
               $eventArray[] = [
+              'id'    =>    $event['id'],
               'title'   =>    $event['title'],
               'release_date'    =>    $event['release_date'],
               'end_date'    =>    $event['end_date'],
