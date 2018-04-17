@@ -125,20 +125,9 @@ class Sharepictures_Action_CreateDo extends Sharepictures_ActionClass
         $uploaddir = 'images/tmp/';
         $pictureArray = [];
         foreach ($this->af->get('picture_array') as $picture) {
-            $pictureArray[] = basename($picture['name']);
             $uploadfile = $uploaddir . basename($picture['name']);
-            $thumbnailFile = $uploaddir . 'thumb/' . basename($picture['name']);
-
             move_uploaded_file($picture['tmp_name'], $uploadfile);
-
-            list($width, $height) = getimagesize($uploadfile, $picture);
-            $thumbWidth = 100;
-            $thumbHeight = 100;
-            $thumbnail = imagecreatetruecolor($thumbWidth, $thumbHeight);
-
-            $baseImage = imagecreatefromjpeg($uploadfile);
-            imagecopyresampled($thumbnail, $baseImage, 0, 0, 0, 0, $thumbWidth, $thumbHeight, $width, $height);
-            imagejpeg($thumbnail, $thumbnailFile);
+            $pictureArray[] = $uploadfile;
         }
 
           //  セッション開始
