@@ -22,6 +22,6 @@ class Sharepictures_View_Show extends Sharepictures_ViewClass
      */
     public function preforward()
     {
-        $this->af->setApp('event_array', $this->session->get('edit'));
+        $this->af->setApp('event_array', $this->session->get('show'));
     }
 }

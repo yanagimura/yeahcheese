@@ -78,7 +78,7 @@ class Sharepictures_Action_Show extends Sharepictures_ActionClass
             }
         }
         // セッションの開始
-        $this->session->set('edit', $eventArray);
+        $this->session->set('show', $eventArray);
         $this->session->start();
 
 
