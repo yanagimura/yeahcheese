@@ -53,13 +53,19 @@ class Sharepictures_Action_Confirm extends Sharepictures_ActionClass
      */
     public function perform()
     {
+        $db = $this->backend->getDB();
+
         $str = array_merge(range('a', 'z'), range('0', '9'), range('A', 'Z'));
         $authkey = null;
-        for ($i = 0; $i < 6; $i++) {
-            $authkey .= $str[rand(0, count($str) - 1)];
-        }
 
-        $db = $this->backend->getDB();
+        // 認証キーの重複チェック
+        do {
+            for ($i = 0; $i < 6; $i++) {
+                $authkey .= $str[rand(0, count($str) - 1)];
+            }
+            $rs = $db->query("SELECT * FROM events WHERE authentication_key = $1", $authkey);
+        } while ($rs->fetchRow());
+
 
         // eventのレコードを追加する
         $sql = "INSERT INTO events(title, user_id, release_date, end_date, authentication_key) VALUES($1, $2, $3, $4, $5)";
