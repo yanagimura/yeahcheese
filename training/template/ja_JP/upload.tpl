@@ -1,4 +1,3 @@
-<form action="." method="post">
 <h2>作成完了</h2>
    <p>
      <ul>
@@ -11,6 +10,5 @@
      <div name="authentication_key">認証キー：{$app.authentication_key}</div>
    </p>
    <p>
-     <input align="right" type="submit" name="action_upload" value="ホームへ"/><br>
+     <a href="http://localhost:8000/?action_home=true">ホームへ</a>
    </p>
-</form>
