@@ -14,24 +14,22 @@ require_once('adodb5/adodb.inc.php');
  *  @package    Sharepictures
  */
 
-const MIN_LENGTH = 3;
-const MAX_LENGTH = 20;
-
 class Sharepictures_Form_CreateDo extends Sharepictures_ActionForm
 {
     /**
      *  @access protected
      *  @var    array   form definition.
      */
-
+    const MIN_LENGTH = 3;
+    const MAX_LENGTH = 20;
     public $form = [
           'title' => [
             //  イベント名フォームの定義
               'name' => 'タイトル',
               'type' => VAR_TYPE_STRING,
               'required' => true,
-              'min' => MIN_LENGTH,
-              'max' => MAX_LENGTH,
+              'min' => self::MIN_LENGTH,
+              'max' => self::MAX_LENGTH,
           ],
           'release_date' => [
             //  公開開始日フォームの定義
