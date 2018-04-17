@@ -80,8 +80,6 @@ class Sharepictures_Action_Show extends Sharepictures_ActionClass
         // セッションの開始
         $this->session->set('show', $eventArray);
         $this->session->start();
-
-
         return 'show';
     }
 
@@ -93,7 +91,7 @@ class Sharepictures_Action_Show extends Sharepictures_ActionClass
      */
     public function authenticate()
     {
-        if (!$this->session->isStart()) {
+        if (!$this->session->isStart('login')) {
             return 'login';
         }
     }
