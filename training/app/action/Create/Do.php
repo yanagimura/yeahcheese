@@ -13,19 +13,25 @@ require_once('adodb5/adodb.inc.php');
  *  @access     public
  *  @package    Sharepictures
  */
+
+const MIN_LENGTH = 3;
+const MAX_LENGTH = 20;
+
 class Sharepictures_Form_CreateDo extends Sharepictures_ActionForm
 {
     /**
      *  @access protected
      *  @var    array   form definition.
      */
+
     public $form = [
           'title' => [
             //  イベント名フォームの定義
               'name' => 'タイトル',
               'type' => VAR_TYPE_STRING,
               'required' => true,
-              'min' => 3,
+              'min' => MIN_LENGTH,
+              'max' => MAX_LENGTH,
           ],
           'release_date' => [
             //  公開開始日フォームの定義
@@ -57,9 +63,7 @@ class Sharepictures_Form_CreateDo extends Sharepictures_ActionForm
      */
     public function checkDateInterval($endDate)
     {
-        $ed = strtotime($this->form_vars[$endDate]);
-        $rd = strtotime($this->form_vars['release_date']);
-        $interval = ($ed - $rd) / (60 * 60 * 24);
+        $interval = ($this->form_vars[$endDate] - $this->form_vars['release_date']) / (60 * 60 * 24);
 
         if ($interval < 0) {
             $this->ae->add($endDate, '公開開始日より後の日付を選択してください', E_FORM_INVALIDVALUE);
@@ -75,10 +79,10 @@ class Sharepictures_Form_CreateDo extends Sharepictures_ActionForm
     {
         foreach ($this->form_vars[$pictureArray] as $picture) {
             // .jpeg ,jpeg以外はエラー
-            if (!strpos($picture['type'], 'jpeg') && !strpos($picture['type'], 'jpg')) {
+            if (exif_imagetype($picture['tmp_name']) !== IMAGETYPE_JPEG) {
                 $this->ae->add($pictureArray, 'ファイル形式に誤りがあります。', E_FORM_INVALIDVALUE);
             }
-            if ($picture['size'] >= 5000000) {
+            if ($picture['size'] > 5000000) {
                 $this->ae->add($pictureArray, 'ファイルサイズが大き過ぎます。', E_FORM_INVALIDVALUE);
             }
         }
