@@ -20,7 +20,7 @@ class Sharepictures_Form_Login extends Sharepictures_ActionForm
      *  @var    array   form definition.
      */
     public $form = array(
-      
+
     );
 
     /**
@@ -57,13 +57,9 @@ class Sharepictures_Action_Login extends Sharepictures_ActionClass
      */
     public function prepare()
     {
-        /**
-        if ($this->af->validate() > 0) {
-            // forward to error view (this is sample)
-            return 'error';
+        if ($this->session->isStart('login')) {
+            unset($_SESSION['login']);
         }
-        $sample = $this->af->get('sample');
-        */
         return null;
     }
 

@@ -28,7 +28,7 @@ class Sharepictures_View_Upload extends Sharepictures_ViewClass
         $this->af->setApp('end_date', $this->session->get('create')['end_date']);
         $this->af->setApp('count', count($this->session->get('create')['picture_array']));
 
-        $this->session->destroy('create');
-        $this->session->destroy('authSession');
+        unset($_SESSION['create']);
+        unset($_SESSION['authSession']);
     }
 }
