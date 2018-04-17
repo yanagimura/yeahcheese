@@ -20,7 +20,7 @@ require_once 'Sharepictures_ActionClass.php';
 require_once 'Sharepictures_ActionForm.php';
 require_once 'Sharepictures_ViewClass.php';
 require_once 'Sharepictures_UrlHandler.php';
-
+require_once 'adodb5/adodb.inc.php';
 /**
  *  Sharepictures application Controller definition.
  *

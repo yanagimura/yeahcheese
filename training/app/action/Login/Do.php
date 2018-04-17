@@ -5,7 +5,7 @@
  *  @author     {$author}
  *  @package    Sharepictures
  */
-require_once('adodb5/adodb.inc.php');
+ 
 /**
  *  login_do Form implementation.
  *
