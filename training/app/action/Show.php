@@ -60,12 +60,11 @@ class Sharepictures_Action_Show extends Sharepictures_ActionClass
 
         while ($event = $rs->fetchRow()) {
             $pictureArray = [];
-
             //  テーブル'pictures'の中から各イベントのファイル名を読み込む
             $sql = "SELECT * FROM pictures WHERE event_id = $1";
             $prs = $db->query($sql, $event['id']);
             while ($picture = $prs->fetchRow()) {
-                $pictureArray[] = $picure['event_id'];
+                $pictureArray[] = $picture['filename'];
             }
             if($pictureArray){
               $eventArray[] = [
@@ -73,13 +72,14 @@ class Sharepictures_Action_Show extends Sharepictures_ActionClass
               'release_date'    =>    $event['release_date'],
               'end_date'    =>    $event['end_date'],
               'authentication_key'    =>  $event['authentication_key'],
-              'picture_array'   =>    $pictureArray
+              'picture_array'   =>    $pictureArray,
+              'count'   =>    count($pictureArray)
             ];
             }
         }
         // セッションの開始
-        //$this->session->set('edit', $eventArray);
-        //$this->session->start();
+        $this->session->set('edit', $eventArray);
+        $this->session->start();
 
 
         return 'show';

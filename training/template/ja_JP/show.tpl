@@ -4,6 +4,6 @@
     {$event.title}
     <br />
     公開期間：{$event.release_date}〜{$event.end_date}　写真枚数：{$event.count}　認証キー：{$event.authentication_key}
+    <a href="?action_edit=true">編集</a>
     {/foreach}
-    <a href="">編集</a>
   </p>
