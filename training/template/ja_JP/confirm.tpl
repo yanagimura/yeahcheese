@@ -8,7 +8,7 @@
    </p>
    <p>
     {foreach from=$app.picture_array item=picture}
-        <img src="{$picture}" width="200" height="200">
+        <img src="{$picture}" width="200" height="200" style="object-fit: cover;">
     {/foreach}
    </p>
    <p>
