@@ -51,6 +51,37 @@ class Sharepictures_Action_Show extends Sharepictures_ActionClass
      */
     public function perform()
     {
+        //  テーブル'events'の中からログインユーザのテーブルを読み込む
+
+        $db = $this->backend->getDB();
+        $eventArray = [];
+        $sql = "SELECT * FROM events WHERE user_id = $1";
+        $rs = $db->query($sql, $this->session->get('login')['id']);
+
+        while ($event = $rs->fetchRow()) {
+            $pictureArray = [];
+
+            //  テーブル'pictures'の中から各イベントのファイル名を読み込む
+            $sql = "SELECT * FROM pictures WHERE event_id = $1";
+            $prs = $db->query($sql, $event['id']);
+            while ($picture = $prs->fetchRow()) {
+                $pictureArray[] = $picure['event_id'];
+            }
+            if($pictureArray){
+              $eventArray[] = [
+              'title'   =>    $event['title'],
+              'release_date'    =>    $event['release_date'],
+              'end_date'    =>    $event['end_date'],
+              'authentication_key'    =>  $event['authentication_key'],
+              'picture_array'   =>    $pictureArray
+            ];
+            }
+        }
+        // セッションの開始
+        //$this->session->set('edit', $eventArray);
+        //$this->session->start();
+
+
         return 'show';
     }
 
