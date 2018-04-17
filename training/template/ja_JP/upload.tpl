@@ -10,5 +10,5 @@
      <div name="authentication_key">認証キー：{$app.authentication_key}</div>
    </p>
    <p>
-     <a href="http://localhost:8000/?action_home=true">ホームへ</a>
+     <a href="?action_home=true">ホームへ</a>
    </p>
