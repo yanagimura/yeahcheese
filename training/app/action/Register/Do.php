@@ -1,7 +1,4 @@
 <?php
-
-require_once('adodb5/adodb.inc.php');
-
 /**
  *  Register/Do.php
  *
