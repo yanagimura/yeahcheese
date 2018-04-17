@@ -13,7 +13,7 @@
      <input type="file" accept="image/jpeg" name="picture_array[]" multiple value="{$form.picture_array}">{message name="picture_array"}</input><br/>
      <ul>
        <li>
-         jpegのみ
+         .jpegまたは.jpgのみ
        </li>
        <li>
          1枚5MB以下
