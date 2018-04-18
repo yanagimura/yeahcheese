@@ -24,7 +24,6 @@ class Sharepictures_Form_Edit extends Sharepictures_ActionForm
     public $form = [
         'eventno'   =>    [
             'type'    =>    VAR_TYPE_STRING,
-            'required'    =>    'true',
         ],
         'title'   =>    [
             'name'    =>    'タイトル',
@@ -48,7 +47,6 @@ class Sharepictures_Form_Edit extends Sharepictures_ActionForm
             'name'    =>    '写真',
             'type'    =>    [VAR_TYPE_FILE],
             'form_type'   =>    FORM_TYPE_FILE, FORM_TYPE_SELECT,
-            'required'    =>    'true',
         ],
     ];
 }
@@ -71,7 +69,10 @@ class Sharepictures_Action_Edit extends Sharepictures_ActionClass
      */
     public function prepare()
     {
+
+
         if ($this->session->get('edit') === null) {
+
             //  この時点で、存在しないイベントのURLが投げられている事が発覚したら、一覧画面に返される
             $eventArray = $this->session->get('show');
             $eventId = array_search($this->af->get('eventno'), array_column($eventArray, 'id'));
@@ -83,9 +84,9 @@ class Sharepictures_Action_Edit extends Sharepictures_ActionClass
             $this->session->start('edit');
             return null;
         } else {
-            var_dump($this->session->get('edit'));
             //  セッションが始まっている時は、未入力ありまたは更新処理であると考えられる
             if ($this->af->validate() > 0) {
+              var_dump($this->af->get('title'));
               //  だから未入力項目があれば、エラーを表示する
                 return 'edit';
             }
