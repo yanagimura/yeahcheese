@@ -71,16 +71,28 @@ class Sharepictures_Action_Edit extends Sharepictures_ActionClass
      */
     public function prepare()
     {
-        //  フォームに初期値が設定されていない時は、エラーメッセージを表示しない
-        if ($this->af->form['title']['default'] === null && $this->af->form['release_date']['default'] === null
-            && $this->af->form['end_date']['default'] === null) {
-                return null;
+        if ($this->session->get('edit') === null) {
+            //  この時点で、存在しないイベントのURLが投げられている事が発覚したら、一覧画面に返される
+            $eventArray = $this->session->get('show');
+            $eventId = array_search($this->af->get('eventno'), array_column($eventArray, 'id'));
+            if (!$eventId) {
+                return 'show';
             }
+            //   存在するイベントのURLならば、初期化処理に入る
+            $this->session->set('edit', $eventArray[$eventId]);
+            $this->session->start('edit');
+            return null;
+        } else {
+            var_dump($this->session->get('edit'));
+            //  セッションが始まっている時は、未入力ありまたは更新処理であると考えられる
+            if ($this->af->validate() > 0) {
+              //  だから未入力項目があれば、エラーを表示する
+                return 'edit';
+            }
+            //  ここまで通ったということは更新処理である
+        }
 
-        if ($this->af->validate() > 0) {
-          // forward to error view (this is sample)
-              return 'edit';
-          }
+
         return null;
     }
 
@@ -92,21 +104,6 @@ class Sharepictures_Action_Edit extends Sharepictures_ActionClass
      */
     public function perform()
     {
-        $eventArray = $this->session->get('show');
-        $eventId = array_search($this->af->get('eventno'), array_column($eventArray, 'id'));
-
-        //  存在しないイベントのURLが投げられたら一覧画面に返される
-        if (!$eventId) {
-            return 'show';
-        }
-
-        $this->session->set('edit', $eventArray[$eventId]);
-        $this->session->start('edit');
-
-        echo '<pre>';
-                var_dump($this->session->get('edit'));
-        echo '</pre>';
-
         return 'edit';
     }
 
