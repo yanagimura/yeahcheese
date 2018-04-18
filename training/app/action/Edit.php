@@ -51,22 +51,6 @@ class Sharepictures_Form_Edit extends Sharepictures_ActionForm
             'required'    =>    'true',
         ],
     ];
-
-
-    /**
-     *  Form input value convert filter : sample
-     *
-     *  @access protected
-     *  @param  mixed   $value  Form Input Value
-     *  @return mixed           Converted result.
-     */
-    /*
-    protected function _filter_sample($value)
-    {
-        //  convert to upper case.
-        return strtoupper($value);
-    }
-    */
 }
 
 /**
@@ -87,6 +71,7 @@ class Sharepictures_Action_Edit extends Sharepictures_ActionClass
      */
     public function prepare()
     {
+        //  フォームに初期値が設定されていない時は、エラーメッセージを表示しない
         if ($this->af->form['title']['default'] === null && $this->af->form['release_date']['default'] === null
             && $this->af->form['end_date']['default'] === null) {
                 return null;
@@ -109,6 +94,12 @@ class Sharepictures_Action_Edit extends Sharepictures_ActionClass
     {
         $eventArray = $this->session->get('show');
         $eventId = array_search($this->af->get('eventno'), array_column($eventArray, 'id'));
+
+        //  存在しないイベントのURLが投げられたら一覧画面に返される
+        if (!$eventId) {
+            return 'show';
+        }
+
         $this->session->set('edit', $eventArray[$eventId]);
         $this->session->start('edit');
 
