@@ -42,6 +42,7 @@ class Sharepictures_Form_Edit extends Sharepictures_ActionForm
             'name'    =>    '公開終了日',
             'type'    =>    VAR_TYPE_DATE,
             'required'    =>    'true',
+            'custom'    =>    'checkDateInterval',
         ],
         'new_picture_array'   =>    [
             'name'    =>    '写真',
@@ -50,6 +51,24 @@ class Sharepictures_Form_Edit extends Sharepictures_ActionForm
             'custom'    =>    'checkFileSize',
         ],
     ];
+    /**
+     *  公開日数のバリデーション
+     *
+     *  @access public
+     *  @param string $end_date
+     */
+    public function checkDateInterval($endDate)
+    {
+        $eDate = new Datetime($this->form_vars[$endDate]);
+        $rDate = new DateTime($this->form_vars['release_date']);
+        //$interval = ($eDate - $rDate) / (60 * 60 * 24);
+        var_dump($eDate);
+        var_dump($rDate);
+        if ($eDate < $rDate) {
+            $this->ae->add($endDate, '公開開始日より後の日付を選択してください', E_FORM_INVALIDVALUE);
+        }
+
+    }
     /**
      *  ファイルサイズのバリデーション
      *
