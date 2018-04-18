@@ -19,8 +19,8 @@ class Sharepictures_Form_Edit extends Sharepictures_ActionForm
      *  @access protected
      *  @var    array   form definition.
      */
-     const MIN_LENGTH = 3;
-     const MAX_LENGTH = 20;
+    const MIN_LENGTH = 3;
+    const MAX_LENGTH = 20;
     public $form = [
         'eventno'   =>    [
             'type'    =>    VAR_TYPE_STRING,
@@ -87,10 +87,15 @@ class Sharepictures_Action_Edit extends Sharepictures_ActionClass
      */
     public function prepare()
     {
-      if ($this->af->validate() > 0) {
+        if ($this->af->form['title']['default'] === null && $this->af->form['release_date']['default'] === null
+            && $this->af->form['end_date']['default'] === null) {
+                return null;
+            }
+
+        if ($this->af->validate() > 0) {
           // forward to error view (this is sample)
-          return 'edit';
-      }
+              return 'edit';
+          }
         return null;
     }
 

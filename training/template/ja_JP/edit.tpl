@@ -7,14 +7,14 @@
     イベント名：{form_input name="title"}{message name="title"}
   </p>
   <p>
-    公開開始日：{form_input type="date" name="release_date"}
+    公開開始日：{form_input type="date" name="release_date"}{message name="release_date"}
   </p>
   <p>
-    公開終了日：{form_input type="date" name="end_date"}</input>
+    公開終了日：{form_input type="date" name="end_date"}{message name="end_date"}
   </p>
   <p>
     追加ファイル：
-    {form_input type="file" multiple="multiple" name="picture_array"}
+    {form_input type="file" multiple="multiple" name="picture_array"}{message name="picture_array"}
     <ul>
       <li>
         .jpeg または .jpgのみ
