@@ -47,8 +47,24 @@ class Sharepictures_Form_Edit extends Sharepictures_ActionForm
             'name'    =>    '写真',
             'type'    =>    [VAR_TYPE_FILE],
             'form_type'   =>    FORM_TYPE_FILE, FORM_TYPE_SELECT,
+            'custom'    =>    'checkFileSize',
         ],
     ];
+    /**
+     *  ファイル拡張子のバリデーション
+     *
+     *  @access public
+     *  @param array $picture_array
+     */
+    public function checkFileSize($pictureArray)
+    {
+        foreach ($this->form_vars[$pictureArray] as $picture) {
+            if ($picture['size'] > 5000000) {
+                $this->ae->add($pictureArray, 'ファイルサイズが大き過ぎます。', E_FORM_INVALIDVALUE);
+            }
+        }
+    }
+
 }
 
 /**
@@ -69,10 +85,7 @@ class Sharepictures_Action_Edit extends Sharepictures_ActionClass
      */
     public function prepare()
     {
-
-
         if ($this->session->get('edit') === null) {
-
             //  この時点で、存在しないイベントのURLが投げられている事が発覚したら、一覧画面に返される
             $eventArray = $this->session->get('show');
             $eventId = array_search($this->af->get('eventno'), array_column($eventArray, 'id'));
@@ -86,11 +99,16 @@ class Sharepictures_Action_Edit extends Sharepictures_ActionClass
         } else {
             //  セッションが始まっている時は、未入力ありまたは更新処理であると考えられる
             if ($this->af->validate() > 0) {
-              var_dump($this->af->get('title'));
               //  だから未入力項目があれば、エラーを表示する
                 return 'edit';
             }
             //  ここまで通ったということは更新処理である
+            echo '<pre>';
+              var_dump($this->session->get('edit'));
+                          echo '</pre>';
+            if ($this->session->get('edit')['title'] !== $this->af->get('title')) {
+
+            }
         }
 
 
