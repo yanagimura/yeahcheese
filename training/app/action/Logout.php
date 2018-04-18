@@ -51,7 +51,7 @@ class Sharepictures_Action_Logout extends Sharepictures_ActionClass
      */
     public function perform()
     {
-        $this->session->destroy();
-          return 'login';
+        $this->session->remove('login');
+        return 'login';
     }
 }

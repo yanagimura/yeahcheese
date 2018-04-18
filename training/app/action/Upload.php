@@ -51,8 +51,8 @@ class Sharepictures_Action_Upload extends Sharepictures_ActionClass
      */
     public function perform()
     {
-        $this->session->destroy('create');
-        $this->session->destroy('authSession');
+        $this->session->remove('create');
+        $this->session->remove('authSession');
         return 'home';
     }
 }

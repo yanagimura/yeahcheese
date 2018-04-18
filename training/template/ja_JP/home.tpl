@@ -7,5 +7,5 @@
     <a href="http://localhost:8000/?action_show=true">イベント一覧</a>
   </p>
   <p>
-    <a href="http://localhost:8000/?action_login=true">ログアウト</a>
+    <a href="http://localhost:8000/?action_logout=true">ログアウト</a>
   </p>

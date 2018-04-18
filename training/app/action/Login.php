@@ -58,7 +58,7 @@ class Sharepictures_Action_Login extends Sharepictures_ActionClass
     public function prepare()
     {
         if ($this->session->isStart('login')) {
-            unset($_SESSION['login']);
+            $this->session->remove('login');
         }
         return null;
     }
