@@ -1,19 +1,20 @@
-<form action="." method="post" enctype="multipart/form-data">
+{form enctype="file" ethna_action="edit"}
   <h2>イベント内容編集</h2>
   <p>
     認証キー：{$app.authentication_key}
   </p>
   <p>
-    イベント名：<input type="text" name="title" value="{$form.title}" default="">{message name="title"}{$app.title}</input>
+    イベント名：{form_input name="title"}{message name="title"}
   </p>
   <p>
-    公開開始日：<input type="date" name="release_date" value="{$form.release_date}">{message name="release_date"}{$app.release_date}</input>
+    公開開始日：{form_input type="date" name="release_date"}
   </p>
   <p>
-    公開終了日：<input type="date" name="end_date" value="{$form.end_date}">{message name="end_date"}{$app.end_date}</input>
+    公開終了日：{form_input type="date" name="end_date"}</input>
   </p>
   <p>
-    追加ファイル：<input type="file" accept="image/jpeg" name="picture_array[]" multiple value="{$form.picture_array}">{message name="picture_array"}</input><br/>
+    追加ファイル：
+    {form_input type="file" multiple="multiple" name="picture_array"}
     <ul>
       <li>
         .jpeg または .jpgのみ
@@ -28,9 +29,8 @@
   </p>
   <p>
     {foreach from=$app.picture_array item=picture}
-    <img src="images/tmp/thumb/{$picture}" />
-    <input type="submit" name="delete" value="削除" />
-    <br />
+    <img src="{$picture}" width="200" height="200" style="object-fit: cover;"/>
+    <input type="submit" name="delete" value="削除" />&emsp;
     {/foreach}
   </p>
-</form>
+{/form}
