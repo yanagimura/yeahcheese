@@ -95,5 +95,8 @@ class Sharepictures_Action_Show extends Sharepictures_ActionClass
         if (!$this->session->isStart('login')) {
             return 'login';
         }
+        if ($this->session->isStart('edit')) {
+            $this->session->remove('edit');
+        }
     }
 }
