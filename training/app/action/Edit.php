@@ -43,7 +43,7 @@ class Sharepictures_Form_Edit extends Sharepictures_ActionForm
             'type'    =>    VAR_TYPE_DATE,
             'required'    =>    'true',
         ],
-        'picture_array'   =>    [
+        'new_picture_array'   =>    [
             'name'    =>    '写真',
             'type'    =>    [VAR_TYPE_FILE],
             'form_type'   =>    FORM_TYPE_FILE, FORM_TYPE_SELECT,
@@ -51,7 +51,7 @@ class Sharepictures_Form_Edit extends Sharepictures_ActionForm
         ],
     ];
     /**
-     *  ファイル拡張子のバリデーション
+     *  ファイルサイズのバリデーション
      *
      *  @access public
      *  @param array $picture_array
@@ -94,7 +94,6 @@ class Sharepictures_Action_Edit extends Sharepictures_ActionClass
             }
             //   存在するイベントのURLならば、初期化処理に入る
             $this->session->set('edit', $eventArray[$eventId]);
-            $this->session->start('edit');
             return null;
         } else {
             //  セッションが始まっている時は、未入力ありまたは更新処理であると考えられる
@@ -102,16 +101,40 @@ class Sharepictures_Action_Edit extends Sharepictures_ActionClass
               //  だから未入力項目があれば、エラーを表示する
                 return 'edit';
             }
-            //  ここまで通ったということは更新処理である
-            echo '<pre>';
-              var_dump($this->session->get('edit'));
-                          echo '</pre>';
-            if ($this->session->get('edit')['title'] !== $this->af->get('title')) {
-
+            //  テーブル更新処理を行う
+            $newEventArray = $this->session->get('edit');
+            $db = $this->backend->getDB();
+            if (count($this->af->get('new_picture_array')) > 0 && $this->af->get('new_picture_array')[0]['name'] !== '') {
+                $sql = "INSERT INTO pictures(filename, event_id) VALUES($1, $2)";
+                foreach ($this->af->get('new_picture_array') as $picture) {
+                  //  画像ファイルを保存
+                  $uploadfile = 'images/tmp/' . basename($picture['name']);
+                  move_uploaded_file($picture['tmp_name'], $uploadfile);
+                  array_push($newEventArray['picture_array'], $uploadfile);
+                  $db->query($sql, [$uploadfile, $newEventArray['id']]);
+                }
             }
+            if ($newEventArray['title'] !== $this->af->get('title')) {
+              $sql = "UPDATE events SET title = $1 WHERE title = $2 AND id = $3 AND user_id = $4 ";
+              $db->query($sql, [$this->af->get('title'), $newEventArray['title'], $newEventArray['id'], $this->session->get('login')['id']]);
+              $newEventArray['title'] = $this->af->get('title');
+            }
+            if ($newEventArray['release_date'] !== $this->af->get('release_date')) {
+              $sql = "UPDATE events SET release_date = $1 WHERE title = $2 AND id = $3 AND user_id = $4 ";
+              $db->query($sql, [$this->af->get('release_date'), $newEventArray['title'], $newEventArray['id'], $this->session->get('login')['id']]);
+              $newEventArray['release_date'] = $this->af->get('release_date');
+            }
+            if ($newEventArray['end_date'] !== $this->af->get('end_date')) {
+              $sql = "UPDATE events SET end_date = $1 WHERE title = $2 AND id = $3 AND user_id = $4 ";
+              $db->query($sql, [$this->af->get('end_date'), $newEventArray['title'], $newEventArray['id'], $this->session->get('login')['id']]);
+              $newEventArray['end_date'] = $this->af->get('end_date');
+            }
+            $this->session->set('edit', $newEventArray);
+
+                          echo '<pre>';
+                            var_dump($this->session->get('edit'));
+                                        echo '</pre>';
         }
-
-
         return null;
     }
 
