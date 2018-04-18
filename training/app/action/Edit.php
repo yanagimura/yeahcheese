@@ -19,11 +19,36 @@ class Sharepictures_Form_Edit extends Sharepictures_ActionForm
      *  @access protected
      *  @var    array   form definition.
      */
+     const MIN_LENGTH = 3;
+     const MAX_LENGTH = 20;
     public $form = [
-        'eventno' => [
-          'type' => VAR_TYPE_STRING,
-          'required' =>  'true',
-    //      'custom' => 'CheckId',
+        'eventno'   =>    [
+            'type'    =>    VAR_TYPE_STRING,
+            'required'    =>    'true',
+        ],
+        'title'   =>    [
+            'name'    =>    'タイトル',
+            'type'    =>    VAR_TYPE_STRING,
+            'form_type'   =>    FORM_TYPE_TEXT,
+            'required'    =>    'true',
+            'min'   =>    self::MIN_LENGTH,
+            'max'   =>    self::MAX_LENGTH,
+        ],
+        'release_date'    =>    [
+            'name'    =>    '公開開始日',
+            'type'    =>    VAR_TYPE_DATE,
+            'required'    =>    'true',
+        ],
+        'end_date'    =>    [
+            'name'    =>    '公開終了日',
+            'type'    =>    VAR_TYPE_DATE,
+            'required'    =>    'true',
+        ],
+        'picture_array'   =>    [
+            'name'    =>    '写真',
+            'type'    =>    [VAR_TYPE_FILE],
+            'form_type'   =>    FORM_TYPE_FILE, FORM_TYPE_SELECT,
+            'required'    =>    'true',
         ],
     ];
 
@@ -62,7 +87,10 @@ class Sharepictures_Action_Edit extends Sharepictures_ActionClass
      */
     public function prepare()
     {
-
+      if ($this->af->validate() > 0) {
+          // forward to error view (this is sample)
+          return 'edit';
+      }
         return null;
     }
 
