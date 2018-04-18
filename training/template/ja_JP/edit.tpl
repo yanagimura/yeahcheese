@@ -14,7 +14,7 @@
   </p>
   <p>
     追加ファイル：
-    {form_input type="file" multiple="multiple" name="picture_array"}{message name="picture_array"}
+    {form_input type="file" accept="image/jpeg" multiple="multiple" name="picture_array"}{message name="picture_array"}
     <ul>
       <li>
         .jpeg または .jpgのみ
