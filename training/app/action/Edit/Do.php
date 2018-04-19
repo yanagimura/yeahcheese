@@ -20,7 +20,7 @@ class Sharepictures_Form_EditDo extends Sharepictures_Form_CreateDo
      *  @access protected
      *  @var    array   form definition.
      */
-    public $form = [];
+
 }
 
 /**
@@ -30,7 +30,7 @@ class Sharepictures_Form_EditDo extends Sharepictures_Form_CreateDo
  *  @access     public
  *  @package    Sharepictures
  */
-class Sharepictures_Action_EditDo extends Sharepictures_ActionClass
+class Sharepictures_Action_EditDo extends Sharepictures_Action_CreateDo
 {
     /**
      *  preprocess of edit_do Action.
@@ -41,10 +41,11 @@ class Sharepictures_Action_EditDo extends Sharepictures_ActionClass
      */
     public function prepare()
     {
+
         if ($this->af->validate() > 0) {
-          // forward to error view (this is sample)
             return 'edit';
           }
+
         return null;
     }
 
@@ -56,11 +57,14 @@ class Sharepictures_Action_EditDo extends Sharepictures_ActionClass
      */
     public function perform()
     {
+
+      // forward to error view (this is sample)
+
       $newEventArray = $this->session->get('edit');
       $db = $this->backend->getDB();
-      var_dump($this->af->get('new_picture_array'));
 
-      if ($this->af->get('new_picture_array')[0]['name'] !== '') {
+
+      if ($this->af->get('new_picture_array') !== null) {
           foreach ($this->af->get('new_picture_array') as $picture) {
               //  画像ファイルを保存
               $uploadfile = 'images/tmp/' . basename($picture['name']);
@@ -93,6 +97,7 @@ class Sharepictures_Action_EditDo extends Sharepictures_ActionClass
               }
           }
       }
+
       //  タイトル、日付をそれぞれ更新する
       if ($newEventArray['title'] !== $this->af->get('title')) {
           $sql = "UPDATE events SET title = $1 WHERE title = $2 AND id = $3 AND user_id = $4 ";
