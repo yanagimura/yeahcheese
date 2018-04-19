@@ -20,7 +20,6 @@ class Sharepictures_Form_EditDo extends Sharepictures_Form_CreateDo
      *  @access protected
      *  @var    array   form definition.
      */
-
 }
 
 /**
@@ -43,6 +42,9 @@ class Sharepictures_Action_EditDo extends Sharepictures_Action_CreateDo
     {
 
         if ($this->af->validate() > 0) {
+          echo '<pre>';
+          var_dump($this->af);
+            echo '</pre>';
             return 'edit';
           }
 
@@ -62,10 +64,8 @@ class Sharepictures_Action_EditDo extends Sharepictures_Action_CreateDo
 
       $newEventArray = $this->session->get('edit');
       $db = $this->backend->getDB();
-
-
-      if ($this->af->get('new_picture_array') !== null) {
-          foreach ($this->af->get('new_picture_array') as $picture) {
+      if ($this->af->get('picture_array') !== null) {
+          foreach ($this->af->get('picture_array') as $picture) {
               //  画像ファイルを保存
               $uploadfile = 'images/tmp/' . basename($picture['name']);
               move_uploaded_file($picture['tmp_name'], $uploadfile);
