@@ -99,6 +99,7 @@ class Sharepictures_Action_Edit extends Sharepictures_ActionClass
      */
     public function prepare()
     {
+
         if ($this->session->get('edit') === null) {
             //  この時点で、存在しないイベントのURLが投げられている事が発覚したら、一覧画面に返される
             $eventArray = $this->session->get('show');
@@ -115,6 +116,26 @@ class Sharepictures_Action_Edit extends Sharepictures_ActionClass
               //  だから未入力項目があれば、エラーを表示する
                 return 'edit';
             }
+        }
+        return null;
+    }
+
+    /**
+     *  edit action implementation.
+     *
+     *  @access public
+     *  @return string  forward name.
+     */
+    public function perform()
+    {
+
+        if ($this->af->get('title') === null) {
+
+            // 初期化処理
+            $this->af->form['title']['default'] = $this->session->get('edit')['title'];
+            $this->af->form['release_date']['default'] = $this->session->get('edit')['release_date'];
+            $this->af->form['end_date']['default'] = $this->session->get('edit')['end_date'];
+        } else {
             //  テーブル更新処理を行う
             $newEventArray = $this->session->get('edit');
             $db = $this->backend->getDB();
@@ -130,23 +151,25 @@ class Sharepictures_Action_Edit extends Sharepictures_ActionClass
 
                     $sql = "SELECT * FROM pictures ORDER BY id DESC LIMIT 1";
                     array_push($newEventArray['picture_array'], [
-                        'id'    =>    $db->getRow($sql)['id'],
-                        'filename'    =>    $db->getRow($sql)['filename'],
-                        'event_id'    =>    $db->getRow($sql)['event_id'],
+                    'id'    =>    $db->getRow($sql)['id'],
+                    'filename'    =>    $db->getRow($sql)['filename'],
+                    'event_id'    =>    $db->getRow($sql)['event_id'],
                     ]);
                 }
             } else {
-                //  チェックされた写真の削除処理を行う
+            //  チェックされた写真の削除処理を行う
                 if (isset($_POST['delete'])) {
                     if (isset($_POST['picture']) && is_array($_POST['picture'])) {
-                        $newPictureArray = $newEventArray['picture_array'];
                         foreach ($_POST['picture'] as $pictureId) {
                             $sql = "DELETE FROM pictures WHERE id = $1";
                             $db->query($sql, $pictureId);
-                            $deleteId = array_search($newEventArray['picture_array'], array_column($pictureId, 'id'));
-                            array_splice($newPictureArray, $deleteId, 1);
+                            $deleteId = array_search($pictureId, array_column($newEventArray['picture_array'], 'id'));
+                            echo '<pre>';
+                            var_dump($pictureId);
+                            var_dump($deleteId);
+                              echo '</pre>';
+                            unset($newEventArray['picture_array'][$deleteId]);
                         }
-                        $newEventArray['picture_array'] = $newPictureArray;
                     }
                 }
             }
@@ -166,19 +189,9 @@ class Sharepictures_Action_Edit extends Sharepictures_ActionClass
                 $db->query($sql, [$this->af->get('end_date'), $newEventArray['title'], $newEventArray['id'], $this->session->get('login')['id']]);
                 $newEventArray['end_date'] = $this->af->get('end_date');
             }
+
             $this->session->set('edit', $newEventArray);
         }
-        return null;
-    }
-
-    /**
-     *  edit action implementation.
-     *
-     *  @access public
-     *  @return string  forward name.
-     */
-    public function perform()
-    {
         return 'edit';
     }
 
