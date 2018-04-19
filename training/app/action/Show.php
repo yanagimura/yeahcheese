@@ -64,7 +64,7 @@ class Sharepictures_Action_Show extends Sharepictures_ActionClass
             $sql = "SELECT * FROM pictures WHERE event_id = $1";
             $prs = $db->query($sql, $event['id']);
             while ($picture = $prs->fetchRow()) {
-                $pictureArray[] = $picture['filename'];
+                $pictureArray[] = $picture;
             }
             if($pictureArray){
               $eventArray[] = [

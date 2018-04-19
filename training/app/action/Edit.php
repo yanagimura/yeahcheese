@@ -122,13 +122,15 @@ class Sharepictures_Action_Edit extends Sharepictures_ActionClass
             $db = $this->backend->getDB();
 
             if ($this->af->get('new_picture_array')[0]['name'] !== '') {
-                $sql = "INSERT INTO pictures(filename, event_id) VALUES($1, $2)";
+
                 foreach ($this->af->get('new_picture_array') as $picture) {
                     //  画像ファイルを保存
                     $uploadfile = 'images/tmp/' . basename($picture['name']);
                     move_uploaded_file($picture['tmp_name'], $uploadfile);
+                    $sql = "INSERT INTO pictures(filename, event_id) VALUES($1, $2)";
                     $db->query($sql, [$uploadfile, $newEventArray['id']]);
                     //  セッションにも追加情報を反映
+
                     $sql = "SELECT * FROM pictures ORDER BY id DESC LIMIT 1";
                     array_push($newEventArray['picture_array'], [
                         'id'    =>    $db->getRow($sql)['id'],
@@ -139,14 +141,22 @@ class Sharepictures_Action_Edit extends Sharepictures_ActionClass
             } else {
                 if (isset($_POST['delete'])) {
                     //  選択された写真の削除処理
+                    echo '<pre>';
+                    var_dump($newEventArray['picture_array']);
+                    echo '</pre>';
                     if (isset($_POST['picture']) && is_array($_POST['picture'])){
+                        $newPictureArray = $newEventArray['picture_array'];
                         foreach ($_POST['picture'] as $pictureId) {
                             $sql = "DELETE FROM pictures WHERE id = $1";
                             $db->query($sql, $pictureId);
                             $deleteId = array_search($newEventArray['picture_array'], array_column($pictureId, 'id'));
-                            array_splice($newEventArray['picture_array'], $deleteId - 1 , 1);
+                            array_splice($newPictureArray, $deleteId, 1);
                             }
+                        $newEventArray['picture_array'] = $newPictureArray;
                     }
+                    echo '<pre>';
+                    var_dump($newEventArray['picture_array']);
+                    echo '</pre>';
                 }
             }
             if ($newEventArray['title'] !== $this->af->get('title')) {
