@@ -61,9 +61,6 @@ class Sharepictures_Form_Edit extends Sharepictures_ActionForm
     {
         $eDate = new Datetime($this->form_vars[$endDate]);
         $rDate = new DateTime($this->form_vars['release_date']);
-        //$interval = ($eDate - $rDate) / (60 * 60 * 24);
-        var_dump($eDate);
-        var_dump($rDate);
         if ($eDate < $rDate) {
             $this->ae->add($endDate, '公開開始日より後の日付を選択してください', E_FORM_INVALIDVALUE);
         }
@@ -126,11 +123,17 @@ class Sharepictures_Action_Edit extends Sharepictures_ActionClass
             if (count($this->af->get('new_picture_array')) > 0 && $this->af->get('new_picture_array')[0]['name'] !== '') {
                 $sql = "INSERT INTO pictures(filename, event_id) VALUES($1, $2)";
                 foreach ($this->af->get('new_picture_array') as $picture) {
-                  //  画像ファイルを保存
-                  $uploadfile = 'images/tmp/' . basename($picture['name']);
-                  move_uploaded_file($picture['tmp_name'], $uploadfile);
-                  array_push($newEventArray['picture_array'], $uploadfile);
-                  $db->query($sql, [$uploadfile, $newEventArray['id']]);
+                    //  画像ファイルを保存
+                    $uploadfile = 'images/tmp/' . basename($picture['name']);
+                    move_uploaded_file($picture['tmp_name'], $uploadfile);
+                    $db->query($sql, [$uploadfile, $newEventArray['id']]);
+                    //  セッションにも追加情報を反映
+                    $sql = "SELECT * FROM pictures ORDER BY id DESC LIMIT 1";
+                    array_push($newEventArray['picture_array'], [
+                        'id'    =>    $db->getRow($sql)['id'],
+                        'filename'    =>    $db->getRow($sql)['filename'],
+                        'event_id'    =>    $db->getRow($sql)['event_id'],
+                    ]);
                 }
             }
             if ($newEventArray['title'] !== $this->af->get('title')) {
@@ -149,10 +152,6 @@ class Sharepictures_Action_Edit extends Sharepictures_ActionClass
               $newEventArray['end_date'] = $this->af->get('end_date');
             }
             $this->session->set('edit', $newEventArray);
-
-                          echo '<pre>';
-                            var_dump($this->session->get('edit'));
-                                        echo '</pre>';
         }
         return null;
     }
