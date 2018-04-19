@@ -17,9 +17,21 @@ require_once('action/Create/Do.php');
 class Sharepictures_Form_EditDo extends Sharepictures_Form_CreateDo
 {
     /**
-     *  @access protected
-     *  @var    array   form definition.
-     */
+    * フォーム定義変更用、ユーザ定義ヘルパメソッド
+    *
+    * 
+    *
+    * @access public
+    */
+    function setFormDef_PreHelper()
+    {
+        $picArrayDef = [
+            'name' => '写真',
+            'type' => [VAR_TYPE_FILE],
+            'custom' => 'checkFile',
+          ];
+        $this->setDef("picture_array", $def);
+    }
 }
 
 /**
@@ -57,17 +69,14 @@ class Sharepictures_Action_EditDo extends Sharepictures_Action_CreateDo
      */
     public function perform()
     {
+        $newEventArray = $this->session->get('edit');
+        $db = $this->backend->getDB();
+        if ($this->af->get('picture_array') !== null && $this->af->get('picture_array')[0]['name'] !== "") {
 
-      // forward to error view (this is sample)
-
-      $newEventArray = $this->session->get('edit');
-      $db = $this->backend->getDB();
-      if ($this->af->get('picture_array') !== null && $this->af->get('picture_array')[0]['name'] !== "") {
-
-          foreach ($this->af->get('picture_array') as $picture) {
-              //  画像ファイルを保存
-              $uploadfile = 'images/tmp/' . basename($picture['name']);
-              move_uploaded_file($picture['tmp_name'], $uploadfile);
+            foreach ($this->af->get('picture_array') as $picture) {
+                //  画像ファイルを保存
+                $uploadfile = 'images/tmp/' . basename($picture['name']);
+                move_uploaded_file($picture['tmp_name'], $uploadfile);
               $sql = "INSERT INTO pictures(filename, event_id) VALUES($1, $2)";
               $db->query($sql, [$uploadfile, $newEventArray['id']]);
               //  セッションにも追加情報を反映
@@ -81,7 +90,6 @@ class Sharepictures_Action_EditDo extends Sharepictures_Action_CreateDo
           }
       } else {
       //  チェックされた写真の削除処理を行う
-
               if (isset($_POST['picture']) && is_array($_POST['picture'])) {
                   foreach ($_POST['picture'] as $pictureId) {
                       $sql = "DELETE FROM pictures WHERE id = $1";
