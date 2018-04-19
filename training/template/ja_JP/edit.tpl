@@ -25,7 +25,9 @@
     </ul>
   </p>
   <p>
-    <input type="submit" name="update" value="更新" /><br /><br />
+    <input type="submit" name="update" value="更新" />&emsp;
+    <a href="?action_show=true">一覧へ戻る</a>
+    <br /><br />
     <input type="submit" name="delete" value="削除" />
   </p>
   <p>

@@ -141,9 +141,6 @@ class Sharepictures_Action_Edit extends Sharepictures_ActionClass
             } else {
                 if (isset($_POST['delete'])) {
                     //  選択された写真の削除処理
-                    echo '<pre>';
-                    var_dump($newEventArray['picture_array']);
-                    echo '</pre>';
                     if (isset($_POST['picture']) && is_array($_POST['picture'])){
                         $newPictureArray = $newEventArray['picture_array'];
                         foreach ($_POST['picture'] as $pictureId) {
@@ -154,9 +151,6 @@ class Sharepictures_Action_Edit extends Sharepictures_ActionClass
                             }
                         $newEventArray['picture_array'] = $newPictureArray;
                     }
-                    echo '<pre>';
-                    var_dump($newEventArray['picture_array']);
-                    echo '</pre>';
                 }
             }
             if ($newEventArray['title'] !== $this->af->get('title')) {
