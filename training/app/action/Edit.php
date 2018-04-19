@@ -120,7 +120,8 @@ class Sharepictures_Action_Edit extends Sharepictures_ActionClass
             //  テーブル更新処理を行う
             $newEventArray = $this->session->get('edit');
             $db = $this->backend->getDB();
-            if (count($this->af->get('new_picture_array')) > 0 && $this->af->get('new_picture_array')[0]['name'] !== '') {
+
+            if ($this->af->get('new_picture_array')[0]['name'] !== '') {
                 $sql = "INSERT INTO pictures(filename, event_id) VALUES($1, $2)";
                 foreach ($this->af->get('new_picture_array') as $picture) {
                     //  画像ファイルを保存
@@ -134,6 +135,18 @@ class Sharepictures_Action_Edit extends Sharepictures_ActionClass
                         'filename'    =>    $db->getRow($sql)['filename'],
                         'event_id'    =>    $db->getRow($sql)['event_id'],
                     ]);
+                }
+            } else {
+                if (isset($_POST['delete'])) {
+                    //  選択された写真の削除処理
+                    if (isset($_POST['picture']) && is_array($_POST['picture'])){
+                        foreach ($_POST['picture'] as $pictureId) {
+                            $sql = "DELETE FROM pictures WHERE id = $1";
+                            $db->query($sql, $pictureId);
+                            $deleteId = array_search($newEventArray['picture_array'], array_column($pictureId, 'id'));
+                            array_splice($newEventArray['picture_array'], $deleteId - 1 , 1);
+                            }
+                    }
                 }
             }
             if ($newEventArray['title'] !== $this->af->get('title')) {

@@ -14,7 +14,7 @@
   </p>
   <p>
     追加ファイル：
-    {form_input type="file" accept="image/jpeg" multiple="multiple" name="picture_array"}{message name="picture_array"}
+    {form_input type="file" accept="image/jpeg" multiple="multiple" name="new_picture_array"}{message name="new_picture_array"}
     <ul>
       <li>
         .jpeg または .jpgのみ
@@ -25,12 +25,13 @@
     </ul>
   </p>
   <p>
-    <input type="submit" name="update" value="更新" />
+    <input type="submit" name="update" value="更新" /><br /><br />
+    <input type="submit" name="delete" value="削除" />
   </p>
   <p>
     {foreach from=$app.picture_array item=picture}
-    <img src="{$picture}" width="200" height="200" style="object-fit: cover;"/>
-    <input type="submit" name="delete" value="削除" />&emsp;
+    <img src="{$picture.filename}" width="200" height="200" style="object-fit: cover;"/>
+    <input type="checkbox" name="picture[]" value="{$picture.id}"/>&emsp;
     {/foreach}
   </p>
 {/form}
