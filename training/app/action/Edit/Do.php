@@ -42,9 +42,7 @@ class Sharepictures_Action_EditDo extends Sharepictures_Action_CreateDo
     {
 
         if ($this->af->validate() > 0) {
-          echo '<pre>';
-          var_dump($this->af);
-            echo '</pre>';
+
             return 'edit';
           }
 
@@ -64,7 +62,8 @@ class Sharepictures_Action_EditDo extends Sharepictures_Action_CreateDo
 
       $newEventArray = $this->session->get('edit');
       $db = $this->backend->getDB();
-      if ($this->af->get('picture_array') !== null) {
+      if ($this->af->get('picture_array') !== null && $this->af->get('picture_array')[0]['name'] !== "") {
+
           foreach ($this->af->get('picture_array') as $picture) {
               //  画像ファイルを保存
               $uploadfile = 'images/tmp/' . basename($picture['name']);
@@ -82,18 +81,14 @@ class Sharepictures_Action_EditDo extends Sharepictures_Action_CreateDo
           }
       } else {
       //  チェックされた写真の削除処理を行う
-          if (isset($_POST['delete'])) {
+
               if (isset($_POST['picture']) && is_array($_POST['picture'])) {
                   foreach ($_POST['picture'] as $pictureId) {
                       $sql = "DELETE FROM pictures WHERE id = $1";
                       $db->query($sql, $pictureId);
                       $deleteId = array_search($pictureId, array_column($newEventArray['picture_array'], 'id'));
-                      echo '<pre>';
-                      var_dump($pictureId);
-                      var_dump($deleteId);
-                        echo '</pre>';
                       unset($newEventArray['picture_array'][$deleteId]);
-                  }
+                      $newEventArray['picture_array'] = array_values($newEventArray['picture_array']);
               }
           }
       }
