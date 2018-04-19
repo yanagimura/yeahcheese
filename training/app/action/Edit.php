@@ -23,22 +23,7 @@ class Sharepictures_Form_Edit extends Sharepictures_ActionForm
         'eventno'   =>    [
             'type'    =>    VAR_TYPE_INT,
         ],
-    ],
-
-    /**
-     *  Form input value convert filter : sample
-     *
-     *  @access protected
-     *  @param  mixed   $value  Form Input Value
-     *  @return mixed           Converted result.
-     */
-    /*
-    protected function _filter_sample($value)
-    {
-        //  convert to upper case.
-        return strtoupper($value);
-    }
-    */
+    ];
 }
 
 /**

@@ -25,10 +25,10 @@
     </ul>
   </p>
   <p>
-    <input type="submit" name="update" value="更新" />&emsp;
+    <input type="submit" name="action_edit_do" value="更新" />&emsp;
     <a href="?action_show=true">一覧へ戻る</a>
     <br /><br />
-    <input type="submit" name="delete" value="削除" />
+    <input type="submit" name="action_edit_do" value="削除" />
   </p>
   <p>
     {foreach from=$app.picture_array item=picture}
