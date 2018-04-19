@@ -66,16 +66,16 @@ class Sharepictures_Action_Show extends Sharepictures_ActionClass
             while ($picture = $prs->fetchRow()) {
                 $pictureArray[] = $picture;
             }
-            if($pictureArray){
-              $eventArray[] = [
-              'id'    =>    $event['id'],
-              'title'   =>    $event['title'],
-              'release_date'    =>    $event['release_date'],
-              'end_date'    =>    $event['end_date'],
-              'authentication_key'    =>  $event['authentication_key'],
-              'picture_array'   =>    $pictureArray,
-              'count'   =>    count($pictureArray)
-            ];
+            if ($pictureArray) {
+                $eventArray[] = [
+                    'id'    =>    $event['id'],
+                    'title'   =>    $event['title'],
+                    'release_date'    =>    $event['release_date'],
+                    'end_date'    =>    $event['end_date'],
+                    'authentication_key'    =>    $event['authentication_key'],
+                    'picture_array'   =>    $pictureArray,
+                    'count'   =>    count($pictureArray)
+                  ];
             }
         }
         // セッションの開始

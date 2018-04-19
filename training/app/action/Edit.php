@@ -55,7 +55,7 @@ class Sharepictures_Form_Edit extends Sharepictures_ActionForm
      *  公開日数のバリデーション
      *
      *  @access public
-     *  @param string $end_date
+     *  @param string $endDate
      */
     public function checkDateInterval($endDate)
     {
@@ -64,13 +64,12 @@ class Sharepictures_Form_Edit extends Sharepictures_ActionForm
         if ($eDate < $rDate) {
             $this->ae->add($endDate, '公開開始日より後の日付を選択してください', E_FORM_INVALIDVALUE);
         }
-
     }
     /**
      *  ファイルサイズのバリデーション
      *
      *  @access public
-     *  @param array $picture_array
+     *  @param array $pictureArray
      */
     public function checkFileSize($pictureArray)
     {
@@ -80,7 +79,6 @@ class Sharepictures_Form_Edit extends Sharepictures_ActionForm
             }
         }
     }
-
 }
 
 /**
@@ -122,7 +120,6 @@ class Sharepictures_Action_Edit extends Sharepictures_ActionClass
             $db = $this->backend->getDB();
 
             if ($this->af->get('new_picture_array')[0]['name'] !== '') {
-
                 foreach ($this->af->get('new_picture_array') as $picture) {
                     //  画像ファイルを保存
                     $uploadfile = 'images/tmp/' . basename($picture['name']);
@@ -139,34 +136,35 @@ class Sharepictures_Action_Edit extends Sharepictures_ActionClass
                     ]);
                 }
             } else {
+                //  チェックされた写真の削除処理を行う
                 if (isset($_POST['delete'])) {
-                    //  選択された写真の削除処理
-                    if (isset($_POST['picture']) && is_array($_POST['picture'])){
+                    if (isset($_POST['picture']) && is_array($_POST['picture'])) {
                         $newPictureArray = $newEventArray['picture_array'];
                         foreach ($_POST['picture'] as $pictureId) {
                             $sql = "DELETE FROM pictures WHERE id = $1";
                             $db->query($sql, $pictureId);
                             $deleteId = array_search($newEventArray['picture_array'], array_column($pictureId, 'id'));
                             array_splice($newPictureArray, $deleteId, 1);
-                            }
+                        }
                         $newEventArray['picture_array'] = $newPictureArray;
                     }
                 }
             }
+            //  タイトル、日付をそれぞれ更新する
             if ($newEventArray['title'] !== $this->af->get('title')) {
-              $sql = "UPDATE events SET title = $1 WHERE title = $2 AND id = $3 AND user_id = $4 ";
-              $db->query($sql, [$this->af->get('title'), $newEventArray['title'], $newEventArray['id'], $this->session->get('login')['id']]);
-              $newEventArray['title'] = $this->af->get('title');
+                $sql = "UPDATE events SET title = $1 WHERE title = $2 AND id = $3 AND user_id = $4 ";
+                $db->query($sql, [$this->af->get('title'), $newEventArray['title'], $newEventArray['id'], $this->session->get('login')['id']]);
+                $newEventArray['title'] = $this->af->get('title');
             }
             if ($newEventArray['release_date'] !== $this->af->get('release_date')) {
-              $sql = "UPDATE events SET release_date = $1 WHERE title = $2 AND id = $3 AND user_id = $4 ";
-              $db->query($sql, [$this->af->get('release_date'), $newEventArray['title'], $newEventArray['id'], $this->session->get('login')['id']]);
-              $newEventArray['release_date'] = $this->af->get('release_date');
+                $sql = "UPDATE events SET release_date = $1 WHERE title = $2 AND id = $3 AND user_id = $4 ";
+                $db->query($sql, [$this->af->get('release_date'), $newEventArray['title'], $newEventArray['id'], $this->session->get('login')['id']]);
+                $newEventArray['release_date'] = $this->af->get('release_date');
             }
             if ($newEventArray['end_date'] !== $this->af->get('end_date')) {
-              $sql = "UPDATE events SET end_date = $1 WHERE title = $2 AND id = $3 AND user_id = $4 ";
-              $db->query($sql, [$this->af->get('end_date'), $newEventArray['title'], $newEventArray['id'], $this->session->get('login')['id']]);
-              $newEventArray['end_date'] = $this->af->get('end_date');
+                $sql = "UPDATE events SET end_date = $1 WHERE title = $2 AND id = $3 AND user_id = $4 ";
+                $db->query($sql, [$this->af->get('end_date'), $newEventArray['title'], $newEventArray['id'], $this->session->get('login')['id']]);
+                $newEventArray['end_date'] = $this->af->get('end_date');
             }
             $this->session->set('edit', $newEventArray);
         }
