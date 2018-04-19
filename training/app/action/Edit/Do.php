@@ -13,7 +13,7 @@
  *  @access     public
  *  @package    Sharepictures
  */
-class Sharepictures_Form_EditDo extends Sharepictures_Form_CreateDo
+class Sharepictures_Form_EditDo extends Sharepictures_ActionForm
 {
     /**
      *  @access protected
@@ -80,13 +80,10 @@ class Sharepictures_Action_EditDo extends Sharepictures_ActionClass
      */
     public function prepare()
     {
-        /**
         if ($this->af->validate() > 0) {
-            // forward to error view (this is sample)
-            return 'error';
-        }
-        $sample = $this->af->get('sample');
-        */
+          // forward to error view (this is sample)
+            return 'edit';
+          }
         return null;
     }
 
@@ -98,6 +95,60 @@ class Sharepictures_Action_EditDo extends Sharepictures_ActionClass
      */
     public function perform()
     {
-        return 'edit_do';
+      $newEventArray = $this->session->get('edit');
+      $db = $this->backend->getDB();
+
+      if ($this->af->get('new_picture_array')[0]['name'] !== '') {
+          foreach ($this->af->get('new_picture_array') as $picture) {
+              //  画像ファイルを保存
+              $uploadfile = 'images/tmp/' . basename($picture['name']);
+              move_uploaded_file($picture['tmp_name'], $uploadfile);
+              $sql = "INSERT INTO pictures(filename, event_id) VALUES($1, $2)";
+              $db->query($sql, [$uploadfile, $newEventArray['id']]);
+              //  セッションにも追加情報を反映
+
+              $sql = "SELECT * FROM pictures ORDER BY id DESC LIMIT 1";
+              array_push($newEventArray['picture_array'], [
+              'id'    =>    $db->getRow($sql)['id'],
+              'filename'    =>    $db->getRow($sql)['filename'],
+              'event_id'    =>    $db->getRow($sql)['event_id'],
+              ]);
+          }
+      } else {
+      //  チェックされた写真の削除処理を行う
+          if (isset($_POST['delete'])) {
+              if (isset($_POST['picture']) && is_array($_POST['picture'])) {
+                  foreach ($_POST['picture'] as $pictureId) {
+                      $sql = "DELETE FROM pictures WHERE id = $1";
+                      $db->query($sql, $pictureId);
+                      $deleteId = array_search($pictureId, array_column($newEventArray['picture_array'], 'id'));
+                      echo '<pre>';
+                      var_dump($pictureId);
+                      var_dump($deleteId);
+                        echo '</pre>';
+                      unset($newEventArray['picture_array'][$deleteId]);
+                  }
+              }
+          }
+      }
+      //  タイトル、日付をそれぞれ更新する
+      if ($newEventArray['title'] !== $this->af->get('title')) {
+          $sql = "UPDATE events SET title = $1 WHERE title = $2 AND id = $3 AND user_id = $4 ";
+          $db->query($sql, [$this->af->get('title'), $newEventArray['title'], $newEventArray['id'], $this->session->get('login')['id']]);
+          $newEventArray['title'] = $this->af->get('title');
+      }
+      if ($newEventArray['release_date'] !== $this->af->get('release_date')) {
+          $sql = "UPDATE events SET release_date = $1 WHERE title = $2 AND id = $3 AND user_id = $4 ";
+          $db->query($sql, [$this->af->get('release_date'), $newEventArray['title'], $newEventArray['id'], $this->session->get('login')['id']]);
+          $newEventArray['release_date'] = $this->af->get('release_date');
+      }
+      if ($newEventArray['end_date'] !== $this->af->get('end_date')) {
+          $sql = "UPDATE events SET end_date = $1 WHERE title = $2 AND id = $3 AND user_id = $4 ";
+          $db->query($sql, [$this->af->get('end_date'), $newEventArray['title'], $newEventArray['id'], $this->session->get('login')['id']]);
+          $newEventArray['end_date'] = $this->af->get('end_date');
+      }
+
+      $this->session->set('edit', $newEventArray);
+        return 'edit';
     }
 }
