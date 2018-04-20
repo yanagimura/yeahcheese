@@ -27,7 +27,7 @@ class Sharepictures_Form_EditDo extends Sharepictures_Form_CreateDo
             'type' => [VAR_TYPE_FILE],
             'custom' => 'checkFile',
           ];
-        $this->setDef("picture_array", $def);
+        $this->setDef("picture_array", $picArrayDef);
     }
 }
 
