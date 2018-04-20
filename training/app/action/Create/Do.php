@@ -74,17 +74,21 @@ class Sharepictures_Form_CreateDo extends Sharepictures_ActionForm
      */
     public function checkFile($pictureArray)
     {
-        if ($this->form_vars[$pictureArray] !== null && $this->form_vars[$pictureArray][0]['name'] !== "") {
+        if (is_null($this->form_vars[$pictureArray]) || $this->form_vars[$pictureArray][0]['name'] === "") {
+            return;
+        }
+
         foreach ($this->form_vars[$pictureArray] as $picture) {
             // .jpeg ,jpeg以外はエラー
             if (exif_imagetype($picture['tmp_name']) !== IMAGETYPE_JPEG) {
                 $this->ae->add($pictureArray, 'ファイル形式に誤りがあります。', E_FORM_INVALIDVALUE);
+                return;
             }
             if ($picture['size'] > 5000000) {
                 $this->ae->add($pictureArray, 'ファイルサイズが大き過ぎます。', E_FORM_INVALIDVALUE);
+                return;
             }
         }
-      }
     }
 }
 
@@ -129,18 +133,18 @@ class Sharepictures_Action_CreateDo extends Sharepictures_ActionClass
             $pictureArray[] = $uploadfile;
         }
 
-          //  セッション開始
-          $sessionarray = [
-              'title'   =>    $this->af->get('title'),
-              'release_date'    =>    $this->af->get('release_date'),
-              'end_date'    =>    $this->af->get('end_date'),
-              'picture_array'   =>    $pictureArray,
-            ];
+        //  セッション開始
+        $sessionarray = [
+            'title'   =>    $this->af->get('title'),
+            'release_date'    =>    $this->af->get('release_date'),
+            'end_date'    =>    $this->af->get('end_date'),
+            'picture_array'   =>    $pictureArray,
+        ];
 
-          $this->session->set('create', $sessionarray);
-          $this->session->start('create');
+        $this->session->set('create', $sessionarray);
+        $this->session->start('create');
 
-          return 'confirm';
+        return 'confirm';
     }
 
     /**
