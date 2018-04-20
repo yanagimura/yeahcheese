@@ -72,10 +72,10 @@ class Sharepictures_Action_Show extends Sharepictures_ActionClass
                     'authentication_key'    =>    $event['authentication_key'],
                     'picture_array'         =>    $pictureRecord,
                     'count'                 =>    count($pictureRecord)
-                  ];
+                ];
             }
         }
-        // セッションの開始
+        // セッション値の追加
         $this->session->set('show', $eventArray);
         return 'show';
     }
