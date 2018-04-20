@@ -23,11 +23,11 @@ class Sharepictures_Form_EditDo extends Sharepictures_Form_CreateDo
     function setFormDef_PreHelper()
     {
         $picArrayDef = [
-            'name' => '写真',
-            'type' => [VAR_TYPE_FILE],
-            'custom' => 'checkFile',
+            'name'    =>    '写真',
+            'type'    =>    [VAR_TYPE_FILE],
+            'custom'  =>    'checkFile',
           ];
-        $this->setDef("picture_array", $picArrayDef);
+        $this->setDef('picture_array', $picArrayDef);
     }
 }
 
