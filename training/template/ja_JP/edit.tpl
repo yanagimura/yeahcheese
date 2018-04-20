@@ -14,7 +14,7 @@
   </p>
   <p>
     追加ファイル：
-    <input type="file" accept="image/jpeg" multiple name="picture_array[]"value="{$form.picture_array}"/>{message name="picture_array"}
+    <input type="file" accept="image/jpeg" multiple name="picture_array[]"value="{$form.picture_array}" ondragover=""/>{message name="picture_array"}
     <ul>
       <li>
         .jpeg または .jpgのみ
@@ -27,7 +27,7 @@
   <p>
     <input type="submit" name="action_edit_do" value="更新" />&emsp;
     <a href="?action_show=true">一覧へ戻る</a>
-    <br /><br />
+    <br><br>
     <input type="submit" name="action_edit_do" value="削除" />
   </p>
   <p>
