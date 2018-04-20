@@ -75,7 +75,23 @@ class Sharepictures_Action_OwnerAuthenticate extends Sharepictures_ActionClass
      */
     public function perform()
     {
-        
+        $db = $this->backend->getDB();
+        $sql = "SELECT * FROM events WHERE authentication_key = ?";
+        $eventRow = $db->getRow($sql, $this->af->get('authentication_key'));
+
+        if (!$eventRow) {
+            $this->ae->add('authentication_key', "認証キーに誤りがあります", E_FORM_INVALIDVALUE);
+            return 'viewer_login';
+        } else {
+            $sql = "SELECT * FROM pictures WHERE event_id = ?";
+            $pictureRow = $db->getRow($sql, $eventRow['id']);
+            echo '<pre>';
+            var_dump($pictureRow);
+            var_dump($eventRow);
+            echo '</pre>';
+            $this->session->set('login', $eventRow);
+            $this->session->start();
+        }
         return 'owner_authenticate';
     }
 }
