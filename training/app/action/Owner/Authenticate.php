@@ -22,7 +22,7 @@ class Sharepictures_Form_OwnerAuthenticate extends Sharepictures_ActionForm
      */
     public $form = [
         'authentication_key'  =>  [
-            'name'        =>      '認証キー'
+            'name'        =>      '認証キー',
             'type'        =>      VAR_TYPE_STRING,
             'required'    =>      'true',
             'custom'      =>      'checkNoVariableLength',
