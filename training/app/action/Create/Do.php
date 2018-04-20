@@ -75,6 +75,7 @@ class Sharepictures_Form_CreateDo extends Sharepictures_ActionForm
      */
     public function checkFile($pictureArray)
     {
+        if ($this->form_vars[$pictureArray] !== null && $this->form_vars[$pictureArray][0]['name'] !== "") {
         foreach ($this->form_vars[$pictureArray] as $picture) {
             // .jpeg ,jpeg以外はエラー
             if (exif_imagetype($picture['tmp_name']) !== IMAGETYPE_JPEG) {
@@ -84,6 +85,7 @@ class Sharepictures_Form_CreateDo extends Sharepictures_ActionForm
                 $this->ae->add($pictureArray, 'ファイルサイズが大き過ぎます。', E_FORM_INVALIDVALUE);
             }
         }
+      }
     }
 }
 
