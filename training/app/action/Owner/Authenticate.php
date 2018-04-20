@@ -82,12 +82,17 @@ class Sharepictures_Action_OwnerAuthenticate extends Sharepictures_ActionClass
         if (! $eventRow) {
             $this->ae->add('authentication_key', "正しい認証キーをしてください", E_FORM_INVALIDVALUE);
             return 'viewer_login';
-        } else {
+        }
+
+        if($eventRow['end_date'] < date('Y-m-d')) {
+            $this->ae->add('authentication_key', "有効期限切れです", E_FORM_INVALIDVALUE);
+            return 'viewer_login';
+        }
             $sql = "SELECT * FROM pictures WHERE event_id = ?";
             $pictureRow = $db->getAll($sql, $eventRow['id']);
             $this->session->start();
             $this->session->set('view', $pictureRow);
-        }
+        
         return 'viewer_view';
     }
 }
