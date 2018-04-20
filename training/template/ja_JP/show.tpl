@@ -1,5 +1,5 @@
 <form action="." method="post">
-  <a href="?action_hide=true">ホームへ戻る</a>
+  <a href="?action_home=true">ホームへ戻る</a>
   <p>
     {foreach from=$app.event_array item=event}
     <h3>{$event.title}</h3>

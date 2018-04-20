@@ -26,7 +26,7 @@ class Sharepictures_Form_EditDo extends Sharepictures_Form_CreateDo
             'name'    =>    '写真',
             'type'    =>    [VAR_TYPE_FILE],
             'custom'  =>    'checkFile',
-          ];
+        ];
         $this->setDef('picture_array', $picArrayDef);
     }
 }
@@ -74,17 +74,17 @@ class Sharepictures_Action_EditDo extends Sharepictures_Action_CreateDo
                 move_uploaded_file($picture['tmp_name'], $uploadfile);
                 $sql = "INSERT INTO pictures(filename, event_id) VALUES($1, $2)";
                 $db->query($sql, [$uploadfile, $newEventArray['id']]);
-              //  セッションにも追加情報を反映
+                //  セッションにも追加情報を反映
 
                 $sql = "SELECT * FROM pictures ORDER BY id DESC LIMIT 1";
                 array_push($newEventArray['picture_array'], [
-                  'id'          =>    $db->getRow($sql)['id'],
-                  'filename'    =>    $db->getRow($sql)['filename'],
-                  'event_id'    =>    $db->getRow($sql)['event_id'],
+                    'id'          =>    $db->getRow($sql)['id'],
+                    'filename'    =>    $db->getRow($sql)['filename'],
+                    'event_id'    =>    $db->getRow($sql)['event_id'],
                 ]);
             }
         } else {
-              //  チェックされた写真の削除処理を行う
+            //  チェックされた写真の削除処理を行う
             if (isset($_POST['picture']) && is_array($_POST['picture'])) {
                 foreach ($_POST['picture'] as $pictureId) {
                     $sql = "DELETE FROM pictures WHERE id = $1";
