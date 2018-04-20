@@ -88,11 +88,8 @@ class Sharepictures_Action_Show extends Sharepictures_ActionClass
      */
     public function authenticate()
     {
-        if (!$this->session->isStart('login')) {
+        if (!$this->session->isStart()) {
             return 'login';
-        }
-        if ($this->session->isStart('edit')) {
-            $this->session->remove('edit');
         }
     }
 }
