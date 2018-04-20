@@ -15,51 +15,31 @@
  */
 class Sharepictures_Form_OwnerAuthenticate extends Sharepictures_ActionForm
 {
+    const NO_VARIABLE_KEY_LENGTH = 6;
     /**
      *  @access protected
      *  @var    array   form definition.
      */
-    public $form = array(
-       /*
-        *  TODO: Write form definition which this action uses.
-        *  @see http://ethna.jp/ethna-document-dev_guide-form.html
-        *
-        *  Example(You can omit all elements except for "type" one) :
-        *
-        *  'sample' => array(
-        *      // Form definition
-        *      'type'        => VAR_TYPE_INT,    // Input type
-        *      'form_type'   => FORM_TYPE_TEXT,  // Form type
-        *      'name'        => 'Sample',        // Display name
-        *
-        *      //  Validator (executes Validator by written order.)
-        *      'required'    => true,            // Required Option(true/false)
-        *      'min'         => null,            // Minimum value
-        *      'max'         => null,            // Maximum value
-        *      'regexp'      => null,            // String by Regexp
-        *
-        *      //  Filter
-        *      'filter'      => 'sample',        // Optional Input filter to convert input
-        *      'custom'      => null,            // Optional method name which
-        *                                        // is defined in this(parent) class.
-        *  ),
-        */
-    );
-
+    public $form = [
+        'authentication_key'  =>  [
+            'name'        =>      '認証キー'
+            'type'        =>      VAR_TYPE_STRING,
+            'required'    =>      'true',
+            'custom'      =>      'checkNoVariableLength',
+        ],
+    ];
     /**
-     *  Form input value convert filter : sample
+     *  不可変長の認証キーのバリデーション
      *
-     *  @access protected
-     *  @param  mixed   $value  Form Input Value
-     *  @return mixed           Converted result.
+     *  @access public
+     *  @param string 認証キー
      */
-    /*
-    protected function _filter_sample($value)
+    public function checkNoVariableLength($authkey)
     {
-        //  convert to upper case.
-        return strtoupper($value);
+        if(strlen($this->form_vars[$authkey]) !== self::NO_VARIABLE_KEY_LENGTH) {
+            $this->ae->add($authkey, '正しい認証キーを入力してください', E_FORM_INVALIDVALUE);
+        }
     }
-    */
 }
 
 /**
@@ -80,24 +60,22 @@ class Sharepictures_Action_OwnerAuthenticate extends Sharepictures_ActionClass
      */
     public function prepare()
     {
-        /**
+
         if ($this->af->validate() > 0) {
-            // forward to error view (this is sample)
-            return 'error';
+            return 'viewer_login';
         }
-        $sample = $this->af->get('sample');
-        */
         return null;
     }
 
     /**
-     *  owner_authenticate action implementation.
+     *  Viewerのセッションを開始する
      *
      *  @access public
      *  @return string  forward name.
      */
     public function perform()
     {
+        
         return 'owner_authenticate';
     }
 }
