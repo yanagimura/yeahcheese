@@ -88,11 +88,11 @@ class Sharepictures_Action_OwnerAuthenticate extends Sharepictures_ActionClass
             $this->ae->add('authentication_key', "有効期限切れです", E_FORM_INVALIDVALUE);
             return 'viewer_login';
         }
-            $sql = "SELECT * FROM pictures WHERE event_id = ?";
-            $pictureRow = $db->getAll($sql, $eventRow['id']);
-            $this->session->start();
-            $this->session->set('view', $pictureRow);
-        
+        $sql = "SELECT * FROM pictures WHERE event_id = ?";
+        $pictureRow = $db->getAll($sql, $eventRow['id']);
+        $this->session->start();
+        $this->session->set('view', $pictureRow);
+
         return 'viewer_view';
     }
 }
