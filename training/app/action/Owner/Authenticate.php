@@ -36,7 +36,7 @@ class Sharepictures_Form_OwnerAuthenticate extends Sharepictures_ActionForm
      */
     public function checkNoVariableLength($authkey)
     {
-        if(strlen($this->form_vars[$authkey]) !== self::NO_VARIABLE_KEY_LENGTH) {
+        if (strlen($this->form_vars[$authkey]) !== self::NO_VARIABLE_KEY_LENGTH) {
             $this->ae->add($authkey, '正しい認証キーを入力してください', E_FORM_INVALIDVALUE);
         }
     }
@@ -79,7 +79,7 @@ class Sharepictures_Action_OwnerAuthenticate extends Sharepictures_ActionClass
         $sql = "SELECT * FROM events WHERE authentication_key = ?";
         $eventRow = $db->getRow($sql, $this->af->get('authentication_key'));
 
-        if (!$eventRow) {
+        if (! $eventRow) {
             $this->ae->add('authentication_key', "認証キーに誤りがあります", E_FORM_INVALIDVALUE);
             return 'viewer_login';
         } else {
@@ -88,8 +88,7 @@ class Sharepictures_Action_OwnerAuthenticate extends Sharepictures_ActionClass
 
             $this->session->start();
             $this->session->set('view', $pictureRow);
-
         }
-        return 'owner_authenticate';
+        return 'viewer_view';
     }
 }
