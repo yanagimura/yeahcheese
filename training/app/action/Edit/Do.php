@@ -78,7 +78,7 @@ class Sharepictures_Action_EditDo extends Sharepictures_Action_CreateDo
 
                 $sql = "SELECT * FROM pictures ORDER BY id DESC LIMIT 1";
                 array_push($newEventArray['picture_array'], [
-                  'id'    =>    $db->getRow($sql)['id'],
+                  'id'          =>    $db->getRow($sql)['id'],
                   'filename'    =>    $db->getRow($sql)['filename'],
                   'event_id'    =>    $db->getRow($sql)['event_id'],
                 ]);

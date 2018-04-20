@@ -51,36 +51,32 @@ class Sharepictures_Action_Show extends Sharepictures_ActionClass
      */
     public function perform()
     {
-        //  テーブル'events'の中からログインユーザのテーブルを読み込む
-
-        $db = $this->backend->getDB();
+        // セッションに追加する配列
         $eventArray = [];
-        $sql = "SELECT * FROM events WHERE user_id = $1";
-        $rs = $db->query($sql, $this->session->get('login')['id']);
 
-        while ($event = $rs->fetchRow()) {
-            $pictureArray = [];
+        //  テーブル'events'の中からログインユーザのテーブルを読み込む
+        $db = $this->backend->getDB();
+        $sql = "SELECT * FROM events WHERE user_id = $1";
+        $eventRecord = $db->getAll($sql, $this->session->get('login')['id']);
+
+        foreach ($eventRecord as $event) {
             //  テーブル'pictures'の中から各イベントのファイル名を読み込む
             $sql = "SELECT * FROM pictures WHERE event_id = $1";
-            $prs = $db->query($sql, $event['id']);
-            while ($picture = $prs->fetchRow()) {
-                $pictureArray[] = $picture;
-            }
-            if ($pictureArray) {
+            $pictureRecord = $db->getAll($sql, $event['id']);
+            if ($pictureRecord) {
                 $eventArray[] = [
-                    'id'    =>    $event['id'],
-                    'title'   =>    $event['title'],
-                    'release_date'    =>    $event['release_date'],
-                    'end_date'    =>    $event['end_date'],
+                    'id'                    =>    $event['id'],
+                    'title'                 =>    $event['title'],
+                    'release_date'          =>    $event['release_date'],
+                    'end_date'              =>    $event['end_date'],
                     'authentication_key'    =>    $event['authentication_key'],
-                    'picture_array'   =>    $pictureArray,
-                    'count'   =>    count($pictureArray)
+                    'picture_array'         =>    $pictureRecord,
+                    'count'                 =>    count($pictureRecord)
                   ];
             }
         }
         // セッションの開始
         $this->session->set('show', $eventArray);
-        $this->session->start();
         return 'show';
     }
 
