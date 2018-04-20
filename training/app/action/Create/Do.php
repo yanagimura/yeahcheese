@@ -5,7 +5,6 @@
  *  @author     {$author}
  *  @package    Sharepictures
  */
-require_once('adodb5/adodb.inc.php');
 /**
  *  create_do Form implementation.
  *
