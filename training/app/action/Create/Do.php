@@ -61,9 +61,9 @@ class Sharepictures_Form_CreateDo extends Sharepictures_ActionForm
      */
     public function checkDateInterval($endDate)
     {
-        $interval = ($this->form_vars[$endDate] - $this->form_vars['release_date']) / (60 * 60 * 24);
-
-        if ($interval < 0) {
+        $eDate = new Datetime($this->form_vars[$endDate]);
+        $rDate = new DateTime($this->form_vars['release_date']);
+        if ($eDate < $rDate) {
             $this->ae->add($endDate, '公開開始日より後の日付を選択してください', E_FORM_INVALIDVALUE);
         }
     }
