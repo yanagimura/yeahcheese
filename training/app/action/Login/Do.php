@@ -19,6 +19,7 @@ class Sharepictures_Form_LoginDo extends Sharepictures_ActionForm
      *  @access protected
      *  @var    array   form definition.
      */
+    const MIN_LENGTH = 6;
     public $form = [
       'mailaddress' => [
             // メールアドレスフォームの定義
@@ -32,6 +33,7 @@ class Sharepictures_Form_LoginDo extends Sharepictures_ActionForm
             'name'        => 'パスワード',          // Display name
             'type'        => VAR_TYPE_STRING,     // Input type
             'required'    => true,                // Required Option
+            'min'         => self::MIN_LENGTH,
        ],
      ];
 }

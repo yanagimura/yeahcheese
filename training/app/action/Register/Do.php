@@ -19,6 +19,7 @@ class Sharepictures_Form_RegisterDo extends Sharepictures_ActionForm
      *  @access protected
      *  @var    array   form definition.
      */
+    const MIN_LENGTH = 6;
     public $form = [
          'mailaddress' => [
                // メールアドレスフォームの定義
@@ -31,7 +32,7 @@ class Sharepictures_Form_RegisterDo extends Sharepictures_ActionForm
                // パスワードフォームの定義
                'name'        => 'パスワード',          // Display name
                'type'        => VAR_TYPE_STRING,     // Input type
-               'min'         => 6,
+               'min'         => self::MIN_LENGTH,
                'regexp'      => '/^(?=.*?[a-z])(?=.*?[0-9])[a-z0-9]+$/',
                'required'    => true,                // Required Option
           ],
@@ -39,6 +40,8 @@ class Sharepictures_Form_RegisterDo extends Sharepictures_ActionForm
                // 確認用パスワードフォームの定義
                'name'        => '確認用パスワード',
                'type'        => VAR_TYPE_STRING,
+               'min'         => self::MIN_LENGTH,
+               'regexp'      => '/^(?=.*?[a-z])(?=.*?[0-9])[a-z0-9]+$/',
                'required'    => true,
                'custom'      => 'checkPassword',
           ],
@@ -128,9 +131,9 @@ class Sharepictures_Action_RegisterDo extends Sharepictures_ActionClass
 
         $mail = $this->af->get('mailaddress');
         $cipherpass = hash('sha256', $this->af->get('password'));
-
         $db->query("INSERT INTO users(mailaddress,password) VALUES($1, $2)", [$mail, $cipherpass]);
 
+        $this->af->clearFormVars();
         return 'login';
     }
 }
