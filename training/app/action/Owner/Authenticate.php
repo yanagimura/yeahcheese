@@ -100,7 +100,10 @@ class Sharepictures_Action_OwnerAuthenticate extends Sharepictures_ActionClass
         $sql = "SELECT * FROM pictures WHERE event_id = ?";
         $pictureRow = $db->getAll($sql, $eventRow['id']);
         $this->session->start();
-        $this->session->set('view', $pictureRow);
+        $this->session->set('view', [
+          'pictureArray'    =>    $pictureRow,
+          'event'           =>    $eventRow,
+        ]);
 
         return 'viewer_view';
     }
