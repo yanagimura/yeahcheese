@@ -131,9 +131,9 @@ class Sharepictures_Action_RegisterDo extends Sharepictures_ActionClass
 
         $mail = $this->af->get('mailaddress');
         $cipherpass = hash('sha256', $this->af->get('password'));
-
         $db->query("INSERT INTO users(mailaddress,password) VALUES($1, $2)", [$mail, $cipherpass]);
 
+        $this->af->clearFormVars();
         return 'login';
     }
 }
