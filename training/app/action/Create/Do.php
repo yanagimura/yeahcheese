@@ -22,33 +22,33 @@ class Sharepictures_Form_CreateDo extends Sharepictures_ActionForm
     const MIN_LENGTH = 3;
     const MAX_LENGTH = 20;
     public $form = [
-          'title' => [
+          'title'       => [
             //  イベント名フォームの定義
-              'name' => 'タイトル',
-              'type' => VAR_TYPE_STRING,
-              'required' => true,
-              'min' => self::MIN_LENGTH,
-              'max' => self::MAX_LENGTH,
+              'name'            =>    'タイトル',
+              'type'            =>    VAR_TYPE_STRING,
+              'required'        =>    true,
+              'min'             =>    self::MIN_LENGTH,
+              'max'             =>    self::MAX_LENGTH,
           ],
           'release_date' => [
             //  公開開始日フォームの定義
-              'name' => '公開開始日',
-              'type' => VAR_TYPE_DATETIME,
-              'required' => true,
+              'name'            =>    '公開開始日',
+              'type'            =>    VAR_TYPE_DATETIME,
+              'required'        =>    true,
           ],
-          'end_date' => [
+          'end_date'     => [
             //  公開終了日フォームの定義
-              'name' => '公開終了日',
-              'type' => VAR_TYPE_DATETIME,
-              'required' => true,
-              'custom' => 'checkDateInterval',
+              'name'            =>    '公開終了日',
+              'type'            =>    VAR_TYPE_DATETIME,
+              'required'        =>    true,
+              'custom'          =>    'checkDateInterval',
           ],
           'picture_array' => [
             //  写真アップロードフォームの定義
-              'name' => '写真',
-              'type' => [VAR_TYPE_FILE],
-              'required' => true,
-              'custom' => 'checkFile',
+              'name'            =>    '写真',
+              'type'            =>    [VAR_TYPE_FILE],
+              'required'        =>    true,
+              'custom'          =>    'checkFile',
           ],
     ];
 

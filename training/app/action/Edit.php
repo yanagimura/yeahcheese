@@ -22,6 +22,7 @@ class Sharepictures_Form_Edit extends Sharepictures_ActionForm
     public $form = [
         'eventno'   =>    [
             'type'    =>    VAR_TYPE_INT,
+            'required'    => true,
         ],
     ];
 }
