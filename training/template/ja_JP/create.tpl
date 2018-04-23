@@ -24,4 +24,7 @@
    <p>
      <input type="submit" name="action_create_do" value="次へ"/><br>
    </p>
+   <p>
+     <a href="?action_home=true">ホームへ</a>
+   </p>
 </form>
