@@ -2,9 +2,9 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<link rel="stylesheet" href="/css/ethna.css" type="text/css" />
+<link rel="stylesheet" href="/css/ethna.css" type="text/css">
+<link rel="stylesheet" href="/css/lightbox.css" type="text/css">
 <title>Sharepictures</title>
-<link rel="stylesheet" href="/css/lightbox.css" type="text/css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="js/lightbox.js" type="text/javascript"></script>
 </head>
