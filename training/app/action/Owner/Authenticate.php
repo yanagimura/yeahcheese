@@ -25,7 +25,7 @@ class Sharepictures_Form_OwnerAuthenticate extends Sharepictures_ActionForm
             'name'        =>      '認証キー',
             'type'        =>      VAR_TYPE_STRING,
             'required'    =>      'true',
-            'regexp'      =>      '/\A[a-zA-Z0-9]+$\z/',
+            'regexp'      =>      '/\A[a-zA-Z0-9]+\z/',
             'custom'      =>      'checkNoVariableLength',
         ],
     ];
