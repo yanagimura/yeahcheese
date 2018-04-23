@@ -3,6 +3,7 @@
   認証キー入力
   </p>
   <p>
+    {csrfid}
     <input type="text" name="authentication_key" value="{$form.authentication_key}">{message name="authentication_key"}</input>
   </p>
   <p>

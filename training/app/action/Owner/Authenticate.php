@@ -61,6 +61,9 @@ class Sharepictures_Action_OwnerAuthenticate extends Sharepictures_ActionClass
      */
     public function prepare()
     {
+      if(! Ethna_Util::isCsrfSafe()) {
+            return 'viewer_login';
+        }
         if ($this->af->validate() > 0) {
             return 'viewer_login';
         }
@@ -80,7 +83,7 @@ class Sharepictures_Action_OwnerAuthenticate extends Sharepictures_ActionClass
         $eventRow = $db->getRow($sql, $this->af->get('authentication_key'));
 
         if (! $eventRow) {
-            $this->ae->add('authentication_key', "正しい認証キーをしてください", E_FORM_INVALIDVALUE);
+            $this->ae->add('authentication_key', "認証キーを正しく入力してください", E_FORM_INVALIDVALUE);
             return 'viewer_login';
         }
 

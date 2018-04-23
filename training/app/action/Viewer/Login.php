@@ -51,6 +51,7 @@ class Sharepictures_Action_ViewerLogin extends Sharepictures_ActionClass
      */
     public function perform()
     {
+        Ethna_Util::setCsrfID();
         return 'viewer_login';
     }
 }
