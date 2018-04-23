@@ -1,6 +1,6 @@
 <form action="." method="post">
   <p>
-  認証キー入力
+    認証キー入力
   </p>
   <p>
     {csrfid}
