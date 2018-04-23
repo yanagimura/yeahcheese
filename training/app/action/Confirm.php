@@ -5,7 +5,7 @@
  *  @author     {$author}
  *  @package    Sharepictures
  */
-require_once('adodb5/adodb.inc.php');
+
 /**
  *  confirm Form implementation.
  *
@@ -62,6 +62,7 @@ class Sharepictures_Action_Confirm extends Sharepictures_ActionClass
         do {
             for ($i = 0; $i < 6; $i++) {
                 $authkey .= $str[rand(0, count($str) - 1)];
+                // 正規表現で$authkeyのチェックを入れる
             }
             $rs = $db->query("SELECT * FROM events WHERE authentication_key = $1", $authkey);
         } while ($rs->fetchRow());
