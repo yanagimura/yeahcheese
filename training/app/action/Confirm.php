@@ -56,14 +56,15 @@ class Sharepictures_Action_Confirm extends Sharepictures_ActionClass
         $db = $this->backend->getDB();
 
         $str = array_merge(range('a', 'z'), range('0', '9'), range('A', 'Z'));
-        $authkey = null;
-
         // 認証キーの重複チェック
         do {
-            for ($i = 0; $i < 6; $i++) {
-                $authkey .= $str[rand(0, count($str) - 1)];
-                // 正規表現で$authkeyのチェックを入れる
-            }
+            do {
+              $authkey = null;
+              // 正規表現で$authkeyのチェックを入れる
+              for ($i = 0; $i < 6; $i++) {
+                  $authkey .= $str[rand(0, count($str) - 1)];
+              }
+          } while (! preg_match('/^(?=.*?[a-zA-Z])(?=.*?[0-9])[a-zA-Z0-9]+$/', $authkey));
             $rs = $db->query("SELECT * FROM events WHERE authentication_key = $1", $authkey);
         } while ($rs->fetchRow());
 
