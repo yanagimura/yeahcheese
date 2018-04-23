@@ -88,8 +88,6 @@ class Sharepictures_Action_Confirm extends Sharepictures_ActionClass
           ];
 
         $this->session->set('authSession', $authSession);
-        $this->session->start();
-
         return 'upload';
     }
 
@@ -101,11 +99,11 @@ class Sharepictures_Action_Confirm extends Sharepictures_ActionClass
      */
     public function authenticate()
     {
-        if (!$this->session->isStart('create')) {
+        if (!$this->session->get('create') === null) {
             return 'create';
         }
 
-        if (!$this->session->isStart('login')) {
+        if (!$this->session->isStart()) {
             return 'login';
         }
     }

@@ -5,7 +5,7 @@
  *  @author     {$author}
  *  @package    Sharepictures
  */
- 
+
 /**
  *  login_do Form implementation.
  *
@@ -34,21 +34,6 @@ class Sharepictures_Form_LoginDo extends Sharepictures_ActionForm
             'required'    => true,                // Required Option
        ],
      ];
-
-    /**
-     *  Form input value convert filter : sample
-     *
-     *  @access protected
-     *  @param  mixed   $value  Form Input Value
-     *  @return mixed           Converted result.
-     */
-    /*
-    protected function _filter_sample($value)
-    {
-        //  convert to upper case.
-        return strtoupper($value);
-    }
-    */
 }
 
 /**
@@ -95,13 +80,13 @@ class Sharepictures_Action_LoginDo extends Sharepictures_ActionClass
             $this->ae->add('mailaddress', "メールアドレスまたはパスワードが間違っています", E_FORM_INVALIDVALUE);
             return 'login';
         } else {
+            $this->session->start();
             $sessionarray = [
                 'id'   =>   $rs['id'],
                 'mailaddress'   =>   $rs['mailaddress'],
               ];
             $this->session->set('login', $sessionarray);
-            $this->session->start();
-        }
+      }
         return 'home';
     }
 }

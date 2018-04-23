@@ -5,7 +5,6 @@
  *  @author     {$author}
  *  @package    Sharepictures
  */
-require_once('adodb5/adodb.inc.php');
 /**
  *  create_do Form implementation.
  *
@@ -61,9 +60,9 @@ class Sharepictures_Form_CreateDo extends Sharepictures_ActionForm
      */
     public function checkDateInterval($endDate)
     {
-        $interval = ($this->form_vars[$endDate] - $this->form_vars['release_date']) / (60 * 60 * 24);
-
-        if ($interval < 0) {
+        $eDate = new Datetime($this->form_vars[$endDate]);
+        $rDate = new DateTime($this->form_vars['release_date']);
+        if ($eDate < $rDate) {
             $this->ae->add($endDate, '公開開始日より後の日付を選択してください', E_FORM_INVALIDVALUE);
         }
     }
@@ -75,13 +74,19 @@ class Sharepictures_Form_CreateDo extends Sharepictures_ActionForm
      */
     public function checkFile($pictureArray)
     {
+        if (is_null($this->form_vars[$pictureArray]) || $this->form_vars[$pictureArray][0]['name'] === "") {
+            return;
+        }
+
         foreach ($this->form_vars[$pictureArray] as $picture) {
             // .jpeg ,jpeg以外はエラー
             if (exif_imagetype($picture['tmp_name']) !== IMAGETYPE_JPEG) {
                 $this->ae->add($pictureArray, 'ファイル形式に誤りがあります。', E_FORM_INVALIDVALUE);
+                return;
             }
             if ($picture['size'] > 5000000) {
                 $this->ae->add($pictureArray, 'ファイルサイズが大き過ぎます。', E_FORM_INVALIDVALUE);
+                return;
             }
         }
     }
@@ -128,18 +133,18 @@ class Sharepictures_Action_CreateDo extends Sharepictures_ActionClass
             $pictureArray[] = $uploadfile;
         }
 
-          //  セッション開始
-          $sessionarray = [
-              'title'   =>    $this->af->get('title'),
-              'release_date'    =>    $this->af->get('release_date'),
-              'end_date'    =>    $this->af->get('end_date'),
-              'picture_array'   =>    $pictureArray,
-            ];
+        //  セッション開始
+        $sessionarray = [
+            'title'   =>    $this->af->get('title'),
+            'release_date'    =>    $this->af->get('release_date'),
+            'end_date'    =>    $this->af->get('end_date'),
+            'picture_array'   =>    $pictureArray,
+        ];
 
-          $this->session->set('create', $sessionarray);
-          $this->session->start('create');
+        $this->session->set('create', $sessionarray);
+        $this->session->start('create');
 
-          return 'confirm';
+        return 'confirm';
     }
 
     /**
