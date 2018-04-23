@@ -1,0 +1,21 @@
+@charset 'utf-8';
+
+.entry-content .resize{
+    width:296px;
+    display:block;
+    padding:1em;
+    border:1px solid #ccc;
+    box-sizing:border-box;
+    transition: all 1s ease-in-out;
+}
+.resize:focus{
+    height:auto;
+    width:100%;
+    transition: all 1s ease-in-out;
+    outline:none;
+}
+
+.resize > p{
+     margin:0;
+    line-height:1;
+}
