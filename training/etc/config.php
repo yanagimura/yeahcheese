@@ -36,10 +36,14 @@ $config = array(
     'log_filter_ignore'     => 'Undefined index.*%%.*tpl',
 
     // sample-2: mulitple facility
-    //'log' => array(
-    //    'echo'  => array(
-    //        'level'         => 'warning',
-    //    ),
+      'log' => [
+          'file'  => [
+            'level'         => 'notice',
+            'option' => 'pid,function,pos',
+            'file'          => 'error.log',
+            'mode'          => '666',
+          ],
+        ],
     //    'file'  => array(
     //        'level'         => 'notice',
     //        'file'          => '/var/log/ethnam.log',
