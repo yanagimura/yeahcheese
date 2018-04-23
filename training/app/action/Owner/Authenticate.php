@@ -25,7 +25,7 @@ class Sharepictures_Form_OwnerAuthenticate extends Sharepictures_ActionForm
             'name'        =>      '認証キー',
             'type'        =>      VAR_TYPE_STRING,
             'required'    =>      'true',
-            'regexp'      =>      '/^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])[a-zA-Z0-9]+$/',
+            'regexp'      =>      '/^[a-zA-Z0-9]+$/',
             'custom'      =>      'checkNoVariableLength',
         ],
     ];
@@ -61,7 +61,6 @@ class Sharepictures_Action_OwnerAuthenticate extends Sharepictures_ActionClass
      */
     public function prepare()
     {
-
         if ($this->af->validate() > 0) {
             return 'viewer_login';
         }
