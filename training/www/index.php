@@ -12,5 +12,4 @@ require_once dirname(__FILE__) . '/../app/Sharepictures_Controller.php';
 /**
  * Run application.
  */
-Sharepictures_Controller::main('Sharepictures_Controller', 'index');
-
+Sharepictures_Controller::main('Sharepictures_Controller', 'index', 'undefine');
