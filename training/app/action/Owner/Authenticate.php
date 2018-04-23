@@ -25,6 +25,7 @@ class Sharepictures_Form_OwnerAuthenticate extends Sharepictures_ActionForm
             'name'        =>      '認証キー',
             'type'        =>      VAR_TYPE_STRING,
             'required'    =>      'true',
+            'regexp'      =>      '/^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])[a-zA-Z0-9]+$/',
             'custom'      =>      'checkNoVariableLength',
         ],
     ];
@@ -37,7 +38,7 @@ class Sharepictures_Form_OwnerAuthenticate extends Sharepictures_ActionForm
     public function checkNoVariableLength($authkey)
     {
         if (strlen($this->form_vars[$authkey]) !== self::NO_VARIABLE_KEY_LENGTH) {
-            $this->ae->add($authkey, '正しい認証キーを入力してください', E_FORM_INVALIDVALUE);
+            $this->ae->add($authkey, '認証キーを正しく入力してください', E_FORM_INVALIDVALUE);
         }
     }
 }
@@ -83,10 +84,8 @@ class Sharepictures_Action_OwnerAuthenticate extends Sharepictures_ActionClass
             $this->ae->add('authentication_key', "正しい認証キーをしてください", E_FORM_INVALIDVALUE);
             return 'viewer_login';
         }
-        $edate = new DateTime($eventRow['end_date']);
-        var_dump($edate->format('Y-m-d'));
-        var_dump(date('Y-m-d H:i;s'));
 
+        $edate = new DateTime($eventRow['end_date']);
         if($edate->format('Y-m-d')< date('Y-m-d')) {
             $this->ae->add('authentication_key', "有効期限切れです", E_FORM_INVALIDVALUE);
             return 'viewer_login';
