@@ -83,8 +83,11 @@ class Sharepictures_Action_OwnerAuthenticate extends Sharepictures_ActionClass
             $this->ae->add('authentication_key', "正しい認証キーをしてください", E_FORM_INVALIDVALUE);
             return 'viewer_login';
         }
+        $edate = new DateTime($eventRow['end_date']);
+        var_dump($edate->format('Y-m-d'));
+        var_dump(date('Y-m-d H:i;s'));
 
-        if($eventRow['end_date'] < date('Y-m-d')) {
+        if($edate->format('Y-m-d')< date('Y-m-d')) {
             $this->ae->add('authentication_key', "有効期限切れです", E_FORM_INVALIDVALUE);
             return 'viewer_login';
         }
