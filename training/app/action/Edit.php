@@ -58,11 +58,13 @@ class Sharepictures_Action_Edit extends Sharepictures_ActionClass
     {
         $eventArray = $this->session->get('show');
         $eventId = array_search($this->af->get('eventno'), array_column($eventArray, 'id'));
-        if (! $eventId) {
+        if ($eventId !== 0 && ! $eventId) {
             return 'show';
         }
         //   存在するイベントのURLならば、初期化処理に入る
         $this->session->set('edit', $eventArray[$eventId]);
+
+        Ethna_Util::setCsrfID();
         return 'edit';
     }
 }

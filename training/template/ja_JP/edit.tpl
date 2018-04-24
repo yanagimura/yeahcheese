@@ -1,4 +1,5 @@
 {form enctype="file"}
+{csrfid}
   <h2>イベント内容編集</h2>
   <p>
     認証キー：{$app.authentication_key}
