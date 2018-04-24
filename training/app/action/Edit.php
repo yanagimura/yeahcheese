@@ -57,8 +57,9 @@ class Sharepictures_Action_Edit extends Sharepictures_ActionClass
     public function perform()
     {
         $eventArray = $this->session->get('show');
+
         $eventId = array_search($this->af->get('eventno'), array_column($eventArray, 'id'));
-        if (! $eventId) {
+        if (is_null($eventId)) {
             return 'show';
         }
         //   存在するイベントのURLならば、初期化処理に入る
