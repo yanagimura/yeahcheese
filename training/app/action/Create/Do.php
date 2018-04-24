@@ -110,6 +110,9 @@ class Sharepictures_Action_CreateDo extends Sharepictures_ActionClass
      */
     public function prepare()
     {
+        if (! Ethna_Util::isCsrfSafe()) {
+            return 'login';
+        }
         if ($this->af->validate() > 0) {
             return 'create';
         }

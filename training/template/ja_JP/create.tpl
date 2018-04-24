@@ -1,4 +1,5 @@
 <form action="." method="post" enctype="multipart/form-data">
+{csrfid}
 <h2>イベント作成</h2>
    <p>
      イベント名：<input type="text" name="title" value="{$form.title}">{message name="title"}</input>

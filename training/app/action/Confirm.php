@@ -42,6 +42,9 @@ class Sharepictures_Action_Confirm extends Sharepictures_ActionClass
      */
     public function prepare()
     {
+        if (! Ethna_Util::isCsrfSafe()) {
+            return 'login';
+        }
         return null;
     }
 
