@@ -1,14 +1,14 @@
-<form action="." method="post" enctype="multipart/form-data">
+{form enctype="file"}
 {csrfid}
 <h2>イベント作成</h2>
    <p>
-     イベント名：<input type="text" name="title" value="{$form.title}">{message name="title"}</input>
+     イベント名：{form_input name="title"}{message name="title"}
    </p>
    <p>
-     公開開始日：<input type="date" name="release_date" value="{$form.release_date}">{message name="release_date"}</input>
+     公開開始日：{form_input type="date" name="release_date"}{message name="release_date"}</input>
    </p>
    <p>
-     公開終了日：<input type="date" name="end_date" value="{$form.end_date}">{message name="end_date"}</input>
+     公開終了日：{form_input type="date" name="end_date"}{message name="end_date"}</input>
    </p>
    <p>
      <input type="file" accept="image/jpeg" name="picture_array[]" multiple value="{$form.picture_array}">{message name="picture_array"}</input><br/>
@@ -28,4 +28,4 @@
    <p>
      <a href="?action_home=true">ホームへ</a>
    </p>
-</form>
+{/form}

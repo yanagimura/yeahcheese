@@ -19,7 +19,23 @@ class Sharepictures_Form_Create extends Sharepictures_ActionForm
      *  @access protected
      *  @var    array   form definition.
      */
-    public $form = [];
+    public $form = [
+      'title'       => [
+      //  イベント名フォームの定義
+        'name'            =>    'タイトル',
+        'type'            =>    VAR_TYPE_STRING,
+    ],
+    'release_date' => [
+      //  公開開始日フォームの定義
+        'name'            =>    '公開開始日',
+        'type'            =>    VAR_TYPE_DATETIME,
+    ],
+    'end_date'     => [
+      //  公開終了日フォームの定義
+        'name'            =>    '公開終了日',
+        'type'            =>    VAR_TYPE_DATETIME,
+    ],
+  ];
 }
 
 /**

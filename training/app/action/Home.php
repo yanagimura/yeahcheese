@@ -69,5 +69,9 @@ class Sharepictures_Action_Home extends Sharepictures_ActionClass
         if (is_null($this->session->get('login'))) {
             return 'login';
         }
+
+        if (! is_null($this->session->get('create'))) {
+            $this->session->remove('create');
+        }
     }
 }

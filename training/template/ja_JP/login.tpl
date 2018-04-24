@@ -1,5 +1,5 @@
 <form action="." method="post">
-<h2>ログイン</h2>
+<h2>ログインしてください</h2>
    <p>
      メールアドレス: <input type="text" name="mailaddress" value="{$form.mailaddress}">{message name="mailaddress"}</input>
    </p>

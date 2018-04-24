@@ -10,7 +10,7 @@
 </head>
 <body>
 <div id="header">
-    <h1>Sharepictures</h1>
+    <h1>YEAH!CHEESE!</h1>
 </div>
 
 <div id="main">
