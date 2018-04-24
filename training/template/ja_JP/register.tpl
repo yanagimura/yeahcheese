@@ -9,5 +9,13 @@
    <p>
      パスワード（確認用）: <input type="password" name="password_confirm" "{$form.password_confirm}">{message name="password_confirm"}</input>
    </p>
+   <ul>
+     <li>
+       6文字以上
+     </li>
+     <li>
+       必ず英字、数字をそれぞれ含む
+     </li>
+   </ul>
    <input type="submit" name="action_register_do" value="登録"/>
 </form>
