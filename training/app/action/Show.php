@@ -91,5 +91,9 @@ class Sharepictures_Action_Show extends Sharepictures_ActionClass
         if (!$this->session->isStart()) {
             return 'login';
         }
+
+        if (is_null($this->session->get('login'))) {
+            return 'login';
+        }
     }
 }
