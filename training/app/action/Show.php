@@ -56,7 +56,7 @@ class Sharepictures_Action_Show extends Sharepictures_ActionClass
 
         //  テーブル'events'の中からログインユーザのテーブルを読み込む
         $db = $this->backend->getDB();
-        $sql = "SELECT * FROM events WHERE user_id = $1";
+        $sql = "SELECT * FROM events WHERE user_id = $1 ORDER BY id";
         $eventRecord = $db->getAll($sql, $this->session->get('login')['id']);
 
         foreach ($eventRecord as $event) {
@@ -89,6 +89,10 @@ class Sharepictures_Action_Show extends Sharepictures_ActionClass
     public function authenticate()
     {
         if (!$this->session->isStart()) {
+            return 'login';
+        }
+
+        if (is_null($this->session->get('login'))) {
             return 'login';
         }
     }
