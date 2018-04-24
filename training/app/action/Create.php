@@ -51,6 +51,7 @@ class Sharepictures_Action_Create extends Sharepictures_ActionClass
      */
     public function perform()
     {
+        Ethna_Util::setCsrfID();
         return 'create';
     }
 

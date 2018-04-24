@@ -110,6 +110,9 @@ class Sharepictures_Action_CreateDo extends Sharepictures_ActionClass
      */
     public function prepare()
     {
+        if (! Ethna_Util::isCsrfSafe()) {
+            return 'login';
+        }
         if ($this->af->validate() > 0) {
             return 'create';
         }
@@ -128,7 +131,7 @@ class Sharepictures_Action_CreateDo extends Sharepictures_ActionClass
         $uploaddir = 'images/tmp/';
         $pictureArray = [];
         foreach ($this->af->get('picture_array') as $picture) {
-            $uploadfile = $uploaddir . basename($picture['name']);
+            $uploadfile = $uploaddir . hash('sha256', basename($picture['name'])) . '.jpeg';
             move_uploaded_file($picture['tmp_name'], $uploadfile);
             $pictureArray[] = $uploadfile;
         }
