@@ -49,7 +49,9 @@ class Sharepictures_Action_EditDo extends Sharepictures_Action_CreateDo
      */
     public function prepare()
     {
-
+        if (! Ethna_Util::isCsrfSafe()) {
+            return 'login';
+        }
         if ($this->af->validate() > 0) {
             return 'edit';
         }
