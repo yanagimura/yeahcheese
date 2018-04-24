@@ -52,34 +52,38 @@ class Sharepictures_Action_Show extends Sharepictures_ActionClass
     public function perform()
     {
         // セッションに追加する配列
-        $eventArray = [];
-
-        //  テーブル'events'の中からログインユーザのテーブルを読み込む
-        $db = $this->backend->getDB();
-        $sql = "SELECT * FROM events WHERE user_id = $1 ORDER BY id";
-        $eventRecord = $db->getAll($sql, $this->session->get('login')['id']);
-
-        foreach ($eventRecord as $event) {
-            //  テーブル'pictures'の中から各イベントのファイル名を読み込む
-            $sql = "SELECT * FROM pictures WHERE event_id = $1";
-            $pictureRecord = $db->getAll($sql, $event['id']);
-            if ($pictureRecord) {
-                $eventArray[] = [
-                    'id'                    =>    $event['id'],
-                    'title'                 =>    $event['title'],
-                    'release_date'          =>    $event['release_date'],
-                    'end_date'              =>    $event['end_date'],
-                    'authentication_key'    =>    $event['authentication_key'],
-                    'picture_array'         =>    $pictureRecord,
-                    'count'                 =>    count($pictureRecord)
-                ];
-            }
-        }
-        // セッション値の追加
-        $this->session->set('show', $eventArray);
+        $this->readEventTable();
         return 'show';
     }
 
+    protected function readEventTable()
+    {
+      $eventArray = [];
+
+      //  テーブル'events'の中からログインユーザのテーブルを読み込む
+      $db = $this->backend->getDB();
+      $sql = "SELECT * FROM events WHERE user_id = $1 ORDER BY id";
+      $eventRecord = $db->getAll($sql, $this->session->get('login')['id']);
+
+      foreach ($eventRecord as $event) {
+          //  テーブル'pictures'の中から各イベントのファイル名を読み込む
+          $sql = "SELECT * FROM pictures WHERE event_id = $1";
+          $pictureRecord = $db->getAll($sql, $event['id']);
+          if ($pictureRecord) {
+              $eventArray[] = [
+                  'id'                    =>    $event['id'],
+                  'title'                 =>    $event['title'],
+                  'release_date'          =>    $event['release_date'],
+                  'end_date'              =>    $event['end_date'],
+                  'authentication_key'    =>    $event['authentication_key'],
+                  'picture_array'         =>    $pictureRecord,
+                  'count'                 =>    count($pictureRecord)
+              ];
+          }
+      }
+      // セッション値の追加
+      $this->session->set('show', $eventArray);
+    }
     /**
      *  セッション切れの確認
      *
