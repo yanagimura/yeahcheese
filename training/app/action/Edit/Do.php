@@ -70,7 +70,7 @@ class Sharepictures_Action_EditDo extends Sharepictures_Action_CreateDo
         if ($this->af->get('picture_array') !== null && $this->af->get('picture_array')[0]['name'] !== "") {
             foreach ($this->af->get('picture_array') as $picture) {
                 //  画像ファイルを保存
-                $uploadfile = 'images/tmp/' . basename($picture['name']);
+                $uploadfile = 'images/tmp/' . hash('sha256', basename($picture['name'])) . '.jpeg';
                 move_uploaded_file($picture['tmp_name'], $uploadfile);
                 $sql = "INSERT INTO pictures(filename, event_id) VALUES($1, $2)";
                 $db->query($sql, [$uploadfile, $newEventArray['id']]);
