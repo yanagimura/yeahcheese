@@ -53,4 +53,20 @@ class Sharepictures_Action_ViewerView extends Sharepictures_ActionClass
     {
         return 'viewer_view';
     }
+
+    /**
+     *  セッション切れの確認
+     *
+     *  @access public
+     *  @return string  イベント閲覧ログイン画面
+     */
+    public function authenticate()
+    {
+        if (! $this->session->isStart()) {
+            return 'viewer_login';
+        }
+        if (is_null($this->session->get('view'))) {
+            return 'viewer_login';
+        }
+    }
 }

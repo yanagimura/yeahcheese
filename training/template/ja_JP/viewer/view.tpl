@@ -1,4 +1,4 @@
-  <h2>イベント写真一覧</h2>
+  <h2>{$app.title}</h2>
   <p>
     {foreach from=$app.pictureArray item=picture}
     <a href="{$picture.filename}" rel="lightbox">

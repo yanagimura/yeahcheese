@@ -22,6 +22,7 @@ class Sharepictures_View_ViewerView extends Sharepictures_ViewClass
      */
     public function preforward()
     {
-        $this->af->setApp('pictureArray', $this->session->get('view'));
+        $this->af->setApp('pictureArray', $this->session->get('view')['pictureArray']);
+        $this->af->setApp('title', $this->session->get('view')['event']['title']);
     }
 }
