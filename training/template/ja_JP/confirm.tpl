@@ -1,4 +1,5 @@
 <form action="." method="post">
+  {csrfid}
 <h2 name="title">{$app.title}</h2>
    <p>
      <ul>
