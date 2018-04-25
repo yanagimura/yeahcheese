@@ -1,38 +1,44 @@
 <?php
 /**
- *  Viewer/Login.php
+ *  Image.php
  *
  *  @author     {$author}
  *  @package    Sharepictures
  */
 
 /**
- *  viewer_login Form implementation.
+ *  image Form implementation.
  *
  *  @author     {$author}
  *  @access     public
  *  @package    Sharepictures
  */
-class Sharepictures_Form_ViewerLogin extends Sharepictures_ActionForm
+class Sharepictures_Form_Image extends Sharepictures_ActionForm
 {
     /**
      *  @access protected
      *  @var    array   form definition.
      */
-    public $form = [];
+    public $form = [
+        'pictureFileName'   =>    [
+            'type'    =>    VAR_TYPE_STRING,
+            'required'    =>    'true',
+        ],
+    ];
+
 }
 
 /**
- *  viewer_login action implementation.
+ *  image action implementation.
  *
  *  @author     {$author}
  *  @access     public
  *  @package    Sharepictures
  */
-class Sharepictures_Action_ViewerLogin extends Sharepictures_ActionClass
+class Sharepictures_Action_Image extends Sharepictures_ActionClass
 {
     /**
-     *  preprocess of viewer_login Action.
+     *  preprocess of image Action.
      *
      *  @access public
      *  @return string    forward name(null: success.
@@ -44,13 +50,16 @@ class Sharepictures_Action_ViewerLogin extends Sharepictures_ActionClass
     }
 
     /**
-     *  viewer_login action implementation.
+     *  image action implementation.
      *
      *  @access public
      *  @return string  forward name.
      */
     public function perform()
     {
-        return 'viewer_login';
+        header('Content-Type:image/jpeg');
+        header('Content-disposition:inline');
+        readfile(BASE . '/images/'  . $this->af->get('pictureFileName'));
+        return null;
     }
 }

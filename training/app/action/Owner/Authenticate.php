@@ -61,9 +61,6 @@ class Sharepictures_Action_OwnerAuthenticate extends Sharepictures_ActionClass
      */
     public function prepare()
     {
-        if(! Ethna_Util::isCsrfSafe()) {
-            return 'viewer_login';
-        }
         if ($this->af->validate() > 0) {
             return 'viewer_login';
         }

@@ -33,7 +33,7 @@
   </p>
   <p>
     {foreach from=$app.picture_array item=picture}
-    <img src="{$picture.filename}" width="200" height="200" style="object-fit: cover;"/>
+    <img src="?action_image=true&pictureFileName={$picture.filename}" width="200" height="200" style="object-fit: cover;"/>
     <input type="checkbox" name="picture[]" value="{$picture.id}"/>&emsp;
     {/foreach}
   </p>
