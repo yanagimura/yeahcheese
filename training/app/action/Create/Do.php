@@ -128,12 +128,13 @@ class Sharepictures_Action_CreateDo extends Sharepictures_ActionClass
     public function perform()
     {
         //  画像ファイルを一時フォルダに保存
-        $uploaddir = 'images/tmp/';
+        $uploaddir = '../images/';
         $pictureArray = [];
         foreach ($this->af->get('picture_array') as $picture) {
-            $uploadfile = $uploaddir . hash('sha256', basename($picture['name'])) . '.jpeg';
+            $filename = hash('sha256', basename($picture['name'])) . '.jpeg';
+            $uploadfile = $uploaddir . $filename;
             move_uploaded_file($picture['tmp_name'], $uploadfile);
-            $pictureArray[] = $uploadfile;
+            $pictureArray[] = $filename;
         }
 
         //  セッション開始
