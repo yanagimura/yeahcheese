@@ -1,7 +1,7 @@
   <h2>{$app.title}</h2>
   <p>
     {foreach from=$app.pictureArray item=picture}
-    <a href="{$picture.filename}" rel="lightbox">
+    <a href="?action_image=true&pictureFileName={$picture.filename}" rel="lightbox">
       <img src="?action_image=true&pictureFileName={$picture.filename}" width="200" height="200" style="object-fit: cover;"/>
     </a>
     {/foreach}
