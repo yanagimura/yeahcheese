@@ -2,7 +2,7 @@
   <p>
     {foreach from=$app.pictureArray item=picture}
     <a href="{$picture.filename}" rel="lightbox">
-      <img src="{$picture.filename}" width="200" height="200" style="object-fit: cover;"/>
+      <img src="?action_image=true&pictureFileName={$picture.filename}" width="200" height="200" style="object-fit: cover;"/>
     </a>
     {/foreach}
   </p>

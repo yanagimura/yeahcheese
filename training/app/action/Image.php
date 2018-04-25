@@ -24,6 +24,9 @@ class Sharepictures_Form_Image extends Sharepictures_ActionForm
             'type'    =>    VAR_TYPE_STRING,
             'required'    =>    'true',
         ],
+        'content'   =>    [
+            'type'    =>    VAR_TYPE_STRING,
+        ],
     ];
 
 }
@@ -57,9 +60,14 @@ class Sharepictures_Action_Image extends Sharepictures_ActionClass
      */
     public function perform()
     {
+      //  if ($this->af->get('content') === 'text') {
+          //  echo BASE . '/images/'  . $this->af->get('pictureFileName');
+        //    return null;
+        //}
+
         header('Content-Type:image/jpeg');
         header('Content-disposition:inline');
-        readfile('/Users/yanagimura/sen/NewGrad/training/images/' . $this->af->get('pictureFileName'));
+        readfile(BASE . '/images/'  . $this->af->get('pictureFileName'));
         return null;
     }
 }
