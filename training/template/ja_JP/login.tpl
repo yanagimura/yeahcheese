@@ -8,4 +8,7 @@
    </p>
    <input type="submit" name="action_login_do" value="ログイン"/>
    <input type="submit" name="action_register" value="会員登録"/>
+   <p>
+     <a href="?action_entry=true">メニュー一覧</a>
+   </p>
 </form>

@@ -8,4 +8,7 @@
   <p>
     <input type="submit" name="action_owner_authenticate" value="閲覧する"/><br>
   </p>
+  <p>
+    <a href="?action_entry=true">メニュー一覧</a>
+  </p>
 </form>

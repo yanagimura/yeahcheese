@@ -18,4 +18,7 @@
      </li>
    </ul>
    <input type="submit" name="action_register_do" value="登録"/>
+   <p>
+     <a href="?action_entry=true">メニュー一覧</a>
+   </p>
 </form>
